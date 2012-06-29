@@ -590,6 +590,7 @@ public class ListasDeExerciciosController {
 
 		AutoCorrecao autoCorrecao = listaDeRespostas.getListaDeExercicios()
 				.getPropriedades().getAutoCorrecao();
+		Aluno aluno = (Aluno) usuarioSession.getUsuario();
 
 		if (listaDeRespostas.getPropriedades().getEstado() == EstadoDaListaDeRespostas.SALVA
 				&& !VerificadorDePrazos.estaNoPrazo(listaDeRespostas
@@ -608,10 +609,9 @@ public class ListasDeExerciciosController {
 			// Redireciona para o menu de listas
 			result.redirectTo(this).verCorrecao(listaDeRespostas);
 		}
-/*
+
 		else
-			result.redirectTo(this).listasTurma(
-					listaDeRespostas.getListaDeExercicios().getTurma().getId());*/
+			result.redirectTo(AlunosController.class).listaTurmas(aluno.getId());
 	}
 
 	@Get

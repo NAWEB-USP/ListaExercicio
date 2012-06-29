@@ -126,8 +126,9 @@ $(function(){
 
 				<label for="disciplina">Disciplinas</label>
 					<select id="disciplina" name="id">
+					<option value="" selected="selected">Selecione uma disciplina</option>
 						<c:forEach items="${disciplinas}" var="disciplina">
-						<option value="${disciplina.id}">${disciplina.nome }</option>
+							<option value="${disciplina.id}">${disciplina.nome }</option>
 						</c:forEach>
 					</select>
 				<br/><br/>
@@ -161,18 +162,6 @@ $(function(){
 
 <script type="text/javascript">
 
-/* $.ajax({
-	type: "GET",
-	url: $("#url").val() + id,
-	dataType: 'html',
-	success: function(data) {
-		if (!$.isEmptyObject(data)) {
-			select_sistema.removeAttr('disabled');
-			select_sistema.empty().append(data);
-		}
-	}
-});
- */
 
 $("#disciplina").change(function(){
 	var disciplina_id = $(this).val();
