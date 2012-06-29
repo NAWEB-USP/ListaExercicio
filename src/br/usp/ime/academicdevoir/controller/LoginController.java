@@ -1,5 +1,7 @@
 package br.usp.ime.academicdevoir.controller;
 
+import javax.servlet.http.HttpSession;
+
 import br.com.caelum.vraptor.Get;
 import br.com.caelum.vraptor.Path;
 import br.com.caelum.vraptor.Post;
@@ -18,27 +20,20 @@ import br.usp.ime.academicdevoir.infra.UsuarioSession;
  */
 public class LoginController {
 
-	/**
-	 * @uml.property name="result"
-	 * @uml.associationEnd multiplicity="(1 1)"
-	 */
 	private final Result result;
-	/**
-	 * @uml.property name="usuarioSession"
-	 * @uml.associationEnd multiplicity="(1 1)"
-	 */
+
 	private UsuarioSession usuarioSession;
-	/**
-	 * @uml.property name="usuarioDao"
-	 * @uml.associationEnd multiplicity="(1 1)"
-	 */
+
 	private UsuarioDao usuarioDao;
 
+	private final HttpSession session;
+	
 	public LoginController(Result result, UsuarioDao usuarioDao,
-			UsuarioSession alunodao) {
+			UsuarioSession alunodao, HttpSession session) {
 		this.result = result;
 		this.usuarioDao = usuarioDao;
 		this.usuarioSession = alunodao;
+		this.session = session;
 	}
 
 	@Path("/")
@@ -75,6 +70,7 @@ public class LoginController {
 
 	@Get("/logout")
 	public void logout() {
+		session.invalidate();
 		usuarioSession.logout();
 		result.redirectTo(this).login();
 	}
