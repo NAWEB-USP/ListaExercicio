@@ -43,6 +43,7 @@ import br.usp.ime.academicdevoir.entidade.Usuario;
 import br.usp.ime.academicdevoir.infra.Constantes;
 import br.usp.ime.academicdevoir.infra.Permission;
 import br.usp.ime.academicdevoir.infra.Privilegio;
+import br.usp.ime.academicdevoir.infra.TipoDeQuestao;
 import br.usp.ime.academicdevoir.infra.UsuarioSession;
 import br.usp.ime.academicdevoir.infra.VerificadorDePrazos;
 
@@ -386,9 +387,14 @@ public class ListasDeExerciciosController {
 			buffer.append("Resposta: " + resposta.getValor());
 		buffer.append("</p>");
 		buffer.append("<p> Comentários:<br/> ");
-
-		if (resposta.getQuestao().getComentario() != null) {
-			buffer.append(resposta.getQuestao().getComentario());
+		
+		if (resposta.getQuestao().getTipo() == TipoDeQuestao.CODIGO) {
+			buffer.append(resposta.getComentario());
+		}
+		else {
+			if (resposta.getQuestao().getComentario() != null) {
+				buffer.append(resposta.getQuestao().getComentario());
+			}
 		}
 		buffer.append("</p>");
 		buffer.append("<p> Nota: ");
