@@ -123,15 +123,19 @@ $(function(){
 					<br />
 				</c:forEach>
 				-->
+
+				<label for="disciplina">Disciplinas</label>
+					<select id="disciplina" name="id">
+						<c:forEach items="${disciplinas}" var="disciplina">
+						<option value="${disciplina.id}">${disciplina.nome }</option>
+						</c:forEach>
+					</select>
+				<br/><br/>
 				
-				<label for="turmas">Turmas:</label>
-				<br />
-				<c:forEach items="${turmasDoProfessor }" var="turma">
-					<input type="radio" name="idDaTurma" value="${turma.id }" />
-					 ${turma.disciplina.nome } - ${turma.nome }
-					<br />
-				</c:forEach>
-								
+				<div id="turmas">
+				
+				</div>
+												
 				<br />
 				
 				<label for="geracaoAutomatica">Gerar lista automatica:</label>
@@ -151,6 +155,37 @@ $(function(){
 	</div>
 <!-- content -->
 </div>
-<%@ include file="/layout/footer.jsp" %>	
+<%@ include file="/layout/footer.jsp" %>
+<script type="text/javascript" charset="utf-8"
+	src="<c:url value="/javascript/jquery-1.7.1.min.js"/>"></script>
+
+<script type="text/javascript">
+
+/* $.ajax({
+	type: "GET",
+	url: $("#url").val() + id,
+	dataType: 'html',
+	success: function(data) {
+		if (!$.isEmptyObject(data)) {
+			select_sistema.removeAttr('disabled');
+			select_sistema.empty().append(data);
+		}
+	}
+});
+ */
+
+$("#disciplina").change(function(){
+	var disciplina_id = $(this).val();
+	$.ajax({
+		url: "${pageContext.request.contextPath}/turmas/disciplina/"+disciplina_id,
+		dataType: "html",
+		success: function(data) {
+			$("#turmas").empty().append(data);
+		}
+	});
+})
+
+</script>
+	
 </body>
 </html>

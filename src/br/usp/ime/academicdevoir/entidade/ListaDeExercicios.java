@@ -13,21 +13,15 @@ import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
-import javax.persistence.ManyToOne;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 import javax.validation.Valid;
 
 
 @Entity
-/**
- * Entidade que representa uma lista e Exercícios cadastrada no sistema.
- * @author André
- */
 public class ListaDeExercicios {
 
-	/**
-	 * @uml.property  name="id"
-	 */
 	@Id
 	@GeneratedValue
 	private Long id;
@@ -36,17 +30,13 @@ public class ListaDeExercicios {
 	@Valid
 	private PropriedadesDaListaDeExercicios propriedades;	
 
-	/**
-	 * @uml.property  name="turmas"
-	 * @uml.associationEnd  multiplicity="(0 -1)" elementType="br.usp.ime.academicdevoir.entidade.Turma"
-	 */
-	@ManyToOne
-	private Turma turma;
+	@ManyToMany
+	@JoinTable(name="ListaDeExercicios_Turma")
+	private List<Turma> turmas;
+	
+	@ManyToMany
+	private List<TagsDaLista> tagsDaLista;
 
-	/**
-	 * @uml.property  name="questoes"
-	 * @uml.associationEnd  multiplicity="(0 -1)" elementType="br.usp.ime.academicdevoir.entidade.QuestaoDaLista"
-	 */
 	@ElementCollection
 	@CollectionTable(name = "questoesDaLista") 
 	private List<QuestaoDaLista> questoes;
@@ -54,28 +44,24 @@ public class ListaDeExercicios {
 	@OneToMany(mappedBy = "listaDeExercicios", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	private List<ListaDeRespostas> respostas;
 
-	/**
-	 * @return  id da lista de exercícios
-	 * @uml.property  name="id"
-	 */
 	public Long getId() {
 		return id;
 	}
 
-	/**
-	 * @param id  id da lista de exercícios
-	 * @uml.property  name="id"
-	 */
 	public void setId(Long id) {
 		this.id = id;
 	}
 
-	public Turma getTurma() {
-		return turma;
+	public List<Turma> getTurmas() {
+		return turmas;
+	}
+	
+	public Turma getTurma(int id){
+		return turmas.get(id);
 	}
 
-	public void setTurma(Turma turma) {
-		this.turma = turma;
+	public void setTurmas(List<Turma> turmas) {
+		this.turmas = turmas;
 	}
 
 	public List<QuestaoDaLista> getQuestoesDaLista() {
@@ -122,6 +108,14 @@ public class ListaDeExercicios {
 		for(QuestaoDaLista questao : questoes) {
 			pesos.add(questao.getPeso());
 		}
+	}
+
+	public List<TagsDaLista> getTags() {
+		return tagsDaLista;
+	}
+
+	public void setTags(List<TagsDaLista> tags) {
+		this.tagsDaLista = tags;
 	}
 	
 }

@@ -41,6 +41,7 @@
 		<mapping class="br.usp.ime.academicdevoir.entidade.Turma" />
 		<mapping class="br.usp.ime.academicdevoir.entidade.ListaDeExercicios" />
 		<mapping class="br.usp.ime.academicdevoir.entidade.ListaDeRespostas" />
+		<mapping class="br.usp.ime.academicdevoir.entidade.TagsDaLista" />
 		<mapping class="br.usp.ime.academicdevoir.entidade.Usuario" />
 		<mapping
 			class="br.usp.ime.academicdevoir.entidade.QuestaoDeSubmissaoDeArquivo" />

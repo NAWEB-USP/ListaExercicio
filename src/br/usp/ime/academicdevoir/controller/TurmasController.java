@@ -34,38 +34,16 @@ public class TurmasController {
     
     private final Validator validator;
     
-    /**
-     * @uml.property name="turmaDao"
-     * @uml.associationEnd multiplicity="(1 1)"
-     */
     private TurmaDao turmaDao;
-    /**
-     * @uml.property name="disciplinaDao"
-     * @uml.associationEnd multiplicity="(1 1)"
-     */
-    private DisciplinaDao disciplinaDao;
-    /**
-     * @uml.property name="alunoDao"
-     * @uml.associationEnd multiplicity="(1 1)"
-     */
-    private AlunoDao alunoDao;
-    /**
-     * @uml.property name="usuarioSession"
-     * @uml.associationEnd multiplicity="(1 1)"
-     */
-    private UsuarioSession usuarioSession;
-	private ListaDeExerciciosDao listaDeExerciciosDao;
 
-    /**
-     * @param result
-     *            para interação com o jsp da turma.
-     * @param turmaDao
-     *            para interação com o banco de dados
-     * @param disciplinaDao
-     *            para interação com o banco de dados
-     * @param alunoDao
-     *            para interação com o banco de dados
-     */
+    private DisciplinaDao disciplinaDao;
+
+    private AlunoDao alunoDao;
+
+    private UsuarioSession usuarioSession;
+	
+    private ListaDeExerciciosDao listaDeExerciciosDao;
+
     public TurmasController(Result result, Validator validator, TurmaDao turmaDao,
             DisciplinaDao disciplinaDao, AlunoDao alunoDao, ListaDeExerciciosDao listaDeExerciciosDao,
             UsuarioSession usuarioSession) {
@@ -87,7 +65,7 @@ public class TurmasController {
     public void home(Long id) {
         Turma turma = turmaDao.carrega(id);
         result.include("turma", turma);
-        result.include("listaDeListas", turma.getListas());
+        result.include("listaDeListas", turma.getListaDeExercicios());
     }
 
     /**
@@ -235,7 +213,7 @@ public class TurmasController {
 			return;
 		}
 
-		List<ListaDeExercicios> listasDeExercicios = turma.getListas();
+		List<ListaDeExercicios> listasDeExercicios = turma.getListaDeExercicios();
 		
 		for (ListaDeExercicios lista : listasDeExercicios)
 			listaDeExerciciosDao.remove(lista);
@@ -269,4 +247,19 @@ public class TurmasController {
         else
         	result.redirectTo(TurmasController.class).listaAlunos(idTurma);
     }
+
+
+	@Get("/turmas/disciplina/{id}")
+	public void turmas(Long id) {
+		
+		Disciplina disciplina = disciplinaDao.carrega(id);
+		
+		result.include("turmas", turmaDao.buscarPor(disciplina));
+		result.include("tags", disciplina.getTags());
+		
+	}
+
+
+
+
 }

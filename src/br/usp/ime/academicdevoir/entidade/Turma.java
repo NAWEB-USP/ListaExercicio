@@ -9,61 +9,41 @@ import java.util.List;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
-import javax.persistence.JoinTable;
 import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
 import javax.persistence.OrderBy;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
-//import javax.validation.constraints.Future;
 
 @Entity
 public class Turma {
-	/**
-	 * @uml.property  name="id"
-	 */
+
 	@Id
 	@GeneratedValue
 	private Long id;
-	/**
-	 * @uml.property  name="nome"
-	 */
+
 	private String nome;
-	/**
-	 * @uml.property  name="professor"
-	 * @uml.associationEnd  inverse="turmas:br.usp.ime.academicdevoir.entidade.Professor"
-	 */
+
 	@ManyToOne
 	private Professor professor;
-	/**
-	 * @uml.property  name="alunos"
-	 * @uml.associationEnd  multiplicity="(0 -1)" inverse="turmas:br.usp.ime.academicdevoir.entidade.Aluno"
-	 */
+
 	@ManyToMany(cascade = { CascadeType.PERSIST, CascadeType.MERGE })
 	@JoinTable(name = "Turma_Aluno", joinColumns = @JoinColumn(name = "turma_id"), inverseJoinColumns = @JoinColumn(name = "aluno_id"))
 	@OrderBy("nome")
 	private Collection<Aluno> alunos = new ArrayList<Aluno>();
-	/**
-	 * @uml.property  name="disciplina"
-	 * @uml.associationEnd  
-	 */
+
 	@ManyToOne
 	private Disciplina disciplina;
+	
+	@ManyToMany(fetch=FetchType.LAZY)
+	@JoinTable(name = "ListaDeExercicios_Turma", joinColumns = @JoinColumn(name = "turmas_id"), inverseJoinColumns = @JoinColumn(name = "ListaDeExercicios_id"))
+	private List<ListaDeExercicios> listaDeExercicios;
 
-	/**
-	 * @uml.property  name="listasDeExercicios"
-	 */
-	@OneToMany(mappedBy = "turma")
-	private List<ListaDeExercicios> listasDeExercicios;
-
-	/**
-	 * @uml.property  name="dataLimite"
-	 * @uml.associationEnd  
-	 */
 	@Temporal(TemporalType.DATE)
 	private Date prazoDeMatricula;
 	
@@ -77,18 +57,10 @@ public class Turma {
 		this.temPrazo = temPrazo;
 	}
 
-	/**
-	 * @return
-	 * @uml.property  name="disciplina"
-	 */
 	public Disciplina getDisciplina() {
 		return disciplina;
 	}
 	
-	/**
-	 * @param disciplina
-	 * @uml.property  name="disciplina"
-	 */
 	public void setDisciplina(Disciplina disciplina) {
 		this.disciplina = disciplina;
 	}
@@ -101,62 +73,28 @@ public class Turma {
 		this.alunos = alunos;
 	}
 
-	/**
-	 * @return
-	 * @uml.property  name="nome"
-	 */
 	public String getNome() {
 		return nome;
 	}
 
-	/**
-	 * @param nome
-	 * @uml.property  name="nome"
-	 */
 	public void setNome(String nome) {
 		this.nome = nome;
 	}
 
-	/**
-	 * @return
-	 * @uml.property  name="professor"
-	 */
 	public Professor getProfessor() {
 		return professor;
 	}
 
-	/**
-	 * @param professor
-	 * @uml.property  name="professor"
-	 */
 	public void setProfessor(Professor professor) {
 		this.professor = professor;
 	}
 
-	/**
-	 * @return
-	 * @uml.property  name="id"
-	 */
 	public Long getId() {
 		return id;
 	}
 
-	/**
-	 * @param id
-	 * @uml.property  name="id"
-	 */
 	public void setId(Long id) {
 		this.id = id;
-	}
-
-
-	
-	public List<ListaDeExercicios> getListas() {
-		return listasDeExercicios;
-	}
-	
-	public void setListas(List<ListaDeExercicios> listas) {
-		this.listasDeExercicios = listas;
 	}
 
 	public Date getPrazoDeMatricula() {
@@ -182,5 +120,17 @@ public class Turma {
 				return true;
 		}
 		return false;
+	}
+
+	public List<ListaDeExercicios> getListaDeExercicios() {
+		return listaDeExercicios;
+	}
+
+	public void setListaDeExercicios(List<ListaDeExercicios> listaDeExercicios) {
+		this.listaDeExercicios = listaDeExercicios;
+	}
+
+	public void setPrazoDeMatricula(Date prazoDeMatricula) {
+		this.prazoDeMatricula = prazoDeMatricula;
 	}
 }

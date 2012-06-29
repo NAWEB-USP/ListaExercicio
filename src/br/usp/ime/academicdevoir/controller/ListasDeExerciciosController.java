@@ -6,6 +6,8 @@ import static org.hamcrest.Matchers.notNullValue;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.google.common.collect.Lists;
+
 import br.com.caelum.vraptor.Delete;
 import br.com.caelum.vraptor.Get;
 import br.com.caelum.vraptor.Path;
@@ -16,10 +18,12 @@ import br.com.caelum.vraptor.Result;
 import br.com.caelum.vraptor.Validator;
 import br.com.caelum.vraptor.validator.Validations;
 import br.usp.ime.academicdevoir.componete.Lista;
+import br.usp.ime.academicdevoir.dao.DisciplinaDao;
 import br.usp.ime.academicdevoir.dao.ListaDeExerciciosDao;
 import br.usp.ime.academicdevoir.dao.ListaDeRespostasDao;
 import br.usp.ime.academicdevoir.dao.ProfessorDao;
 import br.usp.ime.academicdevoir.dao.QuestaoDao;
+import br.usp.ime.academicdevoir.dao.TagsDaListaDao;
 import br.usp.ime.academicdevoir.dao.TurmaDao;
 import br.usp.ime.academicdevoir.entidade.Aluno;
 import br.usp.ime.academicdevoir.entidade.AutoCorrecao;
@@ -33,6 +37,7 @@ import br.usp.ime.academicdevoir.entidade.PropriedadesDaListaDeRespostas;
 import br.usp.ime.academicdevoir.entidade.Questao;
 import br.usp.ime.academicdevoir.entidade.QuestaoDaLista;
 import br.usp.ime.academicdevoir.entidade.Resposta;
+import br.usp.ime.academicdevoir.entidade.TagsDaLista;
 import br.usp.ime.academicdevoir.entidade.Turma;
 import br.usp.ime.academicdevoir.entidade.Usuario;
 import br.usp.ime.academicdevoir.infra.Constantes;
@@ -64,12 +69,17 @@ public class ListasDeExerciciosController {
 	private final UsuarioSession usuarioSession;
 	
 	private final Lista lista;
+
+	private final DisciplinaDao disciplinaDao;
+	
+	private final TagsDaListaDao tagsDaListaDao;
 	
 	public ListasDeExerciciosController(Result result,
 			ListaDeExerciciosDao dao, ListaDeRespostasDao listaDeRespostasDao,
 			QuestaoDao questaoDao, ProfessorDao professorDao,
 			TurmaDao turmaDao, Validator validator,
-			UsuarioSession usuarioSession, Lista lista) {
+			UsuarioSession usuarioSession, Lista lista, DisciplinaDao disciplinaDao,
+			TagsDaListaDao tagsDaListaDao) {
 
 		this.result = result;
 		this.dao = dao;
@@ -80,6 +90,8 @@ public class ListasDeExerciciosController {
 		this.validator = validator;
 		this.usuarioSession = usuarioSession;
 		this.lista = lista;
+		this.disciplinaDao = disciplinaDao;
+		this.tagsDaListaDao = tagsDaListaDao;
 	}
 
 	@Post
@@ -93,8 +105,9 @@ public class ListasDeExerciciosController {
 	 * @param idDasTurmas
 	 */
 	public void cadastra(final PropriedadesDaListaDeExercicios propriedades,
-			final List<Integer> prazoDeEntrega, final Long idDaTurma, String data1) {
+			final List<Integer> prazoDeEntrega, final List<Long> idsDaTurma, List<TagsDaLista> tags, String data1) {
 
+		List<Turma> turmas = new ArrayList<Turma>();
 		String[] dias  = data1.split("/");
 			
 		prazoDeEntrega.add(0, Integer.parseInt(dias[0]));
@@ -108,8 +121,8 @@ public class ListasDeExerciciosController {
 			{
 				that(!propriedades.getNome().isEmpty(), "propriedade.nome",
 						"propriedade.nome.notEmpty");
-				that(idDaTurma, is(notNullValue()), "turma.id",
-						"turma.id.notNull");
+				that(idsDaTurma, is(notNullValue()), "turmas.id",
+						"turmas.id.notEmpty");
 			}
 		});
 
@@ -119,8 +132,18 @@ public class ListasDeExerciciosController {
 		validator.onErrorForwardTo(this).cadastro();
 
 		ListaDeExercicios listaDeExercicios = new ListaDeExercicios();
-		Turma turma = turmaDao.carrega(idDaTurma);
-		listaDeExercicios.setTurma(turma);
+		for (Long idDaTurma : idsDaTurma) {
+			turmas.add(turmaDao.carrega(idDaTurma));
+		}
+		listaDeExercicios.setTurmas(turmas);
+		List<TagsDaLista> tagsDaLista = Lists.newArrayList();
+		for (TagsDaLista tag : tags) {
+			if(tag.getTag() != null && tag.getTag().getId() != null){
+				tagsDaListaDao.salvar(tag);
+				tagsDaLista.add(tag);
+			}
+		}
+		listaDeExercicios.setTags(tagsDaLista);
 		listaDeExercicios.setPropriedades(propriedades);
 
 		dao.salva(listaDeExercicios);
@@ -299,15 +322,19 @@ public class ListasDeExerciciosController {
 		listaDeRespostas = listaDeRespostasDao
 				.carrega(listaDeRespostas.getId());
 
+		List<Questao> questoes;
+		ListaGerada listaGerada;
+		Aluno aluno = (Aluno) usuarioSession.getUsuario();
+
 		ListaDeExercicios listaDeExercicios = listaDeRespostas
 				.getListaDeExercicios();
 		List<String> renders = new ArrayList<String>();
 
-		List<QuestaoDaLista> questoes = listaDeExercicios.getQuestoesDaLista();
+		List<QuestaoDaLista> questoesDaLista = listaDeExercicios.getQuestoesDaLista();
 		List<Resposta> respostas = listaDeRespostas.getRespostas();
 		boolean achouResposta;
 
-		for (QuestaoDaLista questaoDaLista : questoes) {
+		for (QuestaoDaLista questaoDaLista : questoesDaLista) {
 
 			achouResposta = false;
 			for (Resposta resposta : respostas) {
@@ -328,11 +355,22 @@ public class ListasDeExerciciosController {
 			renders.add(questaoDaLista.getQuestao().getRenderCorrecao(
 					new Resposta()));
 		}
+		
+		if(listaDeExercicios.getPropriedades().getGeracaoAutomatica()){
+			listaGerada = lista.gerar(listaDeExercicios, aluno);
+			questoes = listaGerada.getQuestoes();
+		}
+		else{
+			questoes = listaDeExercicios.getQuestoes();
+		}
+		
+
 
 		result.include("renderizacao", renders);
+		result.include("questoes", questoes);
 		result.include("listaDeRespostas", listaDeRespostas);
 		result.include("listaDeExercicios", listaDeExercicios);
-		result.include("numeroDeQuestoes", questoes.size());
+		result.include("numeroDeQuestoes", questoesDaLista.size());
 	}
 
 	public String renderCorrecao(Resposta resposta) {
@@ -507,9 +545,10 @@ public class ListasDeExerciciosController {
 	 * Permite acesso à página com formulário para cadastro de uma nova lista de exercícios.
 	 */
 	public void cadastro() {
-		Professor professor = professorDao.carrega(usuarioSession.getUsuario()
-				.getId());
-		result.include("turmasDoProfessor", professor.getTurmas());
+//		Professor professor = professorDao.carrega(usuarioSession.getUsuario()
+//				.getId());
+//		result.include("turmasDoProfessor", professor.getTurmas());
+		result.include("disciplinas", disciplinaDao.listaTudo());
 	}
 
 	@Get
@@ -563,10 +602,10 @@ public class ListasDeExerciciosController {
 			// Redireciona para o menu de listas
 			result.redirectTo(this).verCorrecao(listaDeRespostas);
 		}
-
+/*
 		else
 			result.redirectTo(this).listasTurma(
-					listaDeRespostas.getListaDeExercicios().getTurma().getId());
+					listaDeRespostas.getListaDeExercicios().getTurma().getId());*/
 	}
 
 	@Get
@@ -662,5 +701,6 @@ public class ListasDeExerciciosController {
 		dao.atualiza(lista);
 		result.redirectTo(ListasDeExerciciosController.class).verLista(id);
 	}
+	
 
 }

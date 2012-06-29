@@ -11,6 +11,7 @@ import org.hibernate.criterion.Restrictions;
 import br.com.caelum.vraptor.ioc.Component;
 import br.usp.ime.academicdevoir.entidade.Disciplina;
 import br.usp.ime.academicdevoir.entidade.Questao;
+import br.usp.ime.academicdevoir.entidade.Tag;
 
 @Component
 public class QuestaoDao {
@@ -50,7 +51,7 @@ public class QuestaoDao {
 		 * filtra por disciplina
 		*/
 		
-		Disciplina disciplina = listaDeExercicioDao.carrega(idLista).getTurma().getDisciplina();
+		Disciplina disciplina = listaDeExercicioDao.carrega(idLista).getTurma(0).getDisciplina();
 		criteria.createCriteria("disciplina").add(Restrictions.eq("id", disciplina.getId()));
 		
 		if (filtro != null && !filtro.equals(""))
@@ -122,4 +123,16 @@ public class QuestaoDao {
 	public List<Questao> listaFiltradas() {
 		return listaTudo();
 	}
+	
+	
+	@SuppressWarnings("unchecked")
+	public List<Questao> buscarQuestoesPor(Tag tag, int quantidade) {
+		return session.createSQLQuery("select distinct t.id_questao From tags_questoes t Where t.id_tag = :id_tag ORDER BY RAND()")
+				.setParameter("id_tag", tag.getId())
+				.setMaxResults(quantidade)
+				.list();
+	}
+	
+	
+	
 }

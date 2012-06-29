@@ -66,9 +66,9 @@ public class RespostasController {
 	    
         if ( !VerificadorDePrazos.estaNoPrazo(listaDeRespostas.getListaDeExercicios().getPropriedades().getPrazoDeEntrega())) {
             listaDeRespostas.getPropriedades().setEstado(EstadoDaListaDeRespostas.FINALIZADA);
-            result.redirectTo(ListasDeExerciciosController.class).
+            /*result.redirectTo(ListasDeExerciciosController.class).
             	listasTurma(listaDeRespostas.getListaDeExercicios().
-                    getTurma().getId());
+                    getTurma().getId());*/
             return;
         }
 	    
@@ -105,8 +105,8 @@ public class RespostasController {
 			        listaDeRespostas.getPropriedades().setNumeroDeEnvios(nenvios + 1);
 			    if (listaDeRespostas.getPropriedades().getNumeroDeEnvios() > nmaxenvios){
 			        listaDeRespostas.getPropriedades().setEstado(EstadoDaListaDeRespostas.FINALIZADA);
-			        result.redirectTo(ListasDeExerciciosController.class).listasTurma(listaDeRespostas.getListaDeExercicios().
-	                    getTurma().getId());
+			        /*result.redirectTo(ListasDeExerciciosController.class).listasTurma(listaDeRespostas.getListaDeExercicios().
+	                    getTurma().getId());*/
 			        return;
 			    }
 			}
@@ -116,9 +116,9 @@ public class RespostasController {
 		listaDeRespostas.getPropriedades().setEstado(EstadoDaListaDeRespostas.SALVA);
 		dao.atualiza(listaDeRespostas);
        
-	    result.redirectTo(ListasDeExerciciosController.class).
+	    /*result.redirectTo(ListasDeExerciciosController.class).
 	            listasTurma(listaDeRespostas.getListaDeExercicios().
-	                    getTurma().getId());
+	                    getTurma().getId());*/
 	}
 	
 	/**

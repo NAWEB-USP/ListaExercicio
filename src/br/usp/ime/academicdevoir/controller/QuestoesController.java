@@ -197,7 +197,7 @@ public class QuestoesController {
 		for (BigInteger id : idsDasListas) {
 			lista = listaDeExerciciosDao.carrega(id.longValue());
 			propriedades = lista.getPropriedades();
-			propriedades.setNome( new String( lista.getTurma().getNome() + " - " + propriedades.getNome()) );
+			/*propriedades.setNome( new String( lista.getTurma().getNome() + " - " + propriedades.getNome()) );*/
 			listas.add(propriedades);
 		}
 		

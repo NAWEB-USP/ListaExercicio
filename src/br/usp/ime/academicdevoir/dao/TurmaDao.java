@@ -115,4 +115,11 @@ public class TurmaDao {
 	public void recarrega(Turma turma) {
 		session.refresh(turma);
 	}
+
+	@SuppressWarnings("unchecked")
+	public List<Turma> buscarPor(Disciplina disciplina) {
+		return session.createQuery("From Turma turma Where turma.disciplina.id = :disciplina_id")
+						.setParameter("disciplina_id", disciplina.getId())
+						.list();
+	}
 }

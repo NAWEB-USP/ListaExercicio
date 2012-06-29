@@ -46,10 +46,10 @@ import="java.sql.*" errorPage="" %>
     
     <h3>Nota: ${listaDeRespostas.notaFinal}</h3>    
     <div>
-        <c:forEach items="${listaDeExercicios.questoes}" var="questaoDaLista" varStatus="iteracao">
+        <c:forEach items="${questoes}" var="questao" varStatus="iteracao">
                 <fieldset>
                         <p>${iteracao.index + 1} )
-                                ${questaoDaLista.questao.enunciado} </p>
+                                ${questao.enunciado} </p>
                         ${renderizacao[iteracao.index]}
                 </fieldset>
         </c:forEach>

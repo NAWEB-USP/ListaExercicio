@@ -1,5 +1,7 @@
 package br.usp.ime.academicdevoir.componete;
 
+import java.util.List;
+
 import br.com.caelum.vraptor.ioc.Component;
 import br.usp.ime.academicdevoir.dao.ListaGeradaDao;
 import br.usp.ime.academicdevoir.dao.ListaQuestaoDao;
@@ -9,6 +11,7 @@ import br.usp.ime.academicdevoir.entidade.ListaDeExercicios;
 import br.usp.ime.academicdevoir.entidade.ListaGerada;
 import br.usp.ime.academicdevoir.entidade.ListaQuestao;
 import br.usp.ime.academicdevoir.entidade.Questao;
+import br.usp.ime.academicdevoir.entidade.TagsDaLista;
 
 @Component
 public class Lista {
@@ -30,6 +33,12 @@ public class Lista {
 		if (listaGerada == null) {
 			listaGerada = new ListaGerada(lista, aluno);
 			listaGeradaDao.salvar(listaGerada);
+			List<TagsDaLista> tags = lista.getTags();
+			
+			for (TagsDaLista tagsDaLista : tags) {
+				questaoDao.buscarQuestoesPor(tagsDaLista.getTag(), tagsDaLista.getQuantidade());
+			}
+			
 			for (Questao questao : questaoDao.listaFiltradas()) {
 				ListaQuestao listaQuestao = new ListaQuestao(listaGerada, questao);
 				listaQuestaoDao.salvar(listaQuestao);

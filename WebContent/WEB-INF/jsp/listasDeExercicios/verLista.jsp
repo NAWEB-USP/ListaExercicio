@@ -111,8 +111,13 @@ import="java.sql.*" errorPage="" %>
 			<td>${listaDeExercicios.propriedades.enunciado }</td>
 		</tr>
 		<tr>
-			<td>Turma:</td>
-			<td>${listaDeExercicios.turma.disciplina.nome } - ${listaDeExercicios.turma.nome }</td>
+			<td>Turmas:</td>
+			<td>
+			<c:forEach items="${listaDeExercicios.turmas}" var="turma">
+				 ${turma.nome }
+				<br />
+			</c:forEach>
+			</td>
 		</tr>
 		<tr>
 			<td>Visível:</td>
