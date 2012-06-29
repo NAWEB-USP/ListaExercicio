@@ -1,5 +1,7 @@
 package br.usp.ime.academicdevoir.controller;
 
+import javax.servlet.http.HttpSession;
+
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.Mock;
@@ -25,6 +27,7 @@ public class LoginControllerTeste {
 	@Mock
 	private UsuarioDao usuarioDao;
 	private UsuarioSession usuarioSession;
+	private HttpSession httpSession;
 	
 	
 	@Before
@@ -33,7 +36,8 @@ public class LoginControllerTeste {
 		usuario = Given.novoUsuario();
 		usuarioSession = new UsuarioSession(); 
 		usuarioSession.setUsuario(usuario);
-		loginController = new LoginController(result, usuarioDao, usuarioSession);
+
+		loginController = new LoginController(result, usuarioDao, usuarioSession, httpSession);
 	}
 	
 	@Test

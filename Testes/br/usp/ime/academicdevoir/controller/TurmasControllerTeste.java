@@ -109,7 +109,7 @@ public class TurmasControllerTeste {
 		turma.setPrazoDeMatricula(data);
 		turma.setProfessor(new Professor());
 		turma.setDisciplina(new Disciplina());
-		turma.setListas(new ArrayList<ListaDeExercicios>());
+		turma.setListaDeExercicios(new ArrayList<ListaDeExercicios>());
 		turmas = new ArrayList<Turma>();
 		disciplina = new Disciplina();
 		disciplina.setId(0L);

@@ -11,6 +11,7 @@ import org.junit.Test;
 
 import br.com.caelum.vraptor.util.test.JSR303MockValidator;
 import br.com.caelum.vraptor.util.test.MockResult;
+import br.usp.ime.academicdevoir.dao.DisciplinaDao;
 import br.usp.ime.academicdevoir.dao.QuestaoDeCodigoDao;
 import br.usp.ime.academicdevoir.dao.TagDao;
 import br.usp.ime.academicdevoir.entidade.Professor;
@@ -30,6 +31,7 @@ public class QuestoesDeCodigoControllerTeste {
 
     private UsuarioSession usuarioSession;
     private TagDao tagDao;
+    private DisciplinaDao disciplinaDao;
 
     @Before
     public void SetUp() {       
@@ -40,11 +42,12 @@ public class QuestoesDeCodigoControllerTeste {
         usuarioSession.setUsuario(professor);
     
         dao = mock(QuestaoDeCodigoDao.class);
+        disciplinaDao = mock(DisciplinaDao.class);
         tagDao = mock(TagDao.class);
         result = spy(new MockResult());
         validator = spy(new JSR303MockValidator());
         questoesC = new QuestoesDeCodigoController(dao, tagDao, result,
-                validator, usuarioSession);
+                validator, usuarioSession, disciplinaDao);
         
         when(tagDao.buscaPeloNome(any(String.class))).thenReturn(new Tag("tagQualquer"));
     }
