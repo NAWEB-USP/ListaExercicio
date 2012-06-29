@@ -1,18 +1,15 @@
 package br.usp.ime.academicdevoir.dao;
 
 import java.util.ArrayList;
-import java.util.Collection;
+import java.util.Date;
 import java.util.List;
 
 import org.hibernate.Session;
 import org.hibernate.Transaction;
-import org.hibernate.criterion.MatchMode;
-import org.hibernate.criterion.Restrictions;
 
 import br.com.caelum.vraptor.ioc.Component;
-import br.usp.ime.academicdevoir.entidade.Turma;
 import br.usp.ime.academicdevoir.entidade.Disciplina;
-import br.usp.ime.academicdevoir.infra.UsuarioSession;
+import br.usp.ime.academicdevoir.entidade.Turma;
 
 @Component
 public class TurmaDao {
@@ -96,8 +93,15 @@ public class TurmaDao {
 		
 	}
     
+    @SuppressWarnings("unchecked")
+	public List<Turma> listaTurmasNoPrazo(){
+    	return (ArrayList<Turma>)session.createQuery("From Turma turma Where turma.prazoDeMatricula >= :prazo")
+    			.setParameter("prazo", new Date())
+    			.list();
+    }
+    
     public List<Turma> listaTurmasFiltradas(Long idAluno) {
-    	List<Turma> listaTudo = listaTudo();
+    	List<Turma> listaTudo = listaTurmasNoPrazo();
     	List<Turma> listaFinal = new ArrayList<Turma>();
     	
     	for(int i = 0; i < listaTudo.size(); i++){
