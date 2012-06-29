@@ -6,8 +6,6 @@ import static org.hamcrest.Matchers.notNullValue;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.google.common.collect.Lists;
-
 import br.com.caelum.vraptor.Delete;
 import br.com.caelum.vraptor.Get;
 import br.com.caelum.vraptor.Path;
@@ -46,6 +44,8 @@ import br.usp.ime.academicdevoir.infra.Privilegio;
 import br.usp.ime.academicdevoir.infra.TipoDeQuestao;
 import br.usp.ime.academicdevoir.infra.UsuarioSession;
 import br.usp.ime.academicdevoir.infra.VerificadorDePrazos;
+
+import com.google.common.collect.Lists;
 
 @Resource
 /**
@@ -590,7 +590,6 @@ public class ListasDeExerciciosController {
 
 		AutoCorrecao autoCorrecao = listaDeRespostas.getListaDeExercicios()
 				.getPropriedades().getAutoCorrecao();
-		Aluno aluno = (Aluno) usuarioSession.getUsuario();
 
 		if (listaDeRespostas.getPropriedades().getEstado() == EstadoDaListaDeRespostas.SALVA
 				&& !VerificadorDePrazos.estaNoPrazo(listaDeRespostas
@@ -609,9 +608,10 @@ public class ListasDeExerciciosController {
 			// Redireciona para o menu de listas
 			result.redirectTo(this).verCorrecao(listaDeRespostas);
 		}
-
+/*
 		else
-			result.redirectTo(AlunosController.class).listaTurmas(aluno.getId());
+			result.redirectTo(this).listasTurma(
+					listaDeRespostas.getListaDeExercicios().getTurma().getId());*/
 	}
 
 	@Get

@@ -27,7 +27,7 @@ public class QuestaoDeMultiplaEscolha extends Questao {
 	@CollectionTable(name = "alternativasDasQuestoes")
 	private List<String> alternativas;
 	*/
-	@OneToMany(mappedBy = "questao", fetch=FetchType.EAGER)
+	@OneToMany(mappedBy = "questao", fetch=FetchType.LAZY)
 	@Cascade(CascadeType.ALL)
 	private List<AlternativasMultiplaEscolha> alternativas;
 
