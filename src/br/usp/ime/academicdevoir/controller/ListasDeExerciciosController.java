@@ -213,7 +213,7 @@ public class ListasDeExerciciosController {
 		if(listaDeExercicios.getPropriedades().getGeracaoAutomatica())
 			result.include("questoes", listaGerada.getQuestoes());
 		else
-			result.include("questoes", listaDeExercicios.getQuestoesDaLista());
+			result.include("questoes", listaDeExercicios.getQuestoes());
 		if (listaDeExercicios.getQuestoesDaLista() != null)
 			result.include("numeroDeQuestoes", listaDeExercicios.getQuestoesDaLista()
 					.size());

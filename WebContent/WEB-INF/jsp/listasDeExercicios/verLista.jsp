@@ -176,9 +176,9 @@ import="java.sql.*" errorPage="" %>
 	
 	<div>
 		<table>
-			<c:forEach items="${listaDeExercicios.questoes }" var="questaoDaLista" varStatus="status">							
+			<c:forEach items="${listaDeExercicios.questoes }" var="questao" varStatus="status">							
 				<tr id="questaoContainer${status.index }">
-					<td>${status.index+1 }. ${questaoDaLista.questao.enunciado }</td>
+					<td>${status.index+1 }. ${questao.enunciado }</td>
 					<td>
 						<form action="<c:url value="/listasDeExercicios/${listaDeExercicios.id }/questoes/${status.index }"/>" method="post">
 							<fieldset class="fieldsetSemFormatacao">
