@@ -105,15 +105,10 @@ public class ListasDeExerciciosController {
 	 * @param prazoDeEntrega
 	 * @param idDasTurmas
 	 */
-	public void cadastra(final PropriedadesDaListaDeExercicios propriedades,
-			final List<Integer> prazoDeEntrega, final List<Long> idsDaTurma, List<TagsDaLista> tags, String data1) {
+	public void cadastra(final PropriedadesDaListaDeExercicios propriedades, final List<Long> idsDaTurma, List<TagsDaLista> tags) {
 
 		List<Turma> turmas = new ArrayList<Turma>();
-		String[] dias  = data1.split("/");
-			
-		prazoDeEntrega.add(0, Integer.parseInt(dias[0]));
-		prazoDeEntrega.add(1, Integer.parseInt(dias[1]));
-		prazoDeEntrega.add(2, Integer.parseInt(dias[2]));
+
 		if (propriedades.getGeracaoAutomatica() == null) {
 			propriedades.setGeracaoAutomatica(false);
 		}
@@ -126,8 +121,6 @@ public class ListasDeExerciciosController {
 						"turmas.id.notEmpty");
 			}
 		});
-
-		propriedades.comPrazoDeEntrega(prazoDeEntrega);
 
 		validator.validate(propriedades);
 		validator.onErrorForwardTo(this).cadastro();
@@ -574,7 +567,7 @@ public class ListasDeExerciciosController {
 	 */
 	public void listasTurma(Long idTurma) {
 		Turma turma = turmaDao.carrega(idTurma);
-		result.include("listaDeListas", dao.listasDeTurma(turma));
+		result.include("listaDeListas", turma.getListaDeExercicios());
 	}
 
 	@Get

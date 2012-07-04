@@ -3,7 +3,6 @@ package br.usp.ime.academicdevoir.dao;
 
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
-import static org.mockito.Matchers.any;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -73,25 +72,18 @@ public class TurmasDaoTest{
 		turmas.add(turmaNaoMatriculada);
 		
 		when(session.createCriteria(Turma.class)).thenReturn(criteria);
-		when(session.createQuery(any(String.class))).thenReturn(query);
-		when(query.setParameter(any(String.class), any(Object.class))).thenReturn(query);
-		when(query.list()).thenReturn(turmas);
+		when(session.createQuery("From Turma turma Where turma.status = true")).thenReturn(query);
 		when(criteria.list()).thenReturn(turmas);
 		
 	}
-	
-	@Test
-	public void listaTurmasFiltradas(){
-		List<Turma> t = turmaDao.listaTurmasFiltradas(aluno.getId());
-		Assert.assertEquals(1, t.size());
-	}
-	
+		
 	@Test
 	public void listaTudo(){
+		when(session.createQuery("From Turma turma Where turma.status = true")).thenReturn(query);
+		when(query.list()).thenReturn(turmas);
 		List<Turma> t = turmaDao.listaTudo();
 		Assert.assertEquals(turmas, t);
-		verify(session).createCriteria(Turma.class);
-		verify(criteria).list();
+		verify(query).list();
 	}
 	@Test
 	public void salvaTurma(){
@@ -103,9 +95,9 @@ public class TurmasDaoTest{
 	
 	@Test
 	public void removeTurma(){
-		turmaDao.removeTurma(turmaMatriculada);
+		turmaDao.remove(turmaMatriculada);
 		verify(session).beginTransaction();
-		verify(session).delete(turmaMatriculada);
+		verify(session).update(turmaMatriculada);
 		verify(tx).commit();
 	}
 	

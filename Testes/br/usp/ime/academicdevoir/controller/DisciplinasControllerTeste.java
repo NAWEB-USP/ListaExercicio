@@ -1,10 +1,10 @@
 package br.usp.ime.academicdevoir.controller;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertNotNull;
 import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.spy;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
-import static org.mockito.Mockito.spy;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -14,7 +14,6 @@ import org.junit.Test;
 
 import br.com.caelum.vraptor.util.test.MockResult;
 import br.usp.ime.academicdevoir.dao.DisciplinaDao;
-import br.usp.ime.academicdevoir.dao.TurmaDao;
 import br.usp.ime.academicdevoir.entidade.Disciplina;
 import br.usp.ime.academicdevoir.entidade.Professor;
 import br.usp.ime.academicdevoir.infra.Privilegio;
@@ -50,7 +49,6 @@ public class DisciplinasControllerTeste {
 	 * @uml.property name="usuarioSession"
 	 * @uml.associationEnd readOnly="true"
 	 */
-	private TurmaDao turmaDao;
 	private UsuarioSession usuarioSession;
 
 	@Before
@@ -64,7 +62,7 @@ public class DisciplinasControllerTeste {
 
 		dao = mock(DisciplinaDao.class);
 		result = spy(new MockResult());
-		disciplinasController = new DisciplinasController(result, dao, turmaDao,
+		disciplinasController = new DisciplinasController(result, dao,
 				usuarioSession);
 
 		disciplina = new Disciplina();
@@ -96,7 +94,7 @@ public class DisciplinasControllerTeste {
 	public void testeAltera() {
 		disciplinasController.altera(disciplina.getId(), "xpto");
 
-		verify(dao).atualizaDisciplina(disciplina);
+		verify(dao).atualiza(disciplina);
 		verify(result).redirectTo(DisciplinasController.class);
 	}
 
@@ -111,7 +109,7 @@ public class DisciplinasControllerTeste {
 	public void testaRemove() {
 		disciplinasController.remove(disciplina.getId());
 
-		verify(dao).removeDisciplina(disciplina);
+		verify(dao).remove(disciplina);
 		verify(result).redirectTo(DisciplinasController.class);
 	}
 }

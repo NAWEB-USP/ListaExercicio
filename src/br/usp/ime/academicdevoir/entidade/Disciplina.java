@@ -46,6 +46,11 @@ public class Disciplina {
     @ManyToMany(fetch = FetchType.LAZY)
 	@JoinTable(name = "tags_disciplinas", joinColumns = { @JoinColumn(name = "id_disciplina") }, inverseJoinColumns = { @JoinColumn(name = "id_tag") })
 	protected List<Tag> tags = new ArrayList<Tag>();
+    
+    
+    private boolean status = true;
+    
+    
     /**
 	 * @return  id da disciplina
 	 * @uml.property  name="id"
@@ -120,4 +125,13 @@ public class Disciplina {
 		}
 	}
 
+	public boolean isStatus() {
+		return status;
+	}
+
+	public void setStatus(boolean status) {
+		this.status = status;
+	}
+
+    
 }

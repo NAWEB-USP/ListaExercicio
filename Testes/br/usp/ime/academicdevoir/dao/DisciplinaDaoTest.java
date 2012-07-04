@@ -25,6 +25,7 @@ public class DisciplinaDaoTest {
 	private @Mock Disciplina disciplina;
 	private @Mock Transaction transaction;
 	private @Mock Criteria criteria;
+	private @Mock TurmaDao turmaDao;
 
 	@Before
 	public void iniciaMocks(){
@@ -38,7 +39,7 @@ public class DisciplinaDaoTest {
 		when(session.createCriteria(Disciplina.class)).thenReturn(criteria);
 		when(criteria.list()).thenReturn(Arrays.asList(disciplina));
 		when(criteria.add(any(Criterion.class))).thenReturn(criteria);
-		DisciplinaDao dao = new DisciplinaDao(session);
+		DisciplinaDao dao = new DisciplinaDao(session, turmaDao);
 		dao.salvaDisciplina(disciplina);
 		verify(session,never()).save(anyObject());
 		

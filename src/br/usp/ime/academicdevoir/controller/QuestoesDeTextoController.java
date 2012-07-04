@@ -81,7 +81,7 @@ public class QuestoesDeTextoController {
 		Disciplina disciplina = disciplinaDao.carrega(questao.getDisciplina().getId());
 		disciplina.setTags(tags, tagDao);
 		
-		disciplinaDao.atualizaDisciplina(disciplina);
+		disciplinaDao.atualiza(disciplina);
 		dao.salva(questao);
 		result.redirectTo(this).lista();
 	}

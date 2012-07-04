@@ -6,6 +6,7 @@ import java.util.List;
 
 import org.hibernate.Session;
 import org.hibernate.Transaction;
+import org.hibernate.criterion.Restrictions;
 
 import br.com.caelum.vraptor.ioc.Component;
 import br.usp.ime.academicdevoir.entidade.Disciplina;
@@ -41,7 +42,6 @@ public class TurmaDao {
 	 *  
 	 * @param turma
 	 */
-	@SuppressWarnings("unchecked")
 	public void atualizaTurma(Turma turma) {
 		/*String nome = turma.getNome();
 		Disciplina disciplina = turma.getDisciplina();
@@ -62,14 +62,9 @@ public class TurmaDao {
 	 * 
 	 * @param turma
 	 */
-	public void removeTurma(Turma turma) {
-		try {
-			Transaction tx = session.beginTransaction();
-			session.delete(turma);
-			tx.commit();
-		} catch (Exception e) { 
-			return; /*Não foi possível remover a turma, pois tem alguma lista associada.*/
-		}
+	public void remove(Turma turma) {
+		turma.setStatus(false);
+		atualizaTurma(turma);
 	}
 
 	/**
@@ -79,7 +74,8 @@ public class TurmaDao {
 	 * @return Turma
 	 */
 	public Turma carrega(Long id) {
-		return (Turma) session.get(Turma.class, id);
+		return (Turma) session.createCriteria(Turma.class).add(Restrictions.eq("id", id))
+				                                          .add(Restrictions.eq("status", true)).uniqueResult();
 	}
 	
     @SuppressWarnings("unchecked")
@@ -89,13 +85,13 @@ public class TurmaDao {
 	 * @return List<Turma>
 	 */
 	public List<Turma> listaTudo() {
-        return (ArrayList<Turma>)session.createCriteria(Turma.class).list();
+    	return session.createQuery("From Turma turma Where turma.status = true").list();
 		
 	}
     
     @SuppressWarnings("unchecked")
 	public List<Turma> listaTurmasNoPrazo(){
-    	return (ArrayList<Turma>)session.createQuery("From Turma turma Where turma.prazoDeMatricula = null or turma.prazoDeMatricula >= :prazo")
+    	return session.createQuery("From Turma turma Where turma.prazoDeMatricula = null or turma.prazoDeMatricula >= :prazo and turma.status = true")
     			.setParameter("prazo", new Date())
     			.list();
     }
@@ -122,8 +118,16 @@ public class TurmaDao {
 
 	@SuppressWarnings("unchecked")
 	public List<Turma> buscarPor(Disciplina disciplina) {
-		return session.createQuery("From Turma turma Where turma.disciplina.id = :disciplina_id")
+		return session.createQuery("From Turma turma Where turma.disciplina.id = :disciplina_id and turma.status = true")
 						.setParameter("disciplina_id", disciplina.getId())
 						.list();
 	}
+	
+	@SuppressWarnings("unchecked")
+	public List<Turma> buscarPor(Long idProfessor) {
+		return session.createQuery("From Turma turma Where turma.professor.id = :professor_id and turma.status = true")
+						.setParameter("professor_id", idProfessor)
+						.list();
+	}
+
 }

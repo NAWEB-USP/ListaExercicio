@@ -127,10 +127,14 @@ public class QuestaoDao {
 	
 	@SuppressWarnings("unchecked")
 	public List<Questao> buscarQuestoesPor(Tag tag, int quantidade) {
-		return session.createSQLQuery("select distinct t.id_questao From tags_questoes t Where t.id_tag = :id_tag ORDER BY RAND()")
-				.setParameter("id_tag", tag.getId())
+		return session.createQuery("select distinct q From Questao q, Tag tag Where tag = :tag and q in elements(tag.questoes) ORDER BY RAND()")
+				.setParameter("tag", tag)
 				.setMaxResults(quantidade)
 				.list();
+//		return session.createSQLQuery("select distinct t.id_questao From tags_questoes t Where t.id_tag = :id_tag ORDER BY RAND()")
+//				.setParameter("id_tag", tag.getId())
+//				.setMaxResults(quantidade)
+//				.list();
 	}
 	
 	

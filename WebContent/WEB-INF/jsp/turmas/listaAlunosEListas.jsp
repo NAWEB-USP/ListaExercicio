@@ -38,7 +38,7 @@ import="java.sql.*" errorPage="" %>
     <thead>
         <tr>
         <th>Nome</th>
-        <c:forEach items="${turma.listas}" var="lista">
+        <c:forEach items="${turma.listaDeExercicios}" var="lista">
             <th>${lista.propriedades.nome}</th>
         </c:forEach>
         </tr>
@@ -47,7 +47,7 @@ import="java.sql.*" errorPage="" %>
         <c:forEach items="${turma.alunos}" var="aluno">
             <tr>
                 <td>${aluno.nome}</td>
-                <c:forEach items="${turma.listas}" var="lista">
+                <c:forEach items="${turma.listaDeExercicios}" var="lista">
                     <td>
                     <c:forEach items="${lista.respostas}" var="resposta">    
                         <c:if test ="${resposta.aluno.id == aluno.id}">

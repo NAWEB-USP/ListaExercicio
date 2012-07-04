@@ -8,18 +8,18 @@ import org.hibernate.criterion.Restrictions;
 
 import br.com.caelum.vraptor.ioc.Component;
 import br.usp.ime.academicdevoir.entidade.Disciplina;
+import br.usp.ime.academicdevoir.entidade.Turma;
 
 @Component
 public class DisciplinaDao {
 
-	/**
-	 * @uml.property  name="session"
-	 * @uml.associationEnd  multiplicity="(1 1)"
-	 */
 	private final Session session;
 	
-	public DisciplinaDao(Session session) {
+	private final TurmaDao turmaDao;
+	
+	public DisciplinaDao(Session session, TurmaDao turmaDao) {
 		this.session = session;
+		this.turmaDao = turmaDao;
 	}
 
 	/**
@@ -47,7 +47,7 @@ public class DisciplinaDao {
 	 * @param disciplina
 	 */
 	@SuppressWarnings("unchecked")
-	public void atualizaDisciplina(Disciplina disciplina) {
+	public void atualiza(Disciplina disciplina) {
 		String nome = disciplina.getNome();
 	    List<Disciplina> listaDeDisciplinas = session.createCriteria(Disciplina.class)
                 .add(Restrictions.like("nome", nome, MatchMode.EXACT))
@@ -60,29 +60,18 @@ public class DisciplinaDao {
 		tx.commit();
 	}
 	
-	/**
-	 * Remove a disciplina fornecida do banco de dados.
-	 * 
-	 * @param disciplina
-	 */
-	public void removeDisciplina(Disciplina disciplina) {
-		try{
-			Transaction tx = session.beginTransaction();
-			session.delete(disciplina);
-			tx.commit();
-		} catch (Exception e) { 
-    		return; /*Não foi possível remover a disciplina, pois tem alguma turma associada.*/
-    	}
+	public void remove(Disciplina disciplina) {
+		disciplina.setStatus(false);
+		atualiza(disciplina);
+		for (Turma turma : disciplina.getTurmas()) {
+			turmaDao.atualizaTurma(turma);
+		}
 	}
 	
-	/**
-	 * Devolve uma disciplina com o id fornecido.
-	 * 
-	 * @param id
-	 * @return Disciplina
-	 */
 	public Disciplina carrega(Long id) {
-		return (Disciplina) session.load(Disciplina.class, id);
+		return (Disciplina) session.createCriteria(Disciplina.class).add(Restrictions.eq("id", id))
+																	.add(Restrictions.eq("status", true))
+																	.uniqueResult();
 	}
 	
     @SuppressWarnings("unchecked")
@@ -99,7 +88,7 @@ public class DisciplinaDao {
 	}*/
     
     public List<Disciplina> listaTudo() {
-		return this.session.createCriteria(Disciplina.class).list();
+		return this.session.createCriteria(Disciplina.class).add(Restrictions.eq("status", true)).list();
 	}
 
 }

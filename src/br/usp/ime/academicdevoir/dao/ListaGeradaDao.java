@@ -24,6 +24,12 @@ public class ListaGeradaDao {
 		tx.commit();
 	}
 
+	public void refresh(ListaGerada lista) {
+	    Transaction tx = session.beginTransaction();
+		session.refresh(lista);
+		tx.commit();
+	}
+
 	public ListaGerada buscar(ListaDeExercicios lista, Aluno aluno) {
 		return (ListaGerada) session.createQuery("From ListaGerada listaGerada Where listaGerada.aluno.id = :aluno and listaGerada.lista.id = :lista")
 				.setParameter("aluno", aluno.getId())

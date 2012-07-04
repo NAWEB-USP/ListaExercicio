@@ -74,7 +74,7 @@ public class AlunosControllerTeste {
         turmaDao = mock(TurmaDao.class);
         usuarioSession = new UsuarioSession();
         usuarioSession.setUsuario(Given.novoUsuario());
-        alunoC = new AlunosController(result, validator, alunoDao, disciplinaDao, turmaDao, usuarioSession);
+        alunoC = new AlunosController(result, validator, alunoDao, turmaDao, usuarioSession);
         
         
         

@@ -18,7 +18,6 @@ import br.com.caelum.vraptor.util.test.MockResult;
 import br.com.caelum.vraptor.validator.ValidationException;
 import br.usp.ime.academicdevoir.dao.AlunoDao;
 import br.usp.ime.academicdevoir.dao.DisciplinaDao;
-import br.usp.ime.academicdevoir.dao.ListaDeExerciciosDao;
 import br.usp.ime.academicdevoir.dao.TurmaDao;
 import br.usp.ime.academicdevoir.entidade.Aluno;
 import br.usp.ime.academicdevoir.entidade.Disciplina;
@@ -72,7 +71,6 @@ public class TurmasControllerTeste {
 	private List<Turma> turmas;
 	
 	private UsuarioSession usuarioSession;
-	private ListaDeExerciciosDao listaDeExerciciosDao;
 	private Professor admin;
 	private Aluno aluno;
 	private Disciplina disciplina;
@@ -99,7 +97,7 @@ public class TurmasControllerTeste {
 		result = spy(new MockResult());
 		
 		
-		turmasController = new TurmasController(result, validator, turmaDao, disciplinaDao, alunoDao, listaDeExerciciosDao, usuarioSession);
+		turmasController = new TurmasController(result, validator, turmaDao, disciplinaDao, alunoDao, usuarioSession);
 		turma = new Turma();
 		List<Integer> data = new ArrayList<Integer>();
 		data.add(2);
@@ -188,7 +186,7 @@ public class TurmasControllerTeste {
 	public void testeRemove() {
 		turmasController.remove(turma.getId());
 		
-	    verify(turmaDao).removeTurma(turma);
+	    verify(turmaDao).remove(turma);
 		verify(result).redirectTo(ProfessoresController.class);
 	}
 	

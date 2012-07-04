@@ -35,12 +35,14 @@ import="java.sql.*" errorPage="" %>
 
     			<table>
         			<c:forEach items="${aluno.turmas}" var="turma">
+        				<c:if test="${turma.status}">
             		<tr>
                 		<td>
                     		<a href="<c:url value="/turmas/home/${turma.id }"/>">
                         	${turma.disciplina.nome} - ${turma.nome} </a>
                 		</td>
             		</tr>
+            		</c:if>
         			</c:forEach>
     			</table>
     			<form action='matricula'>

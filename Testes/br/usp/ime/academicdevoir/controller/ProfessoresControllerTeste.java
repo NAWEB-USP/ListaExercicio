@@ -2,18 +2,21 @@ package br.usp.ime.academicdevoir.controller;
 
 import static org.junit.Assert.assertNotNull;
 import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.spy;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
-import static org.mockito.Mockito.spy;
+
+import java.util.List;
 
 import org.junit.Before;
 import org.junit.Test;
 
 import br.com.caelum.vraptor.util.test.JSR303MockValidator;
 import br.com.caelum.vraptor.util.test.MockResult;
-import br.usp.ime.academicdevoir.controller.ProfessoresController;
 import br.usp.ime.academicdevoir.dao.ProfessorDao;
+import br.usp.ime.academicdevoir.dao.TurmaDao;
 import br.usp.ime.academicdevoir.entidade.Professor;
+import br.usp.ime.academicdevoir.entidade.Turma;
 import br.usp.ime.academicdevoir.infra.Privilegio;
 import br.usp.ime.academicdevoir.infra.UsuarioSession;
 
@@ -33,6 +36,9 @@ public class ProfessoresControllerTeste {
 	 * @uml.associationEnd  
 	 */
     private ProfessorDao professordao;
+
+    private TurmaDao turmaDao;
+    
     /**
 	 * @uml.property  name="usuarioSession"
 	 * @uml.associationEnd  readOnly="true"
@@ -53,7 +59,8 @@ public class ProfessoresControllerTeste {
         result = spy(new MockResult());
         validator = spy(new JSR303MockValidator());
         professordao = mock(ProfessorDao.class);
-        profC = new ProfessoresController(result, validator, professordao, usuarioSession);
+        turmaDao = mock(TurmaDao.class);
+        profC = new ProfessoresController(result, professordao, turmaDao, usuarioSession, validator);
         
         professor = new Professor();
         professor.setId(0L);
@@ -77,8 +84,8 @@ public class ProfessoresControllerTeste {
     public void testeListaTurmas() {
     	profC.listaTurmas(this.professor.getId());
     	
-    	Professor professor = result.included("professor");
-    	assertNotNull(professor);
+    	List<Turma> turmas = result.included("turmas");
+    	assertNotNull(turmas);
     }
 
     @Test
