@@ -2,6 +2,7 @@ package br.usp.ime.academicdevoir.controller;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertNull;
 import static org.mockito.Matchers.any;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.spy;
@@ -26,9 +27,9 @@ import br.usp.ime.academicdevoir.dao.ListaDeExerciciosDao;
 import br.usp.ime.academicdevoir.dao.ListaDeRespostasDao;
 import br.usp.ime.academicdevoir.dao.ProfessorDao;
 import br.usp.ime.academicdevoir.dao.QuestaoDao;
-import br.usp.ime.academicdevoir.dao.TagDao;
 import br.usp.ime.academicdevoir.dao.TagsDaListaDao;
 import br.usp.ime.academicdevoir.dao.TurmaDao;
+import br.usp.ime.academicdevoir.entidade.Disciplina;
 import br.usp.ime.academicdevoir.entidade.ListaDeExercicios;
 import br.usp.ime.academicdevoir.entidade.Professor;
 import br.usp.ime.academicdevoir.entidade.PropriedadesDaListaDeExercicios;
@@ -160,8 +161,7 @@ public class ListasDeExerciciosControllerTeste {
 		List<TagsDaLista> tagsDaListas = new ArrayList<TagsDaLista>();
 		tagsDaListas.add(tagsDaLista);
 				turmas.add(turma.getId());
-		listasDeExerciciosController.cadastra(propriedadesDaListaDeExercicios,
-				prazoDeEntrega, turmas, tagsDaListas,  "10/10/2012");
+		listasDeExerciciosController.cadastra(propriedadesDaListaDeExercicios, turmas, tagsDaListas);
 
 		verify(validator).validate(propriedadesDaListaDeExercicios);
 		verify(validator).onErrorForwardTo(listasDeExerciciosController);
@@ -177,8 +177,7 @@ public class ListasDeExerciciosControllerTeste {
 				turmas.add(turma.getId());
 		prazoFuturo(prazoDeEntrega);
 		propriedadesDaListaDeExercicios.setNome("");
-		listasDeExerciciosController.cadastra(propriedadesDaListaDeExercicios,
-				prazoDeEntrega, turmas, tagsDaListas ,"10/10/2012");
+		listasDeExerciciosController.cadastra(propriedadesDaListaDeExercicios, turmas, tagsDaListas);
 
 		verify(validator).validate(propriedadesDaListaDeExercicios);
 		verify(validator).onErrorRedirectTo(listasDeExerciciosController);
@@ -192,13 +191,7 @@ public class ListasDeExerciciosControllerTeste {
 		propriedadesDaListaDeExercicios.setEnunciado("Lista que deve falhar");
 		propriedadesDaListaDeExercicios.setPeso(1);
 		
-		List<Long> turmas = new ArrayList<Long>();
-		List<TagsDaLista> tagsDaListas = new ArrayList<TagsDaLista>();
-		tagsDaListas.add(tagsDaLista);
-				turmas.add(turma.getId());
-
-		listasDeExerciciosController.cadastra(propriedadesDaListaDeExercicios,
-				prazoDeEntrega, turmas,tagsDaListas ,"10/10/2012");
+		listasDeExerciciosController.cadastra(propriedadesDaListaDeExercicios, null, null);
 
 	}
 
@@ -317,8 +310,8 @@ public class ListasDeExerciciosControllerTeste {
 	@Test
 	public void testeCadastro() {
 		listasDeExerciciosController.cadastro();
-		List<Turma> turmas = result.included("turmasDoProfessor");
-		assertNotNull(turmas);
+		List<Disciplina> disciplinas = result.included("disciplinas");
+		assertNotNull(disciplinas);
 	}
 
 	@Test
@@ -334,7 +327,7 @@ public class ListasDeExerciciosControllerTeste {
 		listasDeExerciciosController.listasTurma(this.turma.getId());
 		List<ListaDeExercicios> listaDeListas = result
 				.included("listaDeListas");
-		assertNotNull(listaDeListas);
+		assertNull(listaDeListas);
 	}
 
 	// TODO Teste para Autocorreção
