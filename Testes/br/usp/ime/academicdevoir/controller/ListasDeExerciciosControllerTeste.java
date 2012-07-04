@@ -192,13 +192,15 @@ public class ListasDeExerciciosControllerTeste {
 		propriedadesDaListaDeExercicios.setEnunciado("Lista que deve falhar");
 		propriedadesDaListaDeExercicios.setPeso(1);
 		
+		
 		List<Long> turmas = new ArrayList<Long>();
 		List<TagsDaLista> tagsDaListas = new ArrayList<TagsDaLista>();
 		tagsDaListas.add(tagsDaLista);
-				turmas.add(turma.getId());
+		turmas.add(turma.getId());
 
 		listasDeExerciciosController.cadastra(propriedadesDaListaDeExercicios,
 				prazoDeEntrega, turmas,tagsDaListas ,"10/10/2012");
+		
 
 	}
 

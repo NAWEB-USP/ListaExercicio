@@ -1,6 +1,10 @@
 package br.usp.ime.academicdevoir.dao;
 
 
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
+import static org.mockito.Matchers.any;
+
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
@@ -8,20 +12,17 @@ import java.util.List;
 import junit.framework.Assert;
 
 import org.hibernate.Criteria;
+import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 import org.junit.Before;
 import org.junit.Test;
-
+import org.mockito.Mock;
+import org.mockito.MockitoAnnotations;
 
 import br.usp.ime.academicdevoir.entidade.Aluno;
 import br.usp.ime.academicdevoir.entidade.Disciplina;
 import br.usp.ime.academicdevoir.entidade.Turma;
-
-import static org.mockito.Mockito.*;
-
-import org.mockito.Mock;
-import org.mockito.MockitoAnnotations;
 
 
 
@@ -38,6 +39,7 @@ public class TurmasDaoTest{
 	private @Mock Session session;
 	private @Mock Transaction tx;
 	private @Mock Criteria criteria;
+	private @Mock Query query;
 	
 	@Before
 	public void setUp(){
@@ -71,6 +73,9 @@ public class TurmasDaoTest{
 		turmas.add(turmaNaoMatriculada);
 		
 		when(session.createCriteria(Turma.class)).thenReturn(criteria);
+		when(session.createQuery(any(String.class))).thenReturn(query);
+		when(query.setParameter(any(String.class), any(Object.class))).thenReturn(query);
+		when(query.list()).thenReturn(turmas);
 		when(criteria.list()).thenReturn(turmas);
 		
 	}
