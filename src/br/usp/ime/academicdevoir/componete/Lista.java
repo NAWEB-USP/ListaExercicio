@@ -40,6 +40,7 @@ public class Lista {
 					listaQuestaoDao.salvar(listaQuestao);
 				}
 			}
+			listaGeradaDao.refresh(listaGerada);
 			
 		}
 		return listaGerada;

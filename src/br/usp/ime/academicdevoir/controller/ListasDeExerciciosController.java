@@ -122,8 +122,6 @@ public class ListasDeExerciciosController {
 			}
 		});
 
-//		propriedades.comPrazoDeEntrega(prazoDeEntrega);
-
 		validator.validate(propriedades);
 		validator.onErrorForwardTo(this).cadastro();
 
