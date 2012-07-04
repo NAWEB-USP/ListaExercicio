@@ -33,16 +33,14 @@ public class Lista {
 		if (listaGerada == null) {
 			listaGerada = new ListaGerada(lista, aluno);
 			listaGeradaDao.salvar(listaGerada);
-			List<TagsDaLista> tags = lista.getTags();
-			
-			for (TagsDaLista tagsDaLista : tags) {
-				questaoDao.buscarQuestoesPor(tagsDaLista.getTag(), tagsDaLista.getQuantidade());
+			for (TagsDaLista tagsDaLista : lista.getTags()) {
+				List<Questao> questoes = questaoDao.buscarQuestoesPor(tagsDaLista.getTag(), tagsDaLista.getQuantidade());
+				for (Questao questao : questoes) {
+					ListaQuestao listaQuestao = new ListaQuestao(listaGerada, questao);
+					listaQuestaoDao.salvar(listaQuestao);
+				}
 			}
 			
-			for (Questao questao : questaoDao.listaFiltradas()) {
-				ListaQuestao listaQuestao = new ListaQuestao(listaGerada, questao);
-				listaQuestaoDao.salvar(listaQuestao);
-			}
 		}
 		return listaGerada;
 	}

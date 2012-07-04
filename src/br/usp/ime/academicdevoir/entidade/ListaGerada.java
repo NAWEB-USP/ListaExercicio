@@ -14,6 +14,8 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+import com.google.common.collect.Lists;
+
 @Entity
 @Table(name="listagerada")
 public class ListaGerada {
@@ -31,7 +33,7 @@ public class ListaGerada {
 	private Aluno aluno;
 	
 	@OneToMany(mappedBy="listaGerada", cascade=CascadeType.ALL)
-	private List<ListaQuestao> listaQuestoes;
+	private List<ListaQuestao> listaQuestoes = Lists.newArrayList();
 	
 	private Date dataGeracao = new Date();
 	
