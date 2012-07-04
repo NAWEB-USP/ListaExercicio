@@ -4,6 +4,7 @@ import java.text.SimpleDateFormat;
 import java.util.Collection;
 import java.util.Date;
 
+import br.com.caelum.vraptor.Get;
 import br.com.caelum.vraptor.Resource;
 import br.com.caelum.vraptor.Result;
 import br.com.caelum.vraptor.Validator;
@@ -35,15 +36,7 @@ public class AlunosController {
 	 * @uml.associationEnd multiplicity="(1 1)"
 	 */
 	private AlunoDao alunoDao;
-	/**
-	 * @uml.property name="disciplinaDao"
-	 * @uml.associationEnd multiplicity="(1 1)"
-	 */
-	private DisciplinaDao disciplinaDao;
-	/**
-	 * @uml.property name="turmaDao"
-	 * @uml.associationEnd multiplicity="(1 1)"
-	 */
+
 	private TurmaDao turmaDao;
 	/**
 	 * @uml.property name="usuarioSession"
@@ -65,12 +58,11 @@ public class AlunosController {
 	 *            para controle de permissões
 	 */
 	public AlunosController(Result result, Validator validator,
-			AlunoDao alunoDao, DisciplinaDao disciplinaDao, TurmaDao turmaDao,
+			AlunoDao alunoDao, TurmaDao turmaDao,
 			UsuarioSession usuarioSession) {
 		this.result = result;
 		this.validator = validator;
 		this.alunoDao = alunoDao;
-		this.disciplinaDao = disciplinaDao;
 		this.turmaDao = turmaDao;
 		this.usuarioSession = usuarioSession;
 	}
@@ -99,6 +91,7 @@ public class AlunosController {
 	 * @param idAluno
 	 *            id do aluno
 	 */
+	@Get("/aluno/{idAluno}/turmas")
 	public void listaTurmas(Long idAluno) {
 		result.include("aluno", alunoDao.carrega(idAluno));
 	}
