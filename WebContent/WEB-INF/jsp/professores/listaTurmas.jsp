@@ -51,7 +51,7 @@ import="java.sql.*" errorPage="" %>
 	</table>
 	<br/><br/>
             <!-- input type="submit" value="Cadastrar nova turma"/-->
-            <a href="<c:url value='/disciplinas/lista'/>">Cadastrar nova turma</a>
+            <a href="<c:url value='/turmas/nova'/>">Cadastrar nova turma</a>
     
 
 			</td>
