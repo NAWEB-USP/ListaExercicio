@@ -91,7 +91,7 @@ public class TurmaDao {
     
     @SuppressWarnings("unchecked")
 	public List<Turma> listaTurmasNoPrazo(){
-    	return session.createQuery("From Turma turma Where turma.prazoDeMatricula >= :prazo and turma.status = true")
+    	return session.createQuery("From Turma turma Where turma.prazoDeMatricula = null or turma.prazoDeMatricula >= :prazo and turma.status = true")
     			.setParameter("prazo", new Date())
     			.list();
     }
