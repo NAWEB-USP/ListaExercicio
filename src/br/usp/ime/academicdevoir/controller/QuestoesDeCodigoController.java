@@ -69,7 +69,6 @@ public class QuestoesDeCodigoController {
      * @param questao
      */
     public void cadastra(final QuestaoDeCodigo questao, String tags) {
-
     	validator.checking(new Validations() {{
 			that(questao.getDisciplina().getId() != null, "questao.id", "questao.id.notNull");
 		}});
