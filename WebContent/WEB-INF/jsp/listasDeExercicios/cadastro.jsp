@@ -99,12 +99,8 @@ $(function(){
 				<div>
 				Prazo de entrega:
 				<br/>
-				<input id="data" type="text"  maxlength="10" name="data1" value="" size="10"/>					
+				<input id="data" type="text"  maxlength="10" name="propriedades.prazoDeEntrega" value="" size="10"/>					
 				<br/>				
-				<label for="hora">Hora:</label>
-					<input id="hora" type="text" size="2" maxlength="2" name="prazoDeEntrega[3]"/>:
-					<input id="minuto" type="text" size="2" maxlength="2" name="prazoDeEntrega[4]"/>
-					<br/>
 				<label for="numeroMaximoDeEnvios">N&uacute;mero M&aacute;ximo de Envios:</label>
 					<input id="numeroMaximoDeEnvios" type="text" size="2" maxlength="2" name="propriedades.numeroMaximoDeEnvios" />
 					<br/>
@@ -157,8 +153,6 @@ $(function(){
 <!-- content -->
 </div>
 <%@ include file="/layout/footer.jsp" %>
-<script type="text/javascript" charset="utf-8"
-	src="<c:url value="/javascript/jquery-1.7.1.min.js"/>"></script>
 
 <script type="text/javascript">
 

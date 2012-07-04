@@ -119,16 +119,6 @@ import="java.sql.*" errorPage="" %>
         	<a href="<c:url value='../alteracao?id=${turma.id}'/>">Alterar informações da turma</a>         
  		</c:if>
     </form>
-    <form action='../remove' method="get">
-        <input type="hidden" value="${turma.id}" name="id">
-        <c:if test ="${usuarioSession.usuario.privilegio != 'ALUNO' && usuarioSession.usuario.privilegio != 'MONITOR'}">
-        	<a href="<c:url value='../remove?id=${turma.id}'/>">Excluir Turma</a><br/>	         
- 		</c:if>
-    </form>
-   
-   
-   
-
 
 
 			</td>
