@@ -18,7 +18,6 @@ import br.com.caelum.vraptor.util.test.MockResult;
 import br.com.caelum.vraptor.validator.ValidationException;
 import br.usp.ime.academicdevoir.dao.AlunoDao;
 import br.usp.ime.academicdevoir.dao.DisciplinaDao;
-import br.usp.ime.academicdevoir.dao.ListaDeExerciciosDao;
 import br.usp.ime.academicdevoir.dao.TurmaDao;
 import br.usp.ime.academicdevoir.entidade.Aluno;
 import br.usp.ime.academicdevoir.entidade.Disciplina;
@@ -72,7 +71,6 @@ public class TurmasControllerTeste {
 	private List<Turma> turmas;
 	
 	private UsuarioSession usuarioSession;
-	private ListaDeExerciciosDao listaDeExerciciosDao;
 	private Professor admin;
 	private Aluno aluno;
 	private Disciplina disciplina;
