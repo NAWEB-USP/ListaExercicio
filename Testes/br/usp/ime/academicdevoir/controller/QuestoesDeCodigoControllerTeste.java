@@ -20,6 +20,7 @@ import br.usp.ime.academicdevoir.entidade.QuestaoDeCodigo;
 import br.usp.ime.academicdevoir.entidade.Tag;
 import br.usp.ime.academicdevoir.infra.Privilegio;
 import br.usp.ime.academicdevoir.infra.UsuarioSession;
+import br.usp.ime.academicdevoir.util.Given;
 
 public class QuestoesDeCodigoControllerTeste {
 
@@ -54,6 +55,7 @@ public class QuestoesDeCodigoControllerTeste {
                 validator, usuarioSession, disciplinaDao);
         
         when(tagDao.buscaPeloNome(any(String.class))).thenReturn(new Tag("tagQualquer"));
+        when(disciplinaDao.carrega(1l)).thenReturn(Given.novaDisciplina());
     }
 
     @Test
@@ -62,11 +64,11 @@ public class QuestoesDeCodigoControllerTeste {
         questao.setId(10L);
         questao.setCodigoDeTeste("Codigo de teste");
         questao.setEnunciado("Enuciado");
-        questao.setDisciplina(disciplina);
+        questao.setDisciplina(Given.novaDisciplina());
         questoesC.cadastra(questao, new String("tagQualquer"));
     
         verify(validator).validate(questao);
-        verify(validator).onErrorUsePageOf(QuestoesController.class);
+        verify(validator).onErrorRedirectTo(QuestoesController.class);
         verify(dao).salva(questao);
         verify(result).redirectTo(questoesC);
     }

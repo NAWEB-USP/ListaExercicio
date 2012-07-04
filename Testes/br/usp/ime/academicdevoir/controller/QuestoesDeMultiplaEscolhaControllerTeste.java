@@ -17,6 +17,7 @@ import br.usp.ime.academicdevoir.entidade.QuestaoDeMultiplaEscolha;
 import br.usp.ime.academicdevoir.entidade.Tag;
 import br.usp.ime.academicdevoir.infra.Privilegio;
 import br.usp.ime.academicdevoir.infra.UsuarioSession;
+import br.usp.ime.academicdevoir.util.Given;
 
 public class QuestoesDeMultiplaEscolhaControllerTeste {
 	/**
@@ -66,6 +67,8 @@ public class QuestoesDeMultiplaEscolhaControllerTeste {
 				validator, usuarioSession, disciplinaDao);
 		
 		when(tagDao.buscaPeloNome(any(String.class))).thenReturn(new Tag("tagQualquer"));
+        when(disciplinaDao.carrega(1l)).thenReturn(Given.novaDisciplina());
+
 	}
 
 	@Test
@@ -73,6 +76,10 @@ public class QuestoesDeMultiplaEscolhaControllerTeste {
 		QuestaoDeMultiplaEscolha questao = new QuestaoDeMultiplaEscolha();
 		questao.setId(0L);
 		questao.setRespostaUnica(true);
+        questao.setEnunciado("Enuciado");
+
+        questao.setDisciplina(Given.novaDisciplina());
+
 		questoesC.cadastra(questao, null, new String("tagQualquer"), 5);
 
 		verify(validator).validate(questao);
@@ -85,6 +92,8 @@ public class QuestoesDeMultiplaEscolhaControllerTeste {
 	public void testeAltera() {
 		QuestaoDeMultiplaEscolha questao = new QuestaoDeMultiplaEscolha();
 		questao.setRespostaUnica(true);
+        questao.setEnunciado("Enuciado");
+
 
 		questoesC.altera(questao, null, new String("tagQualquer"), 5);
 
