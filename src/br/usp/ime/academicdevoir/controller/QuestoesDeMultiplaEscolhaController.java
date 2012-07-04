@@ -99,7 +99,7 @@ public class QuestoesDeMultiplaEscolhaController {
 		disciplina.setTags(tags, tagDao);
 		questao.setResposta(resposta);
 		
-		disciplinaDao.atualizaDisciplina(disciplina);
+		disciplinaDao.atualiza(disciplina);
 		dao.salva(questao);
 		result.redirectTo(this).lista();
 	}
