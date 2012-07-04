@@ -1,6 +1,9 @@
 package br.usp.ime.academicdevoir.dao;
 
 
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
+
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
@@ -8,20 +11,17 @@ import java.util.List;
 import junit.framework.Assert;
 
 import org.hibernate.Criteria;
+import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 import org.junit.Before;
 import org.junit.Test;
-
+import org.mockito.Mock;
+import org.mockito.MockitoAnnotations;
 
 import br.usp.ime.academicdevoir.entidade.Aluno;
 import br.usp.ime.academicdevoir.entidade.Disciplina;
 import br.usp.ime.academicdevoir.entidade.Turma;
-
-import static org.mockito.Mockito.*;
-
-import org.mockito.Mock;
-import org.mockito.MockitoAnnotations;
 
 
 
@@ -38,6 +38,7 @@ public class TurmasDaoTest{
 	private @Mock Session session;
 	private @Mock Transaction tx;
 	private @Mock Criteria criteria;
+	private @Mock Query query;
 	
 	@Before
 	public void setUp(){
@@ -71,22 +72,18 @@ public class TurmasDaoTest{
 		turmas.add(turmaNaoMatriculada);
 		
 		when(session.createCriteria(Turma.class)).thenReturn(criteria);
+		when(session.createQuery("From Turma turma Where turma.status = true")).thenReturn(query);
 		when(criteria.list()).thenReturn(turmas);
 		
 	}
-	
-	@Test
-	public void listaTurmasFiltradas(){
-		List<Turma> t = turmaDao.listaTurmasFiltradas(aluno.getId());
-		Assert.assertEquals(1, t.size());
-	}
-	
+		
 	@Test
 	public void listaTudo(){
+		when(session.createQuery("From Turma turma Where turma.status = true")).thenReturn(query);
+		when(query.list()).thenReturn(turmas);
 		List<Turma> t = turmaDao.listaTudo();
 		Assert.assertEquals(turmas, t);
-		verify(session).createCriteria(Turma.class);
-		verify(criteria).list();
+		verify(query).list();
 	}
 	@Test
 	public void salvaTurma(){
@@ -98,9 +95,9 @@ public class TurmasDaoTest{
 	
 	@Test
 	public void removeTurma(){
-		turmaDao.removeTurma(turmaMatriculada);
+		turmaDao.remove(turmaMatriculada);
 		verify(session).beginTransaction();
-		verify(session).delete(turmaMatriculada);
+		verify(session).update(turmaMatriculada);
 		verify(tx).commit();
 	}
 	
