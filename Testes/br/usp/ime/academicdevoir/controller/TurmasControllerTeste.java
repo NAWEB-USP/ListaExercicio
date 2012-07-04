@@ -99,7 +99,7 @@ public class TurmasControllerTeste {
 		result = spy(new MockResult());
 		
 		
-		turmasController = new TurmasController(result, validator, turmaDao, disciplinaDao, alunoDao, listaDeExerciciosDao, usuarioSession);
+		turmasController = new TurmasController(result, validator, turmaDao, disciplinaDao, alunoDao, usuarioSession);
 		turma = new Turma();
 		List<Integer> data = new ArrayList<Integer>();
 		data.add(2);
@@ -188,7 +188,7 @@ public class TurmasControllerTeste {
 	public void testeRemove() {
 		turmasController.remove(turma.getId());
 		
-	    verify(turmaDao).removeTurma(turma);
+	    verify(turmaDao).remove(turma);
 		verify(result).redirectTo(ProfessoresController.class);
 	}
 	
