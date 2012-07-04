@@ -36,24 +36,22 @@ import="java.sql.*" errorPage="" %>
 				<h1><a href="index.html">Minhas Turmas</a></h1>
 				
 	<table>
-        <c:forEach items="${professor.turmas}" var="turma">
+        <c:forEach items="${turmas}" var="turma">
             <tr>
                 <td>
                     <a href="<c:url value="/turmas/home/${turma.id}"/>">
                         ${turma.disciplina.nome} - ${turma.nome} </a>
                 </td>
                 <td>
-			<a style="margin-left: 4.5em;" href="../turmas/alteracao?id=${turma.id}">    Alterar</a> 
-			<a href="../turmas/remove?id=${turma.id}">    Excluir</a>
+			<a style="margin-left: 4.5em;" href="<c:url value='/turmas/alteracao?id=${turma.id}'/>">    Alterar</a> 
+			<a href="<c:url value='/turmas/remove?id=${turma.id}'/>">    Excluir</a>
 		</td>
             </tr>
         </c:forEach>
 	</table>
 	<br/><br/>
-	<form action='../turmas/cadastro'>
             <!-- input type="submit" value="Cadastrar nova turma"/-->
-            <a href="<c:url value='../disciplinas/lista'/>">Cadastrar nova turma</a>
-	</form>
+            <a href="<c:url value='/disciplinas/lista'/>">Cadastrar nova turma</a>
     
 
 			</td>

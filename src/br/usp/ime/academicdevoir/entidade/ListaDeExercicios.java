@@ -43,6 +43,9 @@ public class ListaDeExercicios {
 
 	@OneToMany(mappedBy = "listaDeExercicios", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	private List<ListaDeRespostas> respostas;
+	
+	@OneToMany(mappedBy="lista", cascade=CascadeType.ALL)
+	private List<ListaGerada> listasGeradas;
 
 	public Long getId() {
 		return id;
@@ -117,5 +120,13 @@ public class ListaDeExercicios {
 	public void setTags(List<TagsDaLista> tags) {
 		this.tagsDaLista = tags;
 	}
-	
+
+	public List<ListaGerada> getListasGeradas() {
+		return listasGeradas;
+	}
+
+	public void setListasGeradas(List<ListaGerada> listasGeradas) {
+		this.listasGeradas = listasGeradas;
+	}
+
 }

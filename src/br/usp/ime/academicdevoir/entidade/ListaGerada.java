@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
@@ -23,13 +24,13 @@ public class ListaGerada {
 	
 	private double nota;
 	
-	@ManyToOne
+	@ManyToOne(cascade=CascadeType.ALL)
 	private ListaDeExercicios lista;
 	
 	@ManyToOne(fetch=FetchType.LAZY)
 	private Aluno aluno;
 	
-	@OneToMany(mappedBy="listaGerada")
+	@OneToMany(mappedBy="listaGerada", cascade=CascadeType.ALL)
 	private List<ListaQuestao> listaQuestoes;
 	
 	private Date dataGeracao = new Date();

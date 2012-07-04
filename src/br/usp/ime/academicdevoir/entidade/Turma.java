@@ -40,7 +40,7 @@ public class Turma {
 	@ManyToOne
 	private Disciplina disciplina;
 	
-	@ManyToMany(fetch=FetchType.LAZY)
+	@ManyToMany(fetch=FetchType.LAZY, cascade=CascadeType.ALL)
 	@JoinTable(name = "ListaDeExercicios_Turma", joinColumns = @JoinColumn(name = "turmas_id"), inverseJoinColumns = @JoinColumn(name = "ListaDeExercicios_id"))
 	private List<ListaDeExercicios> listaDeExercicios;
 
@@ -48,6 +48,8 @@ public class Turma {
 	private Date prazoDeMatricula;
 	
 	private String temPrazo;
+	
+	private boolean status = true;
 		
 	public String getTemPrazo() {
 		return temPrazo;
@@ -133,4 +135,13 @@ public class Turma {
 	public void setPrazoDeMatricula(Date prazoDeMatricula) {
 		this.prazoDeMatricula = prazoDeMatricula;
 	}
+
+	public boolean isStatus() {
+		return status;
+	}
+
+	public void setStatus(boolean status) {
+		this.status = status;
+	}
+	
 }

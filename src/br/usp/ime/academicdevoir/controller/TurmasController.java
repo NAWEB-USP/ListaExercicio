@@ -14,11 +14,9 @@ import br.com.caelum.vraptor.Validator;
 import br.com.caelum.vraptor.validator.Validations;
 import br.usp.ime.academicdevoir.dao.AlunoDao;
 import br.usp.ime.academicdevoir.dao.DisciplinaDao;
-import br.usp.ime.academicdevoir.dao.ListaDeExerciciosDao;
 import br.usp.ime.academicdevoir.dao.TurmaDao;
 import br.usp.ime.academicdevoir.entidade.Aluno;
 import br.usp.ime.academicdevoir.entidade.Disciplina;
-import br.usp.ime.academicdevoir.entidade.ListaDeExercicios;
 import br.usp.ime.academicdevoir.entidade.Turma;
 import br.usp.ime.academicdevoir.entidade.Usuario;
 import br.usp.ime.academicdevoir.infra.Permission;
@@ -42,17 +40,14 @@ public class TurmasController {
 
     private UsuarioSession usuarioSession;
 	
-    private ListaDeExerciciosDao listaDeExerciciosDao;
-
     public TurmasController(Result result, Validator validator, TurmaDao turmaDao,
-            DisciplinaDao disciplinaDao, AlunoDao alunoDao, ListaDeExerciciosDao listaDeExerciciosDao,
+            DisciplinaDao disciplinaDao, AlunoDao alunoDao,
             UsuarioSession usuarioSession) {
         this.result = result;
         this.validator = validator;
         this.turmaDao = turmaDao;
         this.disciplinaDao = disciplinaDao;
         this.alunoDao = alunoDao;
-        this.listaDeExerciciosDao = listaDeExerciciosDao;
         this.usuarioSession = usuarioSession;
     }
 
@@ -134,7 +129,6 @@ public class TurmasController {
 		
 		nova.setPrazoDeMatricula(prazoDeMatricula);
 		
-		
 		try{
         turmaDao.salvaTurma(nova);
 		}catch(Exception e){
@@ -213,12 +207,7 @@ public class TurmasController {
 			return;
 		}
 
-		List<ListaDeExercicios> listasDeExercicios = turma.getListaDeExercicios();
-		
-		for (ListaDeExercicios lista : listasDeExercicios)
-			listaDeExerciciosDao.remove(lista);
-		
-        turmaDao.removeTurma(turma);
+        turmaDao.remove(turma);
         result.redirectTo(ProfessoresController.class).listaTurmas(u.getId());    
     }
 
