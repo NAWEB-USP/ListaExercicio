@@ -79,11 +79,6 @@ public class TurmaDao {
 	}
 	
     @SuppressWarnings("unchecked")
-    /**
-	 * Devolve uma lista com todas as turmas cadastradas no banco de dados.
-	 * 
-	 * @return List<Turma>
-	 */
 	public List<Turma> listaTudo() {
     	return session.createQuery("From Turma turma Where turma.status = true").list();
 		
@@ -95,7 +90,14 @@ public class TurmaDao {
     			.setParameter("prazo", new Date())
     			.list();
     }
-    
+
+    @SuppressWarnings("unchecked")
+	public List<Turma> listaPorProfessor(Long idProfessor){
+    	return session.createQuery("From Turma turma Where turma.professor.id = :idProfessor and turma.status = true")
+    			.setParameter("idProfessor", idProfessor)
+    			.list();
+    }
+
     public List<Turma> listaTurmasFiltradas(Long idAluno) {
     	List<Turma> listaTudo = listaTurmasNoPrazo();
     	List<Turma> listaFinal = new ArrayList<Turma>();
@@ -108,10 +110,6 @@ public class TurmaDao {
     	return listaFinal;
     }
 
-    /**
-     * Carrega os dados da questão fornecida a partir do banco de dados.
-     * @param turma
-     */
 	public void recarrega(Turma turma) {
 		session.refresh(turma);
 	}
@@ -128,6 +126,13 @@ public class TurmaDao {
 		return session.createQuery("From Turma turma Where turma.professor.id = :professor_id and turma.status = true")
 						.setParameter("professor_id", idProfessor)
 						.list();
+	}
+
+	@SuppressWarnings("unchecked")
+	public List<Turma> buscarPorAluno(Long idAluno) {
+		return session.createQuery("From Turma turma Where turma.professor.id = :professor_id and turma.status = true")
+				.setParameter("professor_id", idAluno)
+				.list();
 	}
 
 }

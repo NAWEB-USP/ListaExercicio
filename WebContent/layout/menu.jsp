@@ -6,8 +6,12 @@ import="java.sql.*" errorPage="" %>
 <div class="menu_left">
       <h1>Minhas Turmas</h1>
 <ul>
-<c:forEach items="${usuarioSession.usuario.turmas}" var="t">
-   <li class='active '><a href='<c:url value="/turmas/home/${t.id}"/>'><span>${t.disciplina.nome} - ${t.nome}</span></a></li>
+<c:forEach items="${turmas}" var="t">
+		<c:if test="${t.status}">
+
+   			<li class='active '><a href='<c:url value="/turmas/home/${t.id}"/>'><span>${t.disciplina.nome} - ${t.nome}</span></a></li>
+
+		</c:if>
 </c:forEach>   
 </ul>
 </div>

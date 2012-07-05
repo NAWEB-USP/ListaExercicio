@@ -48,7 +48,7 @@ public class ListaDeRespostasDao {
 	 */
 	public void salva(ListaDeRespostas lista) {
 		Transaction tx = session.beginTransaction();
-		session.save(lista);
+		session.merge(lista);
 		tx.commit();
 	}
 
