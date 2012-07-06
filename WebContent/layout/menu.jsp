@@ -38,7 +38,6 @@ import="java.sql.*" errorPage="" %>
 	<c:if test ="${usuarioSession.usuario.privilegio == 'ALUNO' || usuarioSession.usuario.privilegio == 'MONITOR'}">
 		<li><a href="<c:url value='/alunos/home'/>">Página Principal</a></li>
 		<li><a href="<c:url value='/alunos/alteracao?id=${usuarioSession.usuario.id}'/>">Alterar meus dados</a></li>
-		<li><a href="<c:url value='/alunos/listaTurmas?idAluno=${usuarioSession.usuario.id}'/>">Minhas Turmas</a></li>
 		<li><a href="<c:url value='/alunos/matricula'/>">Matrícula</a></li>
 		<li>&nbsp;</li>
 		<li><a href="<c:url value='/logout'/>">Sair</a></li>
