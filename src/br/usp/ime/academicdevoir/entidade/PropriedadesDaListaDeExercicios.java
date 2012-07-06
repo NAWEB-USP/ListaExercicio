@@ -35,11 +35,8 @@ public class PropriedadesDaListaDeExercicios {
 	 */
 	private Boolean visivel;
 	
-	private Boolean geracaoAutomatica;
+	private boolean geracaoAutomatica;
 
-	/**
-	 * @uml.property name="prazoDeEntrega"
-	 */
 	@Temporal(TemporalType.TIMESTAMP)
 	@Future
 	private Date prazoDeEntrega;

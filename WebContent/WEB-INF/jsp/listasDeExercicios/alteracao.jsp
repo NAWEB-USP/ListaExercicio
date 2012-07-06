@@ -95,11 +95,7 @@ $(function(){
 					<br/>
 				<label for="prazoDeEntrega">Prazo de entrega:</label>
 				<br/>
-				<input id="data" type="text"  maxlength="10" name="data1" value="" size="10"/>
-					<br/>
-				<label for="hora">Hora:</label>
-					<input id="hora" type="text" size="2" maxlength="2" name="prazoDeEntrega[3]" value="${prazo[3] }"/>:
-					<input id="minuto" type="text" size="2" maxlength="2" name="prazoDeEntrega[4]" value="${prazo[4] }"/>
+				<input id="data" type="text"  maxlength="10" name="data" value="${propriedades.prazoDeEntrega }" size="10"/>
 					<br/>
 				<label for="numeroMaximoDeEnvios">Número Máximo de Envios:</label>
 					<input id="numeroMaximoDeEnvios" type="text" size="2" maxlength="2" name="propriedades.numeroMaximoDeEnvios" value="${listaDeExercicios.propriedades.numeroMaximoDeEnvios }"/>

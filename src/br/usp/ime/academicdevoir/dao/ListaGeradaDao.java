@@ -20,7 +20,7 @@ public class ListaGeradaDao {
 	
 	public void salvar(ListaGerada lista) {
 	    Transaction tx = session.beginTransaction();
-		session.save(lista);
+		session.persist(lista);
 		tx.commit();
 	}
 

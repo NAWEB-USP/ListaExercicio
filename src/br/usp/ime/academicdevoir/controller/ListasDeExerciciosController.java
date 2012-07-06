@@ -4,6 +4,7 @@ import static org.hamcrest.Matchers.is;
 import static org.hamcrest.Matchers.notNullValue;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import br.com.caelum.vraptor.Delete;
@@ -105,13 +106,15 @@ public class ListasDeExerciciosController {
 	 * @param prazoDeEntrega
 	 * @param idDasTurmas
 	 */
-	public void cadastra(final PropriedadesDaListaDeExercicios propriedades, final List<Long> idsDaTurma, List<TagsDaLista> tags) {
+	public void cadastra(final PropriedadesDaListaDeExercicios propriedades, final List<Long> idsDaTurma, List<TagsDaLista> tags,
+			Date data) {
 
 		List<Turma> turmas = new ArrayList<Turma>();
 
 		if (propriedades.getGeracaoAutomatica() == null) {
 			propriedades.setGeracaoAutomatica(false);
 		}
+		propriedades.setPrazoDeEntrega(data);
 			
 		validator.checking(new Validations() {
 			{
@@ -186,7 +189,9 @@ public class ListasDeExerciciosController {
 		
 		ListaGerada listaGerada = null;
 		if(listaDeExercicios.getPropriedades().getGeracaoAutomatica()){
-			listaGerada = lista.gerar(listaDeExercicios, aluno);
+			Aluno novoAluno = new Aluno();
+			novoAluno.setId(aluno.getId());
+			listaGerada = lista.gerar(listaDeExercicios, novoAluno);
 		}
 		
 		ListaDeRespostas listaDeRespostas = listaDeRespostasDao
@@ -428,12 +433,13 @@ public class ListasDeExerciciosController {
 	 * @param prazoDeEntrega
 	 */
 	public void altera(ListaDeExercicios listaDeExercicios,
-			PropriedadesDaListaDeExercicios propriedades,
-			List<Integer> prazoDeEntrega) {
+			PropriedadesDaListaDeExercicios propriedades, Date data) {
 
 		ListaDeExercicios listaDoBD = dao.carrega(listaDeExercicios.getId());
-
-		propriedades.setPrazoDeEntrega(prazoDeEntrega);
+		
+		System.out.println(data);
+		propriedades.setPrazoDeEntrega(data);
+		
 		listaDoBD.setPropriedades(propriedades);
 
 		validator.validate(listaDeExercicios);

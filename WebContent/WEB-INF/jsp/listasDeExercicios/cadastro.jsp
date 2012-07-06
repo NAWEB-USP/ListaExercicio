@@ -99,7 +99,7 @@ $(function(){
 				<div>
 				Prazo de entrega:
 				<br/>
-				<input id="data" type="text"  maxlength="10" name="propriedades.prazoDeEntrega" value="" size="10"/>					
+				<input id="data" type="text"  maxlength="10" name="data" value="${propriedades.prazoDeEntrega}" size="10"/>					
 				<br/>				
 				<label for="numeroMaximoDeEnvios">N&uacute;mero M&aacute;ximo de Envios:</label>
 					<input id="numeroMaximoDeEnvios" type="text" size="2" maxlength="2" name="propriedades.numeroMaximoDeEnvios" />
