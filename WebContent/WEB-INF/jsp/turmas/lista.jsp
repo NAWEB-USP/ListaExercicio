@@ -32,7 +32,7 @@ import="java.sql.*" errorPage="" %>
 			<td width="750" align="left" valign="top">    
 
 
-				<div class="welcome">Você acessou como ${usuarioSession.usuario.nome } (<a href="/academic-devoir/logout">Sair</a>)</div>
+				<div class="welcome">Você acessou como ${usuarioSession.usuario.nome } (<a href="<c:url value='/logout'/>">Sair</a>)</div>
 				<h1>Lista de Turmas</h1>
 				
     <a href="<c:url value='/turmas/cadastro'/>">Inserir</a>

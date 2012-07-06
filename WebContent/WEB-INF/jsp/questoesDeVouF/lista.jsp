@@ -89,7 +89,7 @@ head>
 			<td width="750" align="left" valign="top">    
 
 
-				<div class="welcome">Você acessou como ${usuarioSession.usuario.nome } (<a href="/academic-devoir/logout">Sair</a>)</div>
+				<div class="welcome">Você acessou como ${usuarioSession.usuario.nome } (<a href="<c:url value='/logout'/>">Sair</a>)</div>
 				<h1><a href="index.html">Lista de Questões de V ou </a></h1>
     
 	<div>

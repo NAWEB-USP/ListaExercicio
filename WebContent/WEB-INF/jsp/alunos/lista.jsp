@@ -30,7 +30,7 @@ import="java.sql.*" errorPage="" %>
 				<%@ include file="/layout/menu.jsp" %>
 			</td>
 			<td width="750" align="left" valign="top">    
-				<div class="welcome">Você logou como ${usuarioSession.usuario.nome } (<a href="/logout">Sair</a>)</div>
+				<div class="welcome">Você logou como ${usuarioSession.usuario.nome } (<a href="<c:url value='/logout'/>">Sair</a>)</div>
 				<h1><a href="index.html">Lista de Alunos</a></h1>
 	
         <form action='cadastro'>

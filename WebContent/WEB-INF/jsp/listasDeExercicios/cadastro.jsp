@@ -69,7 +69,7 @@ $(function(){
 			<td width="750" align="left" valign="top">    
 
 
-				<div class="welcome">Você acessou como ${usuarioSession.usuario.nome } (<a href="<c:url value="/logout" />">Sair</a>)</div>
+				<div class="welcome">Você acessou como ${usuarioSession.usuario.nome } (<a href="<c:url value='/logout'/>">Sair</a>)</div>
 				<h1>Cadastro de lista de exerc&iacute;cio</h1>
 
 		<form name="form1" style="width: 25em;" action="<c:url value="/listasDeExercicios" />" method="post" accept-charset="utf-8" >

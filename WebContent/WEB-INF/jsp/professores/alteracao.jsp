@@ -82,7 +82,7 @@ $().ready(function() {
 			<td width="750" align="left" valign="top">    
 
 
-				<div class="welcome">Você acessou como ${usuarioSession.usuario.nome } (<a href="/academic-devoir/logout">Sair</a>)</div>
+				<div class="welcome">Você acessou como ${usuarioSession.usuario.nome } (<a href="<c:url value='/logout'/>">Sair</a>)</div>
 				<h1><a href="index.html">Alterando dados cadastrais do professor</a></h1>
 	
 	<form id="alteracao" action='altera' method="post" accept-charset="utf-8">	
