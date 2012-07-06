@@ -3,6 +3,9 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ page contentType="text/html; charset=utf-8" pageEncoding="utf-8" language="java"
 import="java.sql.*" errorPage="" %>
+
+<c:if test="${usuarioSession.logged }">
+
 <div class="menu_left">
       <h1>Minhas Turmas</h1>
 <ul>
@@ -42,3 +45,5 @@ import="java.sql.*" errorPage="" %>
 	</c:if>    
 </ul>
 </div>
+
+</c:if>
