@@ -9,7 +9,7 @@ import static org.mockito.Mockito.spy;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
-import java.sql.Date;
+import java.util.Date;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
@@ -159,9 +159,10 @@ public class ListasDeExerciciosControllerTeste {
 
 		List<Long> turmas = new ArrayList<Long>();
 		List<TagsDaLista> tagsDaListas = new ArrayList<TagsDaLista>();
+		propriedadesDaListaDeExercicios.setNome("Nome da lista");
 		tagsDaListas.add(tagsDaLista);
-				turmas.add(turma.getId());
-		listasDeExerciciosController.cadastra(propriedadesDaListaDeExercicios, turmas, tagsDaListas);
+		turmas.add(turma.getId());
+		listasDeExerciciosController.cadastra(propriedadesDaListaDeExercicios, turmas, tagsDaListas, new Date());
 
 		verify(validator).validate(propriedadesDaListaDeExercicios);
 		verify(validator).onErrorForwardTo(listasDeExerciciosController);
@@ -177,7 +178,7 @@ public class ListasDeExerciciosControllerTeste {
 				turmas.add(turma.getId());
 		prazoFuturo(prazoDeEntrega);
 		propriedadesDaListaDeExercicios.setNome("");
-		listasDeExerciciosController.cadastra(propriedadesDaListaDeExercicios, turmas, tagsDaListas);
+		listasDeExerciciosController.cadastra(propriedadesDaListaDeExercicios, turmas, tagsDaListas, new Date());
 
 		verify(validator).validate(propriedadesDaListaDeExercicios);
 		verify(validator).onErrorRedirectTo(listasDeExerciciosController);
@@ -192,7 +193,7 @@ public class ListasDeExerciciosControllerTeste {
 		propriedadesDaListaDeExercicios.setPeso(1);
 		
 
-		listasDeExerciciosController.cadastra(propriedadesDaListaDeExercicios, null, null);
+		listasDeExerciciosController.cadastra(propriedadesDaListaDeExercicios, null, null, new Date());
 
 	}
 
@@ -231,7 +232,7 @@ public class ListasDeExerciciosControllerTeste {
 	public void testeAltera() {
 		prazoFuturo(prazoDeEntrega);
 		listasDeExerciciosController.altera(listaDeExercicios,
-				propriedadesDaListaDeExercicios, prazoDeEntrega);
+				propriedadesDaListaDeExercicios, new Date());
 
 		verify(validator).validate(listaDeExercicios);
 		verify(validator).onErrorUsePageOf(ListasDeExerciciosController.class);
@@ -243,7 +244,7 @@ public class ListasDeExerciciosControllerTeste {
 	public void testeNaoDeveAlterarQuestaoComPrazoPassado() {
 		prazoPassado(prazoDeEntrega);
 		listasDeExerciciosController.altera(listaDeExercicios,
-				propriedadesDaListaDeExercicios, prazoDeEntrega);
+				propriedadesDaListaDeExercicios, new Date());
 
 		verify(validator).validate(listaDeExercicios);
 		verify(validator).onErrorUsePageOf(ListasDeExerciciosController.class);
