@@ -30,7 +30,7 @@ import="java.sql.*" errorPage="" %>
 					</c:when>
 											
 
-						<c:otherwise><li><a href="<c:url value='/logout'/>">Home</a></li></c:otherwise>	
+						<c:otherwise><li><a href="<c:url value='/login'/>">Home</a></li></c:otherwise>	
 			
 					</c:choose>	
 					<li><a href="about.html">About us</a></li>
