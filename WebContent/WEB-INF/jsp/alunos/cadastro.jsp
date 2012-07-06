@@ -90,9 +90,10 @@ $().ready(function() {
 			</td>
 			<td width="750" align="left" valign="top">    
 
-
-				<div class="welcome">Você acessou como ${usuarioSession.usuario.nome } (<a href="<c:url value='/logout'/>">Sair</a>)</div>
-				<h1><a href="index.html">Cadastro de Aluno</a></h1>
+				<c:if test="${usuarioSession.logged }">
+					<div class="welcome">Você acessou como ${usuarioSession.usuario.nome } (<a href="<c:url value='/logout'/>">Sair</a>)</div>
+					<h1>Cadastro de Aluno</h1>
+				</c:if>
 				
 	<form style="width:800px;" class="cmxform" action='cadastra' id="cadastro" method="post" accept-charset="utf-8">
 	<fieldset style="width:600px;">
