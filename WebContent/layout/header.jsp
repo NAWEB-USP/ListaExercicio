@@ -22,7 +22,7 @@ import="java.sql.*" errorPage="" %>
 						<li><a href="<c:url value='/disciplinas/cadastro'/>">Home</a></li>
 						</c:if>
 						<c:if test ="${usuarioSession.usuario.privilegio == 'PROFESSOR'}">
-							<li><a href="<c:url value='/professores/home/${usuarioSession.usuario.id}'/>">Home</a></li>
+							<li><a href="<c:url value='/professor/${usuarioSession.usuario.id}/turmas'/>">Home</a></li>
 						</c:if>
 						<c:if test ="${usuarioSession.usuario.privilegio == 'ALUNO'}">
 							<li><a href="<c:url value='/aluno/${usuarioSession.usuario.id}/turmas'/>">Home</a></li>
