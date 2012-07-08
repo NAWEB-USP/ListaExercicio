@@ -228,6 +228,8 @@ public class ListasDeExerciciosController {
 
 		listaDeRespostas.setRespostas(new ArrayList<Resposta>());
 		listaDeRespostasDao.salva(listaDeRespostas);
+		listaDeRespostas = listaDeRespostasDao
+				.getRespostasDoAluno(id, aluno);
 
 		if (listaDeExercicios.getPropriedades() != null)
 			result.include("prazo", listaDeExercicios.getPropriedades()
@@ -333,13 +335,19 @@ public class ListasDeExerciciosController {
 		List<Resposta> respostas = listaDeRespostas.getRespostas();
 		boolean achouResposta;
 
-		for (QuestaoDaLista questaoDaLista : questoesDaLista) {
+		if(listaDeExercicios.getPropriedades().getGeracaoAutomatica()){
+			listaGerada = lista.gerar(listaDeExercicios, aluno);
+			questoes = listaGerada.getQuestoes();
+		}
+		else{
+			questoes = listaDeExercicios.getQuestoes();
+		}
+		for (Questao questao: questoes) {
 
 			achouResposta = false;
 			for (Resposta resposta : respostas) {
 
-				if (resposta.getQuestao().getId() == questaoDaLista
-						.getQuestao().getId()) {
+				if (resposta.getQuestao().getId() == questao.getId()) {
 
 					renders.add(renderCorrecao(resposta));
 
@@ -351,17 +359,10 @@ public class ListasDeExerciciosController {
 
 			if (achouResposta)
 				continue;			
-			renders.add(questaoDaLista.getQuestao().getRenderCorrecao(
+			renders.add(questao.getRenderCorrecao(
 					new Resposta()));
 		}
 		
-		if(listaDeExercicios.getPropriedades().getGeracaoAutomatica()){
-			listaGerada = lista.gerar(listaDeExercicios, aluno);
-			questoes = listaGerada.getQuestoes();
-		}
-		else{
-			questoes = listaDeExercicios.getQuestoes();
-		}
 		
 
 
@@ -437,7 +438,6 @@ public class ListasDeExerciciosController {
 
 		ListaDeExercicios listaDoBD = dao.carrega(listaDeExercicios.getId());
 		
-		System.out.println(data);
 		propriedades.setPrazoDeEntrega(data);
 		
 		listaDoBD.setPropriedades(propriedades);

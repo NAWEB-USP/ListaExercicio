@@ -5,12 +5,8 @@ import br.com.caelum.vraptor.Path;
 import br.com.caelum.vraptor.Post;
 import br.com.caelum.vraptor.Resource;
 import br.com.caelum.vraptor.Result;
-import br.com.caelum.vraptor.Validator;
 import br.com.caelum.vraptor.interceptor.multipart.UploadedFile;
 import br.usp.ime.academicdevoir.arquivos.Arquivos;
-import br.usp.ime.academicdevoir.dao.AlunoDao;
-import br.usp.ime.academicdevoir.dao.DisciplinaDao;
-import br.usp.ime.academicdevoir.dao.ListaDeExerciciosDao;
 import br.usp.ime.academicdevoir.dao.ListaDeRespostasDao;
 import br.usp.ime.academicdevoir.dao.QuestaoDao;
 import br.usp.ime.academicdevoir.entidade.EstadoDaListaDeRespostas;
@@ -25,27 +21,18 @@ import br.usp.ime.academicdevoir.infra.VerificadorDePrazos;
 public class RespostasController {
 
 	private final ListaDeRespostasDao dao;
-	//private final ListaDeExerciciosDao listaDeExerciciosDao;
-	//private final AlunoDao alunoDao;
-	//private final DisciplinaDao disciplinaDao;
-	//private final UsuarioSession usuario;
+	private final UsuarioSession usuario;
 	private final Arquivos arquivos;
 	private final Result result;
-	//private final Validator validator;
 	private final QuestaoDao questaoDao;
 
 	public RespostasController(ListaDeRespostasDao dao,
-			ListaDeExerciciosDao listaDeExerciciosDao, AlunoDao alunoDao, DisciplinaDao disciplinaDao,
-			UsuarioSession usuario, Arquivos arquivos, Result result, Validator validator, QuestaoDao questaoDao) {
+			UsuarioSession usuario, Arquivos arquivos, Result result, QuestaoDao questaoDao) {
 		this.dao = dao;
-		//this.listaDeExerciciosDao = listaDeExerciciosDao;
-		//this.alunoDao = alunoDao;
-		//this.disciplinaDao = disciplinaDao;
 		this.questaoDao = questaoDao;
-		//this.usuario = usuario;
+		this.usuario = usuario;
 		this.arquivos = arquivos;
 		this.result = result;
-		//this.validator = validator;
 	}
 	
 	/**
@@ -66,9 +53,7 @@ public class RespostasController {
 	    
         if ( !VerificadorDePrazos.estaNoPrazo(listaDeRespostas.getListaDeExercicios().getPropriedades().getPrazoDeEntrega())) {
             listaDeRespostas.getPropriedades().setEstado(EstadoDaListaDeRespostas.FINALIZADA);
-            /*result.redirectTo(ListasDeExerciciosController.class).
-            	listasTurma(listaDeRespostas.getListaDeExercicios().
-                    getTurma().getId());*/
+            result.redirectTo(AlunosController.class).listaTurmas(usuario.getId());            
             return;
         }
 	    
@@ -103,10 +88,10 @@ public class RespostasController {
 	        
 			    if (listaDeRespostas.adiciona(resposta) == 0)
 			        listaDeRespostas.getPropriedades().setNumeroDeEnvios(nenvios + 1);
-			    if (listaDeRespostas.getPropriedades().getNumeroDeEnvios() > nmaxenvios){
+			    if (listaDeRespostas.getPropriedades().getNumeroDeEnvios() >= nmaxenvios){
 			        listaDeRespostas.getPropriedades().setEstado(EstadoDaListaDeRespostas.FINALIZADA);
-			        /*result.redirectTo(ListasDeExerciciosController.class).listasTurma(listaDeRespostas.getListaDeExercicios().
-	                    getTurma().getId());*/
+			        dao.atualiza(listaDeRespostas);
+		            result.redirectTo(AlunosController.class).listaTurmas(usuario.getId());            
 			        return;
 			    }
 			}
@@ -116,9 +101,7 @@ public class RespostasController {
 		listaDeRespostas.getPropriedades().setEstado(EstadoDaListaDeRespostas.SALVA);
 		dao.atualiza(listaDeRespostas);
        
-	    /*result.redirectTo(ListasDeExerciciosController.class).
-	            listasTurma(listaDeRespostas.getListaDeExercicios().
-	                    getTurma().getId());*/
+        result.redirectTo(AlunosController.class).listaTurmas(usuario.getId());            
 	}
 	
 	/**

@@ -114,8 +114,11 @@ $(function(){
 						</c:choose>						
 					</select>
 					<br/><br/>
+					<input id="automatica" type="hidden" name="propriedades.geracaoAutomatica" value="${propriedades.geracaoAutomatica}" />
+					
 				<button type="submit" name="_method" value="put">Salvar Alterações</button>
 			</fieldset>
+			
 		</form>
 		<br/>
 	</div>
