@@ -50,7 +50,7 @@ import="java.sql.*" errorPage="" %>
 				<option value="">Selecione uma disciplina</option>
 				<c:forEach items="${disciplinas}" var="disciplina">
 					
-					<option value="${disciplina.id}" <c:if test="${displina.id == disciplina_id}"> selected="selected" </c:if>>${disciplina.nome }</option>
+					<option value="${disciplina.id}" <c:if test="${disciplina.id == nova.disciplina.id}"> selected="selected" </c:if>>${disciplina.nome }</option>
 				</c:forEach>
 			</select>
 		</p>

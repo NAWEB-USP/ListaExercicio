@@ -36,48 +36,71 @@ import="java.sql.*" errorPage="" %>
 
 	
 	<form action='altera' method="post" accept-charset="utf-8">	
+	
+			<c:forEach items="${errors}" var="msg">
+		    	<b>${msg.message}</b><br/>
+		    </c:forEach>
+	
 	<fieldset>	
-		<input type="hidden" size="30" name="id" value="${turma.id }"/> <br />
-		<p><label>Nome: </label><input type="text" size="30" name="novoNome" value="${turma.nome }"/></p>
-		<p><label>Incluir ou Excluir prazo de matricula?</label>
-			<input type="radio" name="novoTemPrazo" value="sim" checked/>Incluir
-			<input type="radio" name="novoTemPrazo" value="nao"/>Excluir</p>
-    	
-    	<p><label for="prazoDeMatricula">Novo Prazo de matr&iacute;cula:</label></p><br/>
-		
-					<p><label for="dia">Dia:<br/></label>
-						<select name="prazoDeMatricula[0]">
-						<c:forEach var="i" begin="1" end="31" step="1" varStatus="status">
-							<c:if test="${ diaAtual == i}">
-								<option value="${i}" selected>${i}</option>
-							</c:if>
-							<c:if test="${ diaAtual != i}">
-								<option value="${i}">${i}</option>
-							</c:if>
-						</c:forEach>
-						</select> 
-					</p>
-					<p><label for="mes">Mês:<br/></label>
-						<select name="prazoDeMatricula[1]">
-						<c:forEach var="i" begin="1" end="12" step="1" varStatus="status">
-							<c:if test="${ mesAtual == i}">
-								<option value="${i}" selected>${i}</option>
-							</c:if>
-							<c:if test="${ mesAtual != i}">
-								<option value="${i}">${i}</option>
-							</c:if>
-						</c:forEach>
-						</select> 
-					</p>
+		<input type="hidden" size="30" name="turma.id" value="${turma.id }"/> <br />
+
+		<p>	
+			<label>Disciplinas:</label><br/>
+			<select name="turma.disciplina.id">
+				<option value="">Selecione uma disciplina</option>
+				<c:forEach items="${disciplinas}" var="disciplina">
 					
-					<p><label for="ano">Ano:<br/></label>
-						<select name="prazoDeMatricula[2]">
-							<option value="${anoAtual}" selected>${anoAtual}</option>
-						<c:forEach var="i" begin="${anoAtual + 1}" end="${anoAtual + 5}" step="1" varStatus="status">
-							<option value="${i}">${i}</option>
-						</c:forEach>
-						</select> 
-					</p>	
+					<option value="${disciplina.id}" <c:if test="${disciplina.id == turma.disciplina.id}"> selected="selected" </c:if>>${disciplina.nome }</option>
+				</c:forEach>
+			</select>
+		</p>
+		
+		<p>
+			<label>Nome: </label><br/>
+			<input type="text" size="30" name="turma.nome" value="${turma.nome }"/>
+		</p>
+		
+		<p>
+			<label>Incluir ou Excluir prazo de matricula?</label>
+			<input type="radio" name="turma.temPrazo" value="sim" checked/>Incluir
+			<input type="radio" name="turma.temPrazo" value="nao"/>Excluir
+		</p>
+    	
+		<p><label for="prazoDeMatricula">Novo Prazo de matr&iacute;cula:</label></p><br/>
+	
+		<p><label for="dia">Dia:<br/></label>
+			<select name="prazoDeMatricula[0]">
+			<c:forEach var="i" begin="1" end="31" step="1" varStatus="status">
+				<c:if test="${ diaAtual == i}">
+					<option value="${i}" selected>${i}</option>
+				</c:if>
+				<c:if test="${ diaAtual != i}">
+					<option value="${i}">${i}</option>
+				</c:if>
+			</c:forEach>
+			</select> 
+		</p>
+		<p><label for="mes">Mês:<br/></label>
+			<select name="prazoDeMatricula[1]">
+			<c:forEach var="i" begin="1" end="12" step="1" varStatus="status">
+				<c:if test="${ mesAtual == i}">
+					<option value="${i}" selected>${i}</option>
+				</c:if>
+				<c:if test="${ mesAtual != i}">
+					<option value="${i}">${i}</option>
+				</c:if>
+			</c:forEach>
+			</select> 
+		</p>
+		
+		<p><label for="ano">Ano:<br/></label>
+			<select name="prazoDeMatricula[2]">
+				<option value="${anoAtual}" selected>${anoAtual}</option>
+			<c:forEach var="i" begin="${anoAtual + 1}" end="${anoAtual + 5}" step="1" varStatus="status">
+				<option value="${i}">${i}</option>
+			</c:forEach>
+			</select> 
+		</p>	
 		
 	<p class="submit"><input type="submit" value="Alterar"/></p>
 	</fieldset>

@@ -20,6 +20,8 @@ import javax.persistence.OrderBy;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
+import org.hibernate.validator.constraints.NotEmpty;
+
 @Entity
 public class Turma {
 
@@ -27,6 +29,7 @@ public class Turma {
 	@GeneratedValue
 	private Long id;
 
+	@NotEmpty(message="Informe o nome da turma")
 	private String nome;
 
 	@ManyToOne

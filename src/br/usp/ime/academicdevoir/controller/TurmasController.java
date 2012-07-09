@@ -99,23 +99,14 @@ public class TurmasController {
     }
 
     @Permission({ Privilegio.ADMINISTRADOR, Privilegio.PROFESSOR })
-    @Get({"/turmas/nova", "/turmas/nova/{disciplina.id}"})    
-    public void cadastro(Disciplina disciplina) {    	
-		List<Disciplina> disciplinas = disciplinaDao.listaTudo();
-		
-        result.include("disciplinas", disciplinas);
+    @Get("/turmas/nova")    
+    public void cadastro() {    	
         
         Calendar dataDeHoje = Calendar.getInstance();
         result.include("diaAtual", dataDeHoje.get(Calendar.DAY_OF_MONTH));
         result.include("mesAtual", dataDeHoje.get(Calendar.MONTH) + 1);
         result.include("anoAtual", dataDeHoje.get(Calendar.YEAR));
-        
-        if (disciplina == null)
-        	result.include("disciplina_id", 0);
-        else
-        	result.include("disciplina_id", disciplina.getId());
-        
-
+        result.include("disciplinas", disciplinaDao.listaTudo());
     }
 
     @Permission({ Privilegio.ADMINISTRADOR, Privilegio.PROFESSOR })
@@ -125,23 +116,17 @@ public class TurmasController {
     	validator.checking(new Validations() {{
     		that(nova.getDisciplina().getId(), is(notNullValue()), "disciplina", "disciplina.notNull");
     	}});
-    	validator.onErrorRedirectTo(this).cadastro(nova.getDisciplina());
+    	validator.validate(nova);
+    	validator.onErrorForwardTo(this).cadastro();
 		
 		nova.setPrazoDeMatricula(prazoDeMatricula);
 		
-		try{
         turmaDao.salvaTurma(nova);
-		}catch(Exception e){
-			e.printStackTrace();
-		}
+
         result.redirectTo(ProfessoresController.class).listaTurmas(nova.getProfessor().getId());
     }
 
     @Permission({ Privilegio.ADMINISTRADOR, Privilegio.PROFESSOR })
-    /**
-     * Método associado ao .jsp com formulário para alteração de cadastro de
-     * turma.
-     */
     public void alteracao(Long id) {
         Turma turma = turmaDao.carrega(id);
         Usuario u = usuarioSession.getUsuario();
@@ -156,32 +141,30 @@ public class TurmasController {
         result.include("diaAtual", dataDeHoje.get(Calendar.DAY_OF_MONTH));
         result.include("mesAtual", dataDeHoje.get(Calendar.MONTH) + 1);
         result.include("anoAtual", dataDeHoje.get(Calendar.YEAR));
+        result.include("disciplinas", disciplinaDao.listaTudo());
         
         
     }
 
     @Permission({ Privilegio.ADMINISTRADOR, Privilegio.PROFESSOR })
-    /**
-     * Altera uma turma no banco de dados com o id fornecido e set o nome da
-     * turma para novoNome.
-     * 
-     * @param id
-     */
-    public void altera(Long id, String novoNome, String novoTemPrazo, List<Integer> prazoDeMatricula) {
-        Turma turma = turmaDao.carrega(id);
+    public void altera(final Turma turma, List<Integer> prazoDeMatricula) {
         Usuario u = usuarioSession.getUsuario();
-		if(u.getPrivilegio() == Privilegio.PROFESSOR && u.getId() != turma.getProfessor().getId()) {
+        Turma turmaEncontrada = turmaDao.carrega(turma.getId());
+
+		if(u.getPrivilegio() == Privilegio.PROFESSOR && u.getId() != turmaEncontrada.getProfessor().getId()) {
 			result.redirectTo(LoginController.class).acessoNegado();
 			return;
 		}
-		
-        if (!novoNome.equals(""))
-            turma.setNome(novoNome);
-        turma.setTemPrazo(novoTemPrazo);
-        if (novoTemPrazo.equals("sim"))
-        	turma.setPrazoDeMatricula(prazoDeMatricula);
+
+		validator.checking(new Validations() {{
+			that(turma.getDisciplina().getId(), is(notNullValue()), "disciplina", "disciplina.notNull");
+		}});
+		validator.validate(turma);
+		validator.onErrorRedirectTo(this).alteracao(turma.getId());
+		turma.setProfessor(turmaEncontrada.getProfessor());
+    	turma.setPrazoDeMatricula(prazoDeMatricula);
         turmaDao.atualizaTurma(turma);
-        result.redirectTo(TurmasController.class).home(turma.getId());
+        result.redirectTo(this).home(turma.getId());
     }
 
     @Permission({ Privilegio.ADMINISTRADOR, Privilegio.PROFESSOR })

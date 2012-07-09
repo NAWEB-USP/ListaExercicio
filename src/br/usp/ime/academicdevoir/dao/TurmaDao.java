@@ -43,17 +43,8 @@ public class TurmaDao {
 	 * @param turma
 	 */
 	public void atualizaTurma(Turma turma) {
-		/*String nome = turma.getNome();
-		Disciplina disciplina = turma.getDisciplina();
-	    List<Turma> listaDeTurmas = session.createCriteria(Turma.class)
-                .add(Restrictions.like("nome", nome, MatchMode.EXACT))
-                .add(Restrictions.eq("disciplina", disciplina))
-                .list();
-        
-	    if (listaDeTurmas.size() != 0 && listaDeTurmas.get(0).getId() != turma.getId()) return;
-	    */
 		Transaction tx = session.beginTransaction();
-		session.update(turma);
+		session.merge(turma);
 		tx.commit();
 	}
 
