@@ -34,10 +34,15 @@ import="java.sql.*" errorPage="" %>
 				<h1>Cadastro de Disciplina</h1>
 
 	<form action='cadastra' method="post" accept-charset="utf-8">
-	<fieldset>
-		<p><label>Nome: </label><input type="text" size="30" name="nova.nome"/></p>
-	<p class="submit"><input type="submit" value="Enviar"/></p>
-	</fieldset>
+		<fieldset>
+			<p>
+				<label>Nome: </label><br/>
+				<input type="text" size="30" name="nova.nome"/>
+			</p>
+			<p class="submit">
+				<input type="submit" value="Enviar"/>
+			</p>
+		</fieldset>
 	</form>
 
 
