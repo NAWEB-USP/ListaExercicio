@@ -69,6 +69,10 @@ import="java.sql.*" errorPage="" %>
 
 
 
+	<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js" type="text/javascript"></script>
+	
+	
+	<script src="<c:url value="/javascript/common.js"/>" type="text/javascript"></script>
 
 
 

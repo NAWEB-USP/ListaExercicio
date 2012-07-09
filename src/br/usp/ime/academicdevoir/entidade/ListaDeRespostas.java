@@ -21,6 +21,8 @@ import org.hibernate.annotations.CascadeType;
 import org.hibernate.annotations.Fetch;
 import org.hibernate.annotations.FetchMode;
 
+import br.usp.ime.academicdevoir.infra.TipoDeQuestao;
+
 @Entity
 @SecondaryTable(name = "propriedadesDaListaDeRespostas")
 public class ListaDeRespostas {
@@ -131,8 +133,14 @@ public class ListaDeRespostas {
 		    if (novaResposta.getValor() != null && 
                     !novaResposta.getValor().isEmpty())
 		    respostas.add(novaResposta);
+		} else if (novaResposta.getQuestao().getTipo() == TipoDeQuestao.SUBMISSAODEARQUIVO) {
+			if (novaResposta.getValor() != null) {
+				respostas.set(i, novaResposta);
+			}
 		}
-		else respostas.set(i, novaResposta);
+		else {
+			respostas.set(i, novaResposta);
+		}
 		return i;
 	}
 	 	

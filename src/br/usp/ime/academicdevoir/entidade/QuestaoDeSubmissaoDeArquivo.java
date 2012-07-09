@@ -89,7 +89,7 @@ public class QuestaoDeSubmissaoDeArquivo extends Questao {
 	    }
 	
 	public Boolean respostaDoAlunoEhCorreta(Resposta respostaAluno) {
-		return null;
+		return true;
 	}
 	
 	public QuestaoDeSubmissaoDeArquivo copia(TagDao dao) {
