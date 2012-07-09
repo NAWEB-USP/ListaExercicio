@@ -64,6 +64,7 @@ public class DisciplinaDao {
 		disciplina.setStatus(false);
 		atualiza(disciplina);
 		for (Turma turma : disciplina.getTurmas()) {
+			turma.setStatus(false);
 			turmaDao.atualizaTurma(turma);
 		}
 	}

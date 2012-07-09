@@ -42,11 +42,12 @@ import="java.sql.*" errorPage="" %>
             <tr>
                 <td>
                 	<a href="<c:url value="/disciplinas/home/${disciplina.id}"/>">
-                	${disciplina.nome}</a>
+                		${disciplina.nome}
+                	</a>
                 </td>
                 <td>
                 <a style="margin-left: 4.5em;" href="<c:url value='/disciplinas/alteracao/${disciplina.id}'/>"> Alterar</a> 
-                <a href="./remove?id=${disciplina.id}">  Excluir</a>
+                <a class="excluir" href="./remove?id=${disciplina.id}">  Excluir</a>
                 </td>
             </tr>
         </c:forEach>             
@@ -63,5 +64,14 @@ import="java.sql.*" errorPage="" %>
 <!-- content -->
 </div>
 <%@ include file="/layout/footer.jsp" %>
+
+
+
+
+
+
+
+
+
 </body>
 </html>
