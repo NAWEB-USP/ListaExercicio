@@ -27,7 +27,6 @@ import="java.sql.*" errorPage="" %>
 	<c:if test ="${usuarioSession.usuario.privilegio == 'PROFESSOR'}">
 		<li><a href="<c:url value='/professores/home'/>">Página Principal</a></li>
 		<li><a href="<c:url value='/professores/alteracao?id=${usuarioSession.usuario.id}'/>">Alterar meus dados</a></li>
-		<li><a href="<c:url value='/professor/${usuarioSession.usuario.id}/turmas'/>">Turmas ministradas</a></li>
 		<li><a href="<c:url value='/turmas/nova'/>">Criar Turma</a></li>
 		<li><a href="<c:url value='/disciplinas/lista'/>">Listar disciplinas</a></li>
 		<li><a href="<c:url value='/questoes/cadastro'/>">Cadastrar quest&atilde;o</a></li>
