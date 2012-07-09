@@ -13,6 +13,7 @@ import br.usp.ime.academicdevoir.entidade.EstadoDaListaDeRespostas;
 import br.usp.ime.academicdevoir.entidade.ListaDeRespostas;
 import br.usp.ime.academicdevoir.entidade.Questao;
 import br.usp.ime.academicdevoir.entidade.Resposta;
+import br.usp.ime.academicdevoir.entidade.Turma;
 import br.usp.ime.academicdevoir.infra.TipoDeQuestao;
 import br.usp.ime.academicdevoir.infra.UsuarioSession;
 import br.usp.ime.academicdevoir.infra.VerificadorDePrazos;
@@ -41,8 +42,9 @@ public class RespostasController {
 	 * @param listaDeExercicios
 	 */
 	@Post
-	@Path("/respostas/{listaDeRespostas.id}/cadastra")
-	public void salvaResposta(ListaDeRespostas listaDeRespostas, Resposta resposta, String[] resposta2, Long idDaQuestao, UploadedFile arquivo, int acao) {
+	@Path("/respostas/{listaDeRespostas.id}/turma/{turma.id}/cadastra")
+	public void salvaResposta(ListaDeRespostas listaDeRespostas, Turma turma, Resposta resposta, String[] resposta2, Long idDaQuestao, 
+			UploadedFile arquivo, int acao) {
 	    String caminho;
 	    int nmaxenvios, nenvios;
 	    if (resposta == null) 
@@ -53,7 +55,7 @@ public class RespostasController {
 	    
         if ( !VerificadorDePrazos.estaNoPrazo(listaDeRespostas.getListaDeExercicios().getPropriedades().getPrazoDeEntrega())) {
             listaDeRespostas.getPropriedades().setEstado(EstadoDaListaDeRespostas.FINALIZADA);
-            result.redirectTo(AlunosController.class).listaTurmas(usuario.getId());            
+            result.redirectTo(TurmasController.class).home(turma.getId());            
             return;
         }
 	    
@@ -93,7 +95,7 @@ public class RespostasController {
 			    if (listaDeRespostas.getPropriedades().getNumeroDeEnvios() >= nmaxenvios){
 			        listaDeRespostas.getPropriedades().setEstado(EstadoDaListaDeRespostas.FINALIZADA);
 			        dao.atualiza(listaDeRespostas);
-		            result.redirectTo(AlunosController.class).listaTurmas(usuario.getId());            
+		            result.redirectTo(TurmasController.class).home(usuario.getId());            
 			        return;
 			    }
 			}
@@ -105,7 +107,7 @@ public class RespostasController {
         }
 		dao.atualiza(listaDeRespostas);
        
-        result.redirectTo(AlunosController.class).listaTurmas(usuario.getId());            
+        result.redirectTo(TurmasController.class).home(turma.getId());            
 	}
 	
 	/**

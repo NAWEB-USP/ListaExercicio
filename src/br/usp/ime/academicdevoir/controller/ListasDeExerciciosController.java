@@ -175,14 +175,14 @@ public class ListasDeExerciciosController {
 	}
 
 	@Get
-	@Path("/listasDeExercicios/resolver/{id}")
+	@Path("/listasDeExercicios/resolver/{id}/turma/{turma.id}")
 	@Permission({ Privilegio.ALUNO, Privilegio.MONITOR })
 	/** 
 	 * Devolve uma lista de exercícios com o id fornecido.
 	 * 
 	 * @param id
 	 * */
-	public void resolverLista(Long id) {
+	public void resolverLista(Long id, Turma turma) {
 		ListaDeExercicios listaDeExercicios = dao.carrega(id);
 
 		Aluno aluno = (Aluno) usuarioSession.getUsuario();
@@ -222,7 +222,7 @@ public class ListasDeExerciciosController {
 
 		else if (listaDeRespostas.getRespostas() != null
 				&& listaDeRespostas.getRespostas().size() > 0) {
-			result.redirectTo(this).alterarRespostas(listaDeRespostas);
+			result.redirectTo(this).alterarRespostas(listaDeRespostas, turma);
 			return;
 		}
 
@@ -242,12 +242,13 @@ public class ListasDeExerciciosController {
 			result.include("numeroDeQuestoes", listaDeExercicios.getQuestoesDaLista()
 					.size());
 		result.include("listaDeRespostas", listaDeRespostas);
+		result.include("turma", turma);
 	}
 
 	@Get
-	@Path("/respostas/alterar/{listaDeRespostas.id}")
+	@Path("/respostas/alterar/{listaDeRespostas.id}/turma/{turma.id}")
 	@Permission({ Privilegio.ALUNO, Privilegio.MONITOR })
-	public void alterarRespostas(ListaDeRespostas listaDeRespostas) {
+	public void alterarRespostas(ListaDeRespostas listaDeRespostas, Turma turma) {
 		listaDeRespostas = listaDeRespostasDao
 				.carrega(listaDeRespostas.getId());
 
@@ -314,6 +315,7 @@ public class ListasDeExerciciosController {
 		result.include("listaDeExercicios", listaDeExercicios);
 		result.include("numeroDeQuestoes", questoes.size());
 		result.include("VerificadorDePrazos", VerificadorDePrazos.class);
+		result.include("turma", turma);
 
 	}
 

@@ -49,29 +49,29 @@ import="java.sql.*" errorPage="" %>
                 	<c:forEach items="${lista.respostas }" var="resposta">
                 		<c:if test ="${resposta.aluno.id == usuarioSession.usuario.id}">
         					<c:if test ="${resposta.propriedades.estado == 'CORRIGIDA'}">
-        						<li><a href="<c:url value="/listasDeExercicios/resolver/${lista.id }"/>">${lista.propriedades.nome }</a> - Corrigida</li>
+        						<li><a href="<c:url value="/listasDeExercicios/resolver/${lista.id }/turma/${turma.id}"/>">${lista.propriedades.nome }</a> - Corrigida</li>
         						<%flag=false;%>
         					</c:if>
         		<!-- Listas de Exerc&iacute;cios finalizadas -->
         					<c:if test ="${resposta.propriedades.estado == 'FINALIZADA'}">
-        						<li><a href="<c:url value="/listasDeExercicios/resolver/${lista.id }"/>">${lista.propriedades.nome }</a> - Finalizada</li>
+        						<li><a href="<c:url value="/listasDeExercicios/resolver/${lista.id }/turma/${turma.id}"/>">${lista.propriedades.nome }</a> - Finalizada</li>
         						<%flag=false;%>
         					</c:if>
         		<!-- Listas de Exerc&iacute;cios salvas -->
         					<c:if test ="${resposta.propriedades.estado == 'SALVA'}">
-        						<li><a href="<c:url value="/listasDeExercicios/resolver/${lista.id }"/>">${lista.propriedades.nome }</a> - Salva</li>
+        						<li><a href="<c:url value="/listasDeExercicios/resolver/${lista.id }/turma/${turma.id}"/>">${lista.propriedades.nome }</a> - Salva</li>
         						<%flag=false;%>
         					</c:if>
         		<!-- Listas de Exerc&iacute;cios inicializdas -->        					
         					<c:if test ="<%=flag%>" >
-        						<li><a href="<c:url value="/listasDeExercicios/resolver/${lista.id }"/>">${lista.propriedades.nome }</a> - Inicializada</li>
+        						<li><a href="<c:url value="/listasDeExercicios/resolver/${lista.id }/turma/${turma.id}"/>">${lista.propriedades.nome }</a> - Inicializada</li>
         						<%flag=false;%>
         					</c:if>
         				</c:if>
         			</c:forEach>
         		<!-- Listas de Exerc&iacute;cios não inicializadas -->
         			<c:if test ="<%=flag%>" >
-	       				<li><a href="<c:url value="/listasDeExercicios/resolver/${lista.id }"/>">${lista.propriedades.nome }</a> - Não inicializada</li>
+	       				<li><a href="<c:url value="/listasDeExercicios/resolver/${lista.id }/turma/${turma.id}"/>">${lista.propriedades.nome }</a> - Não inicializada</li>
      				</c:if>
         		</c:forEach>        			
 			</c:if>

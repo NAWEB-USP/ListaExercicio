@@ -104,7 +104,7 @@ import="java.sql.*" errorPage="" %>
 	
 	<div>
 		<c:forEach items="${questoes}" var="questao" varStatus="iteracao">
-			<form id="questao${iteracao.index }" class="respostaForm" action="<c:url value="/respostas/${listaDeRespostas.id }/cadastra"/>" method="post" accept-charset="utf-8" enctype="multipart/form-data">
+			<form id="questao${iteracao.index }" class="respostaForm" action="<c:url value="/respostas/${listaDeRespostas.id }/turma/${turma.id}/cadastra"/>" method="post" accept-charset="utf-8" enctype="multipart/form-data">
 				<input type="hidden" name="acao" id="acao${iteracao.index}" />
 				<fieldset>
 						<p>${iteracao.index + 1} )
@@ -115,7 +115,8 @@ import="java.sql.*" errorPage="" %>
 		</c:forEach>
 
 		<button id="salvaRespostas" type="button">Salvar</button>
-		<button id="enviaRespostas" type="button">Salvar e Enviar</button>
+		<button id="enviaRespostas" type="button">Salvar e Testar</button>
+		<button id="enviaRespostas" type="button">Finalizar</button>
 
 	</div>
 	
