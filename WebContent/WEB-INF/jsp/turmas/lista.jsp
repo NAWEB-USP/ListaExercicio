@@ -35,25 +35,17 @@ import="java.sql.*" errorPage="" %>
 				<div class="welcome">Você acessou como ${usuarioSession.usuario.nome } (<a href="<c:url value='/logout'/>">Sair</a>)</div>
 				<h1>Lista de Turmas</h1>
 				
-    <a href="<c:url value='/turmas/cadastro'/>">Inserir</a>
-	<table>
+		<table>
         <c:forEach items="${listaDeTurmas}" var="turma">
             <tr>
                 <td>
                     <a href="<c:url value="/turmas/home/${turma.id }"/>">
                         ${turma.disciplina.nome} - ${turma.nome} </a>
                 </td>
-                <td><a href="./alteracao?id=${turma.id}">  Alterar</a> <a href="./remove?id=${turma.id}">  Excluir</a></td>
+                <td><a class="excluir" href="./alteracao?id=${turma.id}">  Alterar</a> <a href="./remove?id=${turma.id}">  Excluir</a></td>
             </tr>
         </c:forEach>
     </table>
-    <a href="<c:url value='/login'/>">Sair</a>
-        <c:if test ="${usuarioSession.usuario.privilegio == 'ALUNO' || usuarioSession.usuario.privilegio == 'MONITOR'}">
-    	<a href="<c:url value='/alunos/home'/>">Página Principal</a><br/>
- 	</c:if>
-    <c:if test ="${usuarioSession.usuario.privilegio == 'PROFESSOR' || usuarioSession.usuario.privilegio == 'ADMINISTRADOR'}">
-    	<a href="<c:url value='/professores/home'/>">Página Principal</a><br/>    		         
- 	</c:if>
 
 
 			</td>

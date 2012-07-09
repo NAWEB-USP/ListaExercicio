@@ -44,7 +44,7 @@ import="java.sql.*" errorPage="" %>
                 </td>
                 <td>
 			<a style="margin-left: 4.5em;" href="<c:url value='/turmas/alteracao?id=${turma.id}'/>">    Alterar</a> 
-			<a href="<c:url value='/turmas/remove?id=${turma.id}'/>">    Excluir</a>
+			<a class="excluir" href="<c:url value='/turmas/remove?id=${turma.id}'/>">    Excluir</a>
 		</td>
             </tr>
         </c:forEach>
