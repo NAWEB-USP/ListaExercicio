@@ -90,10 +90,28 @@ $().ready(function() {
 	<fieldset>
 		Digite os novos dados cadastrais
 		<input type="hidden" size="30" name="id" value="${aluno.id}"/>
-		<p><label>Nome: </label><input type="text" size="50" name="novoNome" value="${aluno.nome}"/></p>
-		<p><label>E-mail : </label><input type="text" size="30" name="novoEmail" value="${aluno.email}"/></p>
-		<p><label>Senha : </label><input id="senha" type="password" size="32" name="novaSenha"/></p>
-		<p><label>Confirmar senha : </label><input type="password" size="32" name="confirmaSenha"/></p>
+		
+		
+		<p> 
+		    <label style="display:block;float:left;width:100px;text-align:right;margin:0px 5px 0px 0px;" for="novo.nome">Nome:</label>
+		    <input    name="novoNome"  type="text"     size="30" value="${aluno.nome }" />
+		</p>
+		<p>
+		    <label style="display:block;float:left;width:100px;text-align:right;margin:0px 5px 0px 0px;" for="novo.email">E-mail:</label>
+		    <input name="novoEmail" type="text"     size="30" value="${aluno.email }" />
+		</p> <br/>
+
+		<p>
+		    <label style="display:block;float:left;width:100px;text-align:right;margin:0px 5px 0px 0px;" for="novo.senha">Senha:</label>
+		    <input id="senha" name="novaSenha" type="password" size="30" />
+		</p>
+		<p>
+		    <label style="display:block;float:left;width:100px;text-align:right;margin:0px 5px 0px 0px;" for="confirmaSenha">Confirmar senha:</label>
+		    <input name="confirmaSenha" type="password" size="30" />
+		</p>
+		<br/>
+		
+		
 	<p class="submit"><input type="submit" value="Enviar"/><br/></p>
 	</fieldset>
 	</form>
