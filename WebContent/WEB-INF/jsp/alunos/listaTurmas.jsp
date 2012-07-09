@@ -45,8 +45,8 @@ import="java.sql.*" errorPage="" %>
             		</c:if>
         			</c:forEach>
     			</table>
-    			<form action='matricula'>
-				    <a href="<c:url value='/alunos/matricula'/>">Inscrever-me em uma nova turma</a><br/>
+    			<form action="<c:url value='/alunos/matricula'/>">
+				    <button type="submit">Inscrever-me em uma nova turma</button><br/>
     			</form>
 
 			</td>
