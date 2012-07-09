@@ -1,8 +1,8 @@
 package br.usp.ime.academicdevoir.dao;
 
 import org.hibernate.HibernateException;
-import org.hibernate.NonUniqueObjectException;
 import org.hibernate.Session;
+import org.hibernate.Transaction;
 import org.hibernate.criterion.Restrictions;
 
 import br.com.caelum.vraptor.ioc.Component;
@@ -42,4 +42,42 @@ public class UsuarioDao {
     		throw new RuntimeException(e);
     	}
     }
+    
+    public Usuario buscarPor(String email) {
+    	try{
+    		
+    		Usuario usuario = (Usuario) session.createCriteria(Usuario.class)
+    				.add(Restrictions.eq("email", email))
+    				.uniqueResult();
+    		
+    		return usuario;
+    	} catch(HibernateException ex){
+    		return null;
+    	}
+
+	}
+    
+	public void atualiza(Usuario usuario) {
+		Transaction tx = session.beginTransaction();
+		session.merge(usuario);
+		tx.commit();
+	}
+
+	public Usuario buscarPorToken(String token) {
+		try{
+			
+			Usuario usuario = (Usuario) session.createCriteria(Usuario.class)
+					.add(Restrictions.eq("token", token))
+					.uniqueResult();
+			
+			return usuario;
+		} catch(HibernateException ex){
+			return null;
+		}
+	}
+
+    
+    
+    
+    
 }

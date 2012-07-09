@@ -26,33 +26,29 @@ import="java.sql.*" errorPage="" %>
 <div id="content">
 	<div id="body">	
 	
-		
 		<div id="login">
-				<form id="form_login" action="autenticar" method="post">   
+				<form id="form_login" action="<c:url value='/passwords/${token}'/>" method="post">   
 		                <fieldset> 
-				<legend>Acesso</legend><br/>
+				<legend>Nova senha</legend><br/>
 						<table>
 						<tr>
-		                    <td><label for="usuario.login">Login:</label></td> 
-							<td><input type="text" size="20" name="usuario.login" value="${usuario.login}" /></td>
+		                    <td><label for="usuario.login">Senha:</label></td> 
+							<td><input type="password" size="20" name="senha" /></td>
 		                </tr>
 	        	        <tr>    
-	                        <td><label for="usuario.senha">Senha:</label></td> 
-							<td><input type="password" size="20" name="usuario.senha" value="${usuario.senha}" /></td>
+	                        <td><label for="usuario.senha">confirmar:</label></td> 
+							<td><input type="password" size="20" name="confirmation" /></td>
 						</tr>
 						<tr>
 							<td>&nbsp;</td>
 							<td><input type="submit" value="Entrar" id="send" class="loginbuttom"/> </td>
 						</tr>  						
 						</table>
-             <a href="<c:url value="/alunos/cadastro"/>">Criar Conta</a>
-             <br />
-                <a href="<c:url value="/nova/senha"/>">Esqueci minha senha</a>
-         	</fieldset>
+						</fieldset>
 					<c:forEach var="error" items="${errors}">
 						<li style="color:red"> ${error.message}</li>
 					</c:forEach>
-					 <p style="color:red"><c:out value="${error}"></c:out></p>
+						
 				</form> 
 		</div>
 	</div>				

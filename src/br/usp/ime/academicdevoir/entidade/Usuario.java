@@ -1,5 +1,8 @@
 package br.usp.ime.academicdevoir.entidade;
 
+import java.util.Date;
+import java.util.UUID;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -10,6 +13,7 @@ import javax.persistence.InheritanceType;
 import org.hibernate.validator.constraints.Email;
 import org.hibernate.validator.constraints.Length;
 
+import br.usp.ime.academicdevoir.infra.Criptografia;
 import br.usp.ime.academicdevoir.infra.Privilegio;
 
 @Entity
@@ -48,10 +52,14 @@ public class Usuario {
 	 */
 	private Privilegio privilegio;
 
-	/**
-	 * @return
-	 * @uml.property  name="id"
-	 */
+
+	private String token;
+
+	private boolean statusToken = false;
+
+	private Date updateAt;
+
+	
 	public Long getId() {
 		return id;
 	}
@@ -131,6 +139,57 @@ public class Usuario {
 	 */
 	public void setPrivilegio(Privilegio privilegio) {
 		this.privilegio = privilegio;
+	}
+	
+	public Usuario hashToken() {
+		this.token = String.valueOf(getId()) + UUID.randomUUID().toString();
+		return this;
+	}
+	
+	public Usuario withSenha(String senha) {
+		this.senha = senha;
+		return this;
+	}
+
+	public Usuario withStatusToken(boolean statusToken) {
+		this.statusToken = statusToken;
+		return this;
+	}
+	
+	public Usuario updateAt() {
+		this.updateAt = new Date();
+		return this;
+	}
+	
+	public Usuario hashPassword() {
+		this.senha = new Criptografia().geraMd5(senha); 
+	    return this;
+		}
+
+
+
+	public String getToken() {
+		return token;
+	}
+	
+	public void setToken(String token) {
+		this.token = token;
+	}
+
+	public boolean isStatusToken() {
+		return statusToken;
+	}
+
+	public void setStatusToken(boolean statusToken) {
+		this.statusToken = statusToken;
+	}
+	
+	public Date getUpdateAt() {
+		return updateAt;
+	}
+
+	public void setUpdateAt(Date updateAt) {
+		this.updateAt = updateAt;
 	}
 	
 }
