@@ -87,11 +87,6 @@ import="java.sql.*" errorPage="" %>
      </form>
      </c:if>
     
-    <form action='../../listasDeExercicios/cadastro' method="get">
-        <c:if test ="${usuarioSession.usuario.privilegio != 'ALUNO' && usuarioSession.usuario.privilegio != 'MONITOR'}">
-        	<a href="<c:url value='../../listasDeExercicios/cadastro'/>">Criar lista de exerc&iacute;cios</a><br/>	         
- 		</c:if>
-    </form>
      <form action='../../listasDeExercicios/listasTurma/${turma.id}' method="get">
         <c:if test ="${usuarioSession.usuario.privilegio != 'ALUNO' && usuarioSession.usuario.privilegio != 'MONITOR'}">
             <a href="<c:url value='../../listasDeExercicios/listasTurma/${turma.id}'/>">Listas de exerc&iacute;cios</a><br/>           
