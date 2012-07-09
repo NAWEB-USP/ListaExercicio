@@ -86,8 +86,10 @@ public class RespostasController {
 			    if (listaDeRespostas.getRespostas().isEmpty())
 			        listaDeRespostas.getPropriedades().setNumeroDeEnvios(nenvios + 1);
 	        
-			    if (listaDeRespostas.adiciona(resposta) == 0)
+			    if (listaDeRespostas.adiciona(resposta) == 0) {
 			        listaDeRespostas.getPropriedades().setNumeroDeEnvios(nenvios + 1);
+			    }
+			    
 			    if (listaDeRespostas.getPropriedades().getNumeroDeEnvios() >= nmaxenvios){
 			        listaDeRespostas.getPropriedades().setEstado(EstadoDaListaDeRespostas.FINALIZADA);
 			        dao.atualiza(listaDeRespostas);
@@ -98,7 +100,9 @@ public class RespostasController {
 		}
         
         listaDeRespostas.adiciona(resposta);
-		listaDeRespostas.getPropriedades().setEstado(EstadoDaListaDeRespostas.SALVA);
+        if (listaDeRespostas.getPropriedades().getEstado() == null) {
+        	listaDeRespostas.getPropriedades().setEstado(EstadoDaListaDeRespostas.SALVA);
+        }
 		dao.atualiza(listaDeRespostas);
        
         result.redirectTo(AlunosController.class).listaTurmas(usuario.getId());            

@@ -82,7 +82,7 @@ public class ListaDeRespostasDao {
 	 */
 	public void atualiza(ListaDeRespostas lista) {
 		Transaction tx = session.beginTransaction();
-		this.session.update(lista);
+		this.session.merge(lista);
 		tx.commit();
 	}
 
