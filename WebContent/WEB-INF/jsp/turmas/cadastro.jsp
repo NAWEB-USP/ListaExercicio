@@ -45,7 +45,7 @@ import="java.sql.*" errorPage="" %>
 		<input type="hidden" name="nova.professor.id" value="${usuarioSession.usuario.id }"/>
 	
 		<p>	
-			<label>Disciplinas:</label>
+			<label>Disciplinas:</label><br/>
 			<select name="nova.disciplina.id">
 				<option value="">Selecione uma disciplina</option>
 				<c:forEach items="${disciplinas}" var="disciplina">
@@ -56,17 +56,17 @@ import="java.sql.*" errorPage="" %>
 		</p>
 		
 		
-		<p><label>Nome: </label><input type="text" size="30" name="nova.nome"/></p>
-		<p><label>Bloquear novas matriculas após data limite?</label>
+		<p>
+			<label>Nome: </label> <br/>
+			<input type="text" size="30" name="nova.nome"/>
+		</p>
+		
+		<p>
+			<label>Bloquear novas matriculas após data limite?</label>
 			<input type="radio" name="nova.temPrazo" value="sim" checked/>Sim
-			<input type="radio" name="nova.temPrazo" value="nao"/>N&atilde;o</p>
-		<!-- <p><label>Disciplina:</label>
-		    <select name="nova.disciplina.id">
-    		<c:forEach items="${listaDeDisciplinas}" var="disciplina">
-          		<option value="${disciplina.id}" >${disciplina.nome}</option>
-          	</c:forEach>
-    	</select>
-    	</p> -->
+			<input type="radio" name="nova.temPrazo" value="nao"/>N&atilde;o
+		</p>
+		
 		<p><label for="prazoDeMatricula">Prazo de matr&iacute;cula:</label></p><br/>
 		
 					<p><label for="dia">Dia:<br/></label>
