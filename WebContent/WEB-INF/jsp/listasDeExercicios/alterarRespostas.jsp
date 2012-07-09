@@ -29,7 +29,7 @@ import="java.sql.*" errorPage="" %>
 		if ($('#acao0').val() == 1) {
 			window.location.href = '<c:url value="/alunos/home"/>';	
 		}
-		else {
+		else if ($('#acao0').val() == 2 || $('#acao0').val() == 3){
 			window.location.href = '<c:url value="/respostas/autocorrecao/${listaDeRespostas.id}"/>';
 		}
   
@@ -61,6 +61,7 @@ import="java.sql.*" errorPage="" %>
        $('#salvaRespostas').click(function() {
 			$(this).attr("disabled", "disabled").empty().append("Salvando...");
 			$('#enviaRespostas').hide();
+			$('#finalizar').hide();
 			$('#acao0').val(1);
 			$('#questao0').submit();
 		});
@@ -68,7 +69,16 @@ import="java.sql.*" errorPage="" %>
 		$('#enviaRespostas').click(function() {
 			$(this).attr("disabled", "disabled").empty().append("Enviando...");
 			$('#salvaRespostas').hide();
+			$('#finalizar').hide();
 			$('#acao0').val(2);
+			$('#questao0').submit();
+		});
+
+		$('#finalizar').click(function() {
+			$(this).attr("disabled", "disabled").empty().append("Enviando...");
+			$('#salvaRespostas').hide();
+			$('#enviaRespostas').hide();
+			$('#acao0').val(3);
 			$('#questao0').submit();
 		});
 	});
@@ -116,7 +126,7 @@ import="java.sql.*" errorPage="" %>
 
 		<button id="salvaRespostas" type="button">Salvar</button>
 		<button id="enviaRespostas" type="button">Salvar e Testar</button>
-		<button id="enviaRespostas" type="button">Finalizar</button>
+		<button id="finalizar" type="button">Finalizar</button>
 
 	</div>
 	

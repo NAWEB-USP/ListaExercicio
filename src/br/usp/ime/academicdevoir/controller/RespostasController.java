@@ -100,6 +100,10 @@ public class RespostasController {
 			    }
 			}
 		}
+		
+		if (acao == 3) {
+			listaDeRespostas.getPropriedades().setEstado(EstadoDaListaDeRespostas.FINALIZADA);
+		}
         
         listaDeRespostas.adiciona(resposta);
         if (listaDeRespostas.getPropriedades().getEstado() == null) {
