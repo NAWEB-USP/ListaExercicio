@@ -85,7 +85,7 @@ public class PasswordResetController {
 
 	private Email emailTo(Usuario user) throws EmailException {
 		Email emailParaResetarSenha = new SimpleEmail();
-		emailParaResetarSenha.setSubject("Vocé solicitou uma nova senha");
+		emailParaResetarSenha.setSubject("Você solicitou uma nova senha");
 		emailParaResetarSenha.setMsg(mensagem(user));
 		emailParaResetarSenha.addTo(user.getEmail());
 		return emailParaResetarSenha;
@@ -93,12 +93,12 @@ public class PasswordResetController {
 
 	private String mensagem(Usuario userParaReceberEmail) {
 		StringBuilder mensagemEmail = new StringBuilder();
-		String contexto = request.getContextPath();
+		String contexto = request.getRequestURL().toString();
 		mensagemEmail.append("Olá " + userParaReceberEmail.getNome() + "\n\n")
 								.append("Recebemos um pedido de redefinição de senha para sua conta. \n\n")
-								.append("Passo 1 - Vá para http://localhost:8080"+contexto+"/passwords/" + userParaReceberEmail.getToken() + " dentro de 48 horas \n")
+								.append("Passo 1 - Vá para " + contexto+ "/" + userParaReceberEmail.getToken() + " dentro de 48 horas \n")
 								.append("Passo 2 - Escolha uma nova senha\n\n")
-								.append("Se * vocé * não solicitou a redefinição de senha, simplesmente desconsiderar\n")
+								.append("Se * você * não solicitou a redefinição de senha, simplesmente desconsiderar\n")
 								.append("este e-mail, e vamos deixar tudo como está!\n\n")
 								.append("Os melhores cumprimentos,\n")
 								.append("+++++.");
