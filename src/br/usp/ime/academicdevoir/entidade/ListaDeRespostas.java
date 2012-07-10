@@ -157,15 +157,19 @@ public class ListaDeRespostas {
         
             //Obtendo a Questao relacionada com a lista para obter as propriedades
             //QuestaoDaLista questaoDaLista = questaoDaListaDao.getQuestaoDaListaPorIds(id, questao.getId());
-        
-            for (QuestaoDaLista i : listaDeExercicios.getQuestoesDaLista())
-                if (i.getQuestao().equals(questao)) {
-                questaoDaLista = i;
-                break;
+            
+            if(listaDeExercicios.getPropriedades().getGeracaoAutomatica()){
+            	pesosDasQuestoes.add(1); /*O professor nao colocou pesos nas questoes, então deixar com 1 para todos.*/
             }
-            //Montando o vetor de pesos para o cálculo da nota final
-            pesosDasQuestoes.add(questaoDaLista.getPeso());
-        
+            else{
+	            for (QuestaoDaLista i : listaDeExercicios.getQuestoesDaLista())
+	                if (i.getQuestao().equals(questao)) {
+	                questaoDaLista = i;
+	                break;
+	            }
+	            //Montando o vetor de pesos para o cálculo da nota final
+	            pesosDasQuestoes.add(questaoDaLista.getPeso());
+            }
             //Resultado da Comparação da Resposta (Correção): True se correta, False se errada e NULL se aberta. 
             Boolean resultado = questao.respostaDoAlunoEhCorreta(resposta);
         

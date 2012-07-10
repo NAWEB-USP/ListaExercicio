@@ -94,15 +94,20 @@ public class RespostasController {
 			    
 			    if (listaDeRespostas.getPropriedades().getNumeroDeEnvios() >= nmaxenvios){
 			        listaDeRespostas.getPropriedades().setEstado(EstadoDaListaDeRespostas.FINALIZADA);
-			        dao.atualiza(listaDeRespostas);
-		            result.redirectTo(TurmasController.class).home(usuario.getId());            
-			        return;
 			    }
+			    
+			    dao.atualiza(listaDeRespostas);
+		        result.redirectTo(ListasDeExerciciosController.class).autoCorrecaoRespostas(listaDeRespostas.getId());
+		        return;
 			}
 		}
 		
 		if (acao == 3) {
 			listaDeRespostas.getPropriedades().setEstado(EstadoDaListaDeRespostas.FINALIZADA);
+			listaDeRespostas.adiciona(resposta);
+			dao.atualiza(listaDeRespostas);
+			result.redirectTo(ListasDeExerciciosController.class).autoCorrecaoRespostas(listaDeRespostas.getId());            
+			return;
 		}
         
         listaDeRespostas.adiciona(resposta);
