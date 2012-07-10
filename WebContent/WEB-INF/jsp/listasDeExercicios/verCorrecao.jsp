@@ -55,6 +55,7 @@ import="java.sql.*" errorPage="" %>
         </c:forEach>
     </div>
 
+	<a href="<c:url value='/aluno/${listaDeRespostas.aluno.id}/turmas'/>">Voltar</a>
 			</td>
 		</tr>
 	</table>    			
