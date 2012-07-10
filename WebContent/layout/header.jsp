@@ -25,12 +25,12 @@ import="java.sql.*" errorPage="" %>
 							<li><a href="<c:url value='/professor/${usuarioSession.usuario.id}/turmas'/>">Home</a></li>
 						</c:if>
 						<c:if test ="${usuarioSession.usuario.privilegio == 'ALUNO'}">
-							<li><a href="<c:url value='/aluno/${usuarioSession.usuario.id}/turmas'/>">Home</a></li>
+							<li><a href="<c:url value='/aluno/${usuarioSession.usuario.id}/turmas'/>">Início</a></li>
 						</c:if>    
 					</c:when>
 											
 
-						<c:otherwise><li><a href="<c:url value='/login'/>">Home</a></li></c:otherwise>	
+						<c:otherwise><li><a href="<c:url value='/login'/>">Início</a></li></c:otherwise>	
 			
 					</c:choose>	
 					<li><a href="about.html">Sobre</a></li>
