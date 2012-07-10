@@ -51,15 +51,15 @@ import="java.sql.*" errorPage="" %>
 		 $('#salvaRespostas').click(function() {
 				$(this).attr("disabled", "disabled").empty().append("Salvando...");
 				$('#enviaRespostas').hide();
-				$('#questao0').submit();
 				$('#acao0').val(1);
+				$('#questao0').submit();
 			});
 	       
 			$('#enviaRespostas').click(function() {
 				$(this).attr("disabled", "disabled").empty().append("Enviando...");
 				$('#salvaRespostas').hide();
-				$('#questao0').submit();
 				$('#acao0').val(2);
+				$('#questao0').submit();
 			});
 		});
 </script>

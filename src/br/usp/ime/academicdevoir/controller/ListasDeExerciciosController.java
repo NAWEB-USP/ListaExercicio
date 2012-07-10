@@ -401,6 +401,8 @@ public class ListasDeExerciciosController {
 		buffer.append("<p> Nota: ");
 		if (resposta.getNota() != null)
 			buffer.append(resposta.getNota());
+		else
+			buffer.append(0.0);
 		buffer.append("</p>");
 
 		htmlResult = buffer.toString();
