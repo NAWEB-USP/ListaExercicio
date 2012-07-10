@@ -30,7 +30,7 @@ import="java.sql.*" errorPage="" %>
 				<%@ include file="/layout/menu.jsp" %>
 			</td>
 			<td width="750" align="left" valign="top">    
-				<div class="welcome">Você logou como Aluno da Silva (<a href="/logout">Sair</a>)</div>
+				<div class="welcome">Você acessou como Aluno da Silva (<a href="/logout">Sair</a>)</div>
 				<h1><a href="index.html">Minhas Turmas</a></h1>
 	<br/><br/>
 	<br/><br/>
