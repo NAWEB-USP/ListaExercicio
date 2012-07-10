@@ -30,7 +30,7 @@ import="java.sql.*" errorPage="" %>
 			window.location.href = '<c:url value="/alunos/home"/>';	
 		}
 		else if ($('#acao0').val() == 2 || $('#acao0').val() == 3){
-			window.location.href = '<c:url value="/respostas/autocorrecao/${listaDeRespostas.id}"/>';
+			window.location.href = '<c:url value="/respostas/autocorrecao/${listaDeRespostas.id}/turma/${turma.id}"/>';
 		}
   
 	}
@@ -47,7 +47,7 @@ import="java.sql.*" errorPage="" %>
 			$('#resposta' + idDaQuestao).removeAttr("disabled").show();
 		});
 		
-        <c:forEach items="${listaDeExercicios.questoes}" varStatus="iteracao">
+        <c:forEach items="${questoes}" varStatus="iteracao">
         $('#questao' + ${iteracao.index}).ajaxForm({
             success: function() {
                 <c:choose>

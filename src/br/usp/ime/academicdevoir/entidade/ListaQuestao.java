@@ -18,6 +18,9 @@ public class ListaQuestao {
 	@ManyToOne
 	private Questao questao;
 	
+	private Integer peso = 1;
+
+	
 	public ListaQuestao() {
 	}
 
@@ -48,6 +51,14 @@ public class ListaQuestao {
 
 	public void setQuestao(Questao questao) {
 		this.questao = questao;
+	}
+
+	public Integer getPeso() {
+		return peso;
+	}
+
+	public void setPeso(Integer peso) {
+		this.peso = peso;
 	}
 	
 }

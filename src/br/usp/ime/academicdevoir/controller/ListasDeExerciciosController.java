@@ -215,7 +215,7 @@ public class ListasDeExerciciosController {
 				listaDeRespostas.setRespostas(new ArrayList<Resposta>());
 				listaDeRespostasDao.salva(listaDeRespostas);
 				result.redirectTo(this).autoCorrecaoRespostas(
-						listaDeRespostas.getId());
+						listaDeRespostas.getId(), turma);
 				return;
 			}
 		}
@@ -234,13 +234,14 @@ public class ListasDeExerciciosController {
 		if (listaDeExercicios.getPropriedades() != null)
 			result.include("prazo", listaDeExercicios.getPropriedades()
 					.getPrazoDeEntregaFormatado());
-		if(listaDeExercicios.getPropriedades().getGeracaoAutomatica())
+		if(listaDeExercicios.getPropriedades().getGeracaoAutomatica()) {
 			result.include("questoes", listaGerada.getQuestoes());
-		else
+			result.include("numeroDeQuestoes", listaGerada.getQuestoes().size());
+		}
+		else {
 			result.include("questoes", listaDeExercicios.getQuestoes());
-		if (listaDeExercicios.getQuestoesDaLista() != null)
-			result.include("numeroDeQuestoes", listaDeExercicios.getQuestoesDaLista()
-					.size());
+			result.include("numeroDeQuestoes", listaDeExercicios.getQuestoes().size());
+		}
 		result.include("listaDeRespostas", listaDeRespostas);
 		result.include("turma", turma);
 	}
@@ -267,7 +268,7 @@ public class ListasDeExerciciosController {
 					EstadoDaListaDeRespostas.FINALIZADA);
 			listaDeRespostasDao.atualiza(listaDeRespostas);
 			result.redirectTo(ListasDeExerciciosController.class)
-					.autoCorrecaoRespostas(listaDeRespostas.getId());
+					.autoCorrecaoRespostas(listaDeRespostas.getId(), turma);
 			return;
 		}
 
@@ -579,13 +580,13 @@ public class ListasDeExerciciosController {
 	}
 
 	@Get
-	@Path("/respostas/autocorrecao/{id}")
+	@Path("/respostas/autocorrecao/{id}/turma/{turma.id}")
 	/** 
 	 * Corrige todas as respostas da lista de exercícios com o id fornecido.
 	 * 
 	 * @param id
 	 * */
-	public void autoCorrecaoRespostas(Long id) {
+	public void autoCorrecaoRespostas(Long id, Turma turma) {
 		// Carrega a lista de exercícios com esse id
 		ListaDeRespostas listaDeRespostas = listaDeRespostasDao.carrega(id);
 
@@ -604,15 +605,23 @@ public class ListasDeExerciciosController {
 		// Não corrige se autocorreção estiver desativada para esse lista
 		if (autoCorrecao == AutoCorrecao.ATIVADA) {
 
-			listaDeRespostas.autocorrecao();
+
+			
+			if(listaDeRespostas.getListaDeExercicios().getPropriedades().getGeracaoAutomatica()){
+				Aluno aluno = (Aluno) usuarioSession.getUsuario();
+				ListaGerada listaGerada = lista.gerar(listaDeRespostas.getListaDeExercicios(), aluno);
+				listaDeRespostas.autocorrecao(listaGerada);
+			} else {
+				listaDeRespostas.autocorrecao();
+			}
+			
+			
 			listaDeRespostasDao.atualiza(listaDeRespostas);
 			// Redireciona para o menu de listas
 			result.redirectTo(this).verCorrecao(listaDeRespostas);
-		}
-/*
-		else
-			result.redirectTo(this).listasTurma(
-					listaDeRespostas.getListaDeExercicios().getTurma().getId());*/
+			return;
+		} 
+		result.redirectTo(TurmasController.class).home(turma.getId());
 	}
 
 	@Get

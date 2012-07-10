@@ -29,7 +29,7 @@ import="java.sql.*" errorPage="" %>
 			window.location.href = '<c:url value="/alunos/home"/>';	
 		}
 		else {
-			window.location.href = '<c:url value="/respostas/autocorrecao/${listaDeRespostas.id}"/>';
+			window.location.href = '<c:url value="/respostas/autocorrecao/${listaDeRespostas.id}/turma/${turma.id}"/>';
 		}
 			
 	}
@@ -37,7 +37,7 @@ import="java.sql.*" errorPage="" %>
 	$(document).ready(function () {
 		var restantes = ${numeroDeQuestoes };
 		
-		<c:forEach items="${listaDeExercicios.questoes}" varStatus="iteracao">
+		<c:forEach items="${questoes}" varStatus="iteracao">
 			$('#questao' + ${iteracao.index}).ajaxForm({
 				success: function() {
 					<c:choose>

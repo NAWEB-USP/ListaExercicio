@@ -181,4 +181,46 @@ public class ListaDeRespostas {
 	    setNotaFinal(pesosDasQuestoes);
 	
 	}
+	
+	
+	public void autocorrecao(ListaGerada listaGerada) {
+	    //List para os pesos das questões usados na nota final
+	    List<Integer> pesosDasQuestoes = new ArrayList<Integer>();
+	    ListaQuestao lista = null;
+	    
+	    //Para cada resposta dessa lista
+	    for (Resposta resposta : respostas) {
+        
+            //Pegando a questao a qual a resposta se refere
+            Questao questao = resposta.getQuestao();
+        
+            //Obtendo a Questao relacionada com a lista para obter as propriedades
+            //QuestaoDaLista questaoDaLista = questaoDaListaDao.getQuestaoDaListaPorIds(id, questao.getId());
+        
+            for (ListaQuestao listaQuestao : listaGerada.getListaQuestoes())
+                if (listaQuestao.getQuestao().equals(questao)) {
+                lista = listaQuestao;
+                break;
+            }
+            //Montando o vetor de pesos para o cálculo da nota final
+            pesosDasQuestoes.add(lista.getPeso());
+        
+            //Resultado da Comparação da Resposta (Correção): True se correta, False se errada e NULL se aberta. 
+            Boolean resultado = questao.respostaDoAlunoEhCorreta(resposta);
+        
+            if (resultado != null)
+            //Verificando se a resposta está certa ou não.
+                if(resultado == true) resposta.setNota(100.0);
+            //#TODO Questões abertas?? Como faz??
+            //else if (resultado == false) resposta.setNota(0.0);  Abaixo seria o NULL
+                else resposta.setNota(0.0);
+	    }
+    
+	    //Atribuindo a nota final à lista
+	    setNotaFinal(pesosDasQuestoes);
+	
+	}
+
+	
+	
 }
