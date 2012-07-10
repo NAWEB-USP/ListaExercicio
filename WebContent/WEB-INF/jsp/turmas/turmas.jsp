@@ -17,7 +17,7 @@
 	<br />
 	<c:forEach items="${tags}" var="tag">
 		<input type="checkbox" name="tags[].tag.id" value="${tag.id }" />
-		 ${tag.nome }
+		 ${tag.nome }<br/>
 		<input type="text" name="tags[].quantidade" maxlength="4" value="0" />
 		Disponiveis: ${fn:length(tag.questoes)}
 		<br />

@@ -83,28 +83,28 @@ $(function(){
 				
 				
 							
-				<label for="nome">Nome:</label>
+				<label for="nome">Nome:</label><br/>
 					<input id="nome" type="text" name="propriedades.nome" value="${propriedades.nome}"/>
 					<br/>
-				<label for="enunciado">Enunciado:</label>
+				<label for="enunciado">Enunciado:</label><br/>
 					<input id="enunciado" type="text" name="propriedades.enunciado" />
 					<br/>
 				<label for="visivel">Vis&iacute;vel:</label>
 					<input id="visivel" type="checkbox" name="propriedades.visivel" value="true" checked />
 					<br/>
-				<label for="Peso">Peso:</label>
+				<label for="Peso">Peso:</label><br/>
 					<input id="peso" type="text" size="5" maxlength="3" name="propriedades.peso" />
 					<br/>
 				
 				<div>
 				Prazo de entrega:
 				<br/>
-				<input id="data" type="text"  maxlength="10" name="data" value="${propriedades.prazoDeEntrega}" size="10"/>					
+				<input id="data" type="text"  name="data" value="${propriedades.prazoDeEntrega}"/>					
 				<br/>				
-				<label for="numeroMaximoDeEnvios">N&uacute;mero M&aacute;ximo de Envios:</label>
+				<label for="numeroMaximoDeEnvios">N&uacute;mero M&aacute;ximo de Envios:</label><br/>
 					<input id="numeroMaximoDeEnvios" type="text" size="2" maxlength="2" name="propriedades.numeroMaximoDeEnvios" />
 					<br/>
-				<label for="autoCorrecao">Auto Corre&ccedil;&atilde;o:</label>
+				<label for="autoCorrecao">Auto Corre&ccedil;&atilde;o:</label><br/>
 					<select id="autoCorrecao" name="propriedades.autoCorrecao">
 						<option value="0">Desativada</option>
 						<option value="1">Ativada</option>
@@ -120,7 +120,7 @@ $(function(){
 				</c:forEach>
 				-->
 
-				<label for="disciplina">Disciplinas</label>
+				<label for="disciplina">Disciplinas</label><br/>
 					<select id="disciplina" name="id">
 					<option value="" selected="selected">Selecione uma disciplina</option>
 						<c:forEach items="${disciplinas}" var="disciplina">

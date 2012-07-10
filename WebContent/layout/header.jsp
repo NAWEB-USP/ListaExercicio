@@ -8,7 +8,7 @@ import="java.sql.*" errorPage="" %>
 	<div id="header">
 		<div>
 			<div id="logo">
-				<a href="/academic-devoir/"><img src="/academic-devoir/images/logo.png" alt="Logo" height="100" /></a>
+				<a href="#"><img src="<c:url value='/images/logo.png'/>" alt="Logo" height="100" /></a>
 			</div>
       <div id="title">
       	Academic Devoir

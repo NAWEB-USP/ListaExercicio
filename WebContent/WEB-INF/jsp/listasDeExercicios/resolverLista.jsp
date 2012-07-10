@@ -61,6 +61,15 @@ import="java.sql.*" errorPage="" %>
 				$('#acao0').val(2);
 				$('#questao0').submit();
 			});
+			
+			$('#finalizar').click(function() {
+				$(this).attr("disabled", "disabled").empty().append("Enviando...");
+				$('#salvaRespostas').hide();
+				$('#enviaRespostas').hide();
+				$('#acao0').val(3);
+				$('#questao0').submit();
+			});
+
 		});
 </script>
 
@@ -103,6 +112,8 @@ import="java.sql.*" errorPage="" %>
 		</c:forEach>
 		<button id="salvaRespostas" type="button">Salvar</button>
 		<button id="enviaRespostas" type="button">Salvar e Testar</button>
+		<button id="finalizar" type="button">Finalizar</button>
+		
 	</div>
 
 
