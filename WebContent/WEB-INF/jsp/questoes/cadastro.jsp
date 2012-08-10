@@ -267,7 +267,7 @@
 				<br />
 				<form style="width: 700px"
 					action="<c:url value="/questoes/codigo"/>" method="post"
-					accept-charset="us-ascii">
+					accept-charset="utf-8">
 					<br />
 					<p>
 				
