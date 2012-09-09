@@ -28,7 +28,10 @@ public class LoginControllerTeste {
 
 	@Mock
 	private UsuarioDao usuarioDao;
+	
+	@Mock
 	private PensamentoDao pensamentoDao;
+	
 	private UsuarioSession usuarioSession;
 	private HttpSession httpSession;
 	
@@ -46,8 +49,9 @@ public class LoginControllerTeste {
 	@Test
 	public void deveFazerLogin() {
 		Pensamento p = new Pensamento();
-		Mockito.when(pensamentoDao.buscaAleatorio()).thenReturn(p);
+		Mockito.when(pensamentoDao.buscaAleatorio()).thenReturn(p);		
 		loginController.login();
+		Mockito.verify(result).include("pensamento", p);
 	}
 	
 	@Test
