@@ -1,6 +1,7 @@
 package br.usp.ime.academicdevoir.dao;
 
 import java.util.List;
+import java.util.Random;
 
 import org.hibernate.Session;
 import org.hibernate.Transaction;
@@ -52,6 +53,16 @@ public class PensamentoDao {
 	public Pensamento buscaPeloAutor(String autor) {
 		return (Pensamento) session.createCriteria(Pensamento.class)
 				.add(Restrictions.eq("autor", autor)).uniqueResult();
+	}
+	
+	public Pensamento buscaAleatorio() {
+		List<Pensamento> todos = this.listaTudo();
+		if (todos.size() > 0) {
+			Long seed = System.currentTimeMillis();
+			int randomIndex = new Random(seed).nextInt(todos.size());
+			return todos.get(randomIndex);
+		}
+		return null;
 	}
 
 }

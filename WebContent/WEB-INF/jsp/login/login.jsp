@@ -55,6 +55,14 @@ import="java.sql.*" errorPage="" %>
 					 <p style="color:red"><c:out value="${error}"></c:out></p>
 				</form> 
 		</div>
+		
+		<c:if test="${not empty pensamento}">
+			<div id="pensamento">
+				<p>${pensamento.quote}</p>
+				<p>${pensamento.autor}</p>
+			</div>
+		</c:if>
+		
 	</div>				
 </div>   
 <%@ include file="/layout/footer.jsp" %>

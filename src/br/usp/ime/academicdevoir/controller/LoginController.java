@@ -7,6 +7,7 @@ import br.com.caelum.vraptor.Path;
 import br.com.caelum.vraptor.Post;
 import br.com.caelum.vraptor.Resource;
 import br.com.caelum.vraptor.Result;
+import br.usp.ime.academicdevoir.dao.PensamentoDao;
 import br.usp.ime.academicdevoir.dao.UsuarioDao;
 import br.usp.ime.academicdevoir.entidade.Usuario;
 import br.usp.ime.academicdevoir.infra.Privilegio;
@@ -25,13 +26,16 @@ public class LoginController {
 	private UsuarioSession usuarioSession;
 
 	private UsuarioDao usuarioDao;
+	
+	private PensamentoDao pensamentoDao;
 
 	private final HttpSession session;
 	
-	public LoginController(Result result, UsuarioDao usuarioDao,
-			UsuarioSession alunodao, HttpSession session) {
+	public LoginController(Result result, UsuarioDao usuarioDao, 
+			PensamentoDao pensamentoDao, UsuarioSession alunodao, HttpSession session) {
 		this.result = result;
 		this.usuarioDao = usuarioDao;
+		this.pensamentoDao = pensamentoDao;
 		this.usuarioSession = alunodao;
 		this.session = session;
 	}
@@ -44,6 +48,7 @@ public class LoginController {
 	@Get
 	@Path("/login")
 	public void login() {
+		result.include("pensamento", pensamentoDao.buscaAleatorio());
 	}
 
 	@Post("/autenticar")

@@ -35,6 +35,7 @@
 		<mapping class="br.usp.ime.academicdevoir.entidade.Disciplina" />
 		<mapping class="br.usp.ime.academicdevoir.entidade.Professor" />
 		<mapping class="br.usp.ime.academicdevoir.entidade.Administrador" />
+		<mapping class="br.usp.ime.academicdevoir.entidade.Pensamento" />
 		<mapping class="br.usp.ime.academicdevoir.entidade.Questao" />
 		<mapping class="br.usp.ime.academicdevoir.entidade.QuestaoDeMultiplaEscolha" />
 		<mapping class="br.usp.ime.academicdevoir.entidade.QuestaoDaLista" />

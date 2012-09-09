@@ -11,7 +11,9 @@ import org.mockito.Spy;
 
 import br.com.caelum.vraptor.Result;
 import br.com.caelum.vraptor.util.test.MockResult;
+import br.usp.ime.academicdevoir.dao.PensamentoDao;
 import br.usp.ime.academicdevoir.dao.UsuarioDao;
+import br.usp.ime.academicdevoir.entidade.Pensamento;
 import br.usp.ime.academicdevoir.entidade.Usuario;
 import br.usp.ime.academicdevoir.infra.UsuarioSession;
 import br.usp.ime.academicdevoir.util.Given;
@@ -26,6 +28,7 @@ public class LoginControllerTeste {
 
 	@Mock
 	private UsuarioDao usuarioDao;
+	private PensamentoDao pensamentoDao;
 	private UsuarioSession usuarioSession;
 	private HttpSession httpSession;
 	
@@ -37,11 +40,13 @@ public class LoginControllerTeste {
 		usuarioSession = new UsuarioSession(); 
 		usuarioSession.setUsuario(usuario);
 
-		loginController = new LoginController(result, usuarioDao, usuarioSession, httpSession);
+		loginController = new LoginController(result, usuarioDao, pensamentoDao, usuarioSession, httpSession);
 	}
 	
 	@Test
-	public void deveFazerLogin(){
+	public void deveFazerLogin() {
+		Pensamento p = new Pensamento();
+		Mockito.when(pensamentoDao.buscaAleatorio()).thenReturn(p);
 		loginController.login();
 	}
 	
@@ -56,9 +61,6 @@ public class LoginControllerTeste {
 		Mockito.when(usuarioDao.fazLogin(usuario.getLogin(), usuario.getSenha())).thenReturn(null);
 		loginController.login(usuario);	
 		Mockito.verify(result).include("error", "Login ou senha incorreta!");
-		
 	}
 
-	
-	
 }

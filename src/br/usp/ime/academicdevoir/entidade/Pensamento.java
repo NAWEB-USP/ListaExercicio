@@ -10,7 +10,7 @@ public class Pensamento {
 	@Id @GeneratedValue
 	private Long id;
 	
-	private String pensamento;
+	private String quote;
 	
 	private String autor;
 
@@ -22,12 +22,12 @@ public class Pensamento {
 		this.id = id;
 	}
 
-	public String getPensamento() {
-		return pensamento;
+	public String getQuote() {
+		return quote;
 	}
 
-	public void setPensamento(String pensamento) {
-		this.pensamento = pensamento;
+	public void setQuote(String quote) {
+		this.quote = quote;
 	}
 
 	public String getAutor() {
