@@ -58,8 +58,8 @@ import="java.sql.*" errorPage="" %>
 		
 		<c:if test="${not empty pensamento}">
 			<div id="pensamento">
-				<p>${pensamento.quote}</p>
-				<p>${pensamento.autor}</p>
+				<p>"${pensamento.quote}"</p>
+				<p>- ${pensamento.autor}</p>
 			</div>
 		</c:if>
 		

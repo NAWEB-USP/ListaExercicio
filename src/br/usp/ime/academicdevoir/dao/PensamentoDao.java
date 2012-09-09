@@ -58,8 +58,7 @@ public class PensamentoDao {
 	public Pensamento buscaAleatorio() {
 		List<Pensamento> todos = this.listaTudo();
 		if (todos.size() > 0) {
-			Long seed = System.currentTimeMillis();
-			int randomIndex = new Random(seed).nextInt(todos.size());
+			int randomIndex = new Random().nextInt(todos.size());
 			return todos.get(randomIndex);
 		}
 		return null;
