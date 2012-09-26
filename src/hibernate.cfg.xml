@@ -55,5 +55,6 @@
 		<mapping class="br.usp.ime.academicdevoir.entidade.QuestaoDeTexto" />
 		<mapping class="br.usp.ime.academicdevoir.entidade.QuestaoDeCodigo" />
 		<mapping class="br.usp.ime.academicdevoir.entidade.Tag" />
+		<mapping class="br.usp.ime.academicdevoir.entidade.Pensamento" />
 	</session-factory>
 </hibernate-configuration>
