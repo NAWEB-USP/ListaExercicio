@@ -115,8 +115,6 @@ public class TurmasControllerTeste {
 		disciplinas = new ArrayList<Disciplina>();
 		disciplinas.add(disciplina);
 		
-		
-		
 		when(turmaDao.carrega(turma.getId())).thenReturn(turma);
 		when(turmaDao.listaTudo()).thenReturn(turmas);
 		when(disciplinaDao.listaTudo()).thenReturn(disciplinas);

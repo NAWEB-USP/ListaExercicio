@@ -15,7 +15,6 @@ import br.usp.ime.academicdevoir.infra.Privilegio;
 public class Given {
 
 	public static Usuario novoUsuario() {
-		
 		Usuario usuario = new Usuario();
 		usuario.setId(1l);
 		usuario.setLogin("login-1");
@@ -33,20 +32,17 @@ public class Given {
 		aluno.setEmail("aluno@usp.br");
 		aluno.setSenha("senha");
 		return aluno;
-
 	}
 	
-	public static  List<Integer>  prazoDeMatricula() {
-		
+	public static List<Integer> prazoDeMatricula() {
 		return null;
 	}
 
 	public static Turma novaTurma() {
-		
 		Turma turma = new Turma();
+		turma.setNome("T1");
 		turma.setDisciplina(novaDisciplina());
 		return turma;
-
 	}
 	
 	public static Professor novoProfessor() {
@@ -81,8 +77,7 @@ public class Given {
 
 	public static Disciplina novaDisciplina() {
 		Disciplina disciplina = new Disciplina();
-        disciplina.setId(1l);
+        disciplina.setId(1L);
 		return disciplina;
 	}
-	
 }

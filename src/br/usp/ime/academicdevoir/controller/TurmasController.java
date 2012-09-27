@@ -112,7 +112,6 @@ public class TurmasController {
     @Permission({ Privilegio.ADMINISTRADOR, Privilegio.PROFESSOR })
     public void cadastra(final Turma nova, final List<Integer> prazoDeMatricula) {	
     	
-    	
     	validator.checking(new Validations() {{
     		that(nova.getDisciplina().getId(), is(notNullValue()), "disciplina", "disciplina.notNull");
     	}});

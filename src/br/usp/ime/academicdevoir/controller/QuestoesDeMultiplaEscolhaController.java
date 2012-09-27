@@ -82,17 +82,14 @@ public class QuestoesDeMultiplaEscolhaController {
 		}});
 		
 		validator.validate(questao);
-		validator.onErrorRedirectTo(QuestoesController.class).cadastro();
+		validator.onErrorUsePageOf(QuestoesController.class).cadastro();
 
-		for (int i=0; i<numeroDeAlternativas; i++) {
+		for (int i = 0; i < numeroDeAlternativas; i++)
 			questao.getAlternativas().get(i).setQuestao(questao);			
-		}
 			
-		for (int i=numeroDeAlternativas; i<10; i++) {
-			questao.getAlternativas().remove(numeroDeAlternativas);
-		}
+		//for (int i = numeroDeAlternativas; i < 10; i++)
+		//	questao.getAlternativas().remove(numeroDeAlternativas);
 		
-
 		questao.setTags(tags, tagDao);
 		
 		Disciplina disciplina = disciplinaDao.carrega(questao.getDisciplina().getId());
@@ -138,10 +135,8 @@ public class QuestoesDeMultiplaEscolhaController {
 				else
 					respostas[i] = 0;
 		}
-		
-	
+
 		result.include("respostas", respostas);
-			
 	}
 
 	@Put
@@ -160,14 +155,11 @@ public class QuestoesDeMultiplaEscolhaController {
 		validator.validate(questao);
 		validator.onErrorUsePageOf(this).alteracao(questao.getId());
 		
-		
-		for (int i=0; i<numeroDeAlternativas; i++) {
+		for (int i = 0; i < numeroDeAlternativas; i++) 
 			questao.getAlternativas().get(i).setQuestao(questao);			
-		}
 			
-		for (int i=numeroDeAlternativas; i<10; i++) {
-			questao.getAlternativas().remove(numeroDeAlternativas);
-		}
+		//for (int i = numeroDeAlternativas; i < 10; i++)
+		//	questao.getAlternativas().remove(numeroDeAlternativas);
 
 		dao.atualiza(questao);
 

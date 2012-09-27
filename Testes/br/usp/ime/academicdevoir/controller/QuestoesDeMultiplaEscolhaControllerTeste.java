@@ -2,6 +2,9 @@ package br.usp.ime.academicdevoir.controller;
 
 import static org.mockito.Mockito.*;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.junit.Before;
 import org.junit.Test;
 
@@ -12,6 +15,7 @@ import br.usp.ime.academicdevoir.controller.QuestoesDeMultiplaEscolhaController;
 import br.usp.ime.academicdevoir.dao.DisciplinaDao;
 import br.usp.ime.academicdevoir.dao.QuestaoDeMultiplaEscolhaDao;
 import br.usp.ime.academicdevoir.dao.TagDao;
+import br.usp.ime.academicdevoir.entidade.AlternativasMultiplaEscolha;
 import br.usp.ime.academicdevoir.entidade.Professor;
 import br.usp.ime.academicdevoir.entidade.QuestaoDeMultiplaEscolha;
 import br.usp.ime.academicdevoir.entidade.Tag;
@@ -77,10 +81,13 @@ public class QuestoesDeMultiplaEscolhaControllerTeste {
 		questao.setId(0L);
 		questao.setRespostaUnica(true);
         questao.setEnunciado("Enuciado");
-
         questao.setDisciplina(Given.novaDisciplina());
-
-		questoesC.cadastra(questao, null, new String("tagQualquer"), 5);
+        AlternativasMultiplaEscolha alternativa = new AlternativasMultiplaEscolha();
+        List<AlternativasMultiplaEscolha> alternativas = new ArrayList<AlternativasMultiplaEscolha>();
+        alternativas.add(alternativa);
+        questao.setAlternativas(alternativas);
+        
+		questoesC.cadastra(questao, null, new String("tagQualquer"), alternativas.size());
 
 		verify(validator).validate(questao);
 		verify(validator).onErrorUsePageOf(QuestoesController.class);
@@ -93,9 +100,12 @@ public class QuestoesDeMultiplaEscolhaControllerTeste {
 		QuestaoDeMultiplaEscolha questao = new QuestaoDeMultiplaEscolha();
 		questao.setRespostaUnica(true);
         questao.setEnunciado("Enuciado");
-
-
-		questoesC.altera(questao, null, new String("tagQualquer"), 5);
+        AlternativasMultiplaEscolha alternativa = new AlternativasMultiplaEscolha();
+        List<AlternativasMultiplaEscolha> alternativas = new ArrayList<AlternativasMultiplaEscolha>();
+        alternativas.add(alternativa);
+        questao.setAlternativas(alternativas);
+        
+		questoesC.altera(questao, null, new String("tagQualquer"), alternativas.size());
 
 		verify(validator).validate(questao);
 		verify(validator).onErrorUsePageOf(questoesC);

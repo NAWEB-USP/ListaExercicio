@@ -1,6 +1,5 @@
 package br.usp.ime.academicdevoir.dao;
 
-
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
@@ -10,7 +9,6 @@ import java.util.List;
 
 import junit.framework.Assert;
 
-import org.hibernate.Criteria;
 import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
@@ -23,10 +21,7 @@ import br.usp.ime.academicdevoir.entidade.Aluno;
 import br.usp.ime.academicdevoir.entidade.Disciplina;
 import br.usp.ime.academicdevoir.entidade.Turma;
 
-
-
 public class TurmasDaoTest{
-	
 	TurmaDao turmaDao;
 	Disciplina disciplina;
 	Aluno aluno;
@@ -37,7 +32,6 @@ public class TurmasDaoTest{
 	
 	private @Mock Session session;
 	private @Mock Transaction tx;
-	private @Mock Criteria criteria;
 	private @Mock Query query;
 	
 	@Before
@@ -49,6 +43,7 @@ public class TurmasDaoTest{
 		disciplina = new Disciplina();
 		disciplina.setId(1L);
 		disciplina.setNome("MAC110");
+		
 		aluno = new Aluno();
 		aluno.setId(10L);
 		aluno.setNome("renato");
@@ -70,11 +65,6 @@ public class TurmasDaoTest{
 		turmas = new ArrayList<Turma>();
 		turmas.add(turmaMatriculada);
 		turmas.add(turmaNaoMatriculada);
-		
-		when(session.createCriteria(Turma.class)).thenReturn(criteria);
-		when(session.createQuery("From Turma turma Where turma.status = true")).thenReturn(query);
-		when(criteria.list()).thenReturn(turmas);
-		
 	}
 		
 	@Test
@@ -85,6 +75,7 @@ public class TurmasDaoTest{
 		Assert.assertEquals(turmas, t);
 		verify(query).list();
 	}
+	
 	@Test
 	public void salvaTurma(){
 		turmaDao.salvaTurma(turmaMatriculada);
@@ -97,7 +88,7 @@ public class TurmasDaoTest{
 	public void removeTurma(){
 		turmaDao.remove(turmaMatriculada);
 		verify(session).beginTransaction();
-		verify(session).update(turmaMatriculada);
+		verify(session).merge(turmaMatriculada);
 		verify(tx).commit();
 	}
 	
@@ -105,7 +96,7 @@ public class TurmasDaoTest{
 	public void atualizaTurma(){
 		turmaDao.atualizaTurma(turmaMatriculada);
 		verify(session).beginTransaction();
-		verify(session).update(turmaMatriculada);
+		verify(session).merge(turmaMatriculada);
 		verify(tx).commit();
 	}
 	

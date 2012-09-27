@@ -14,7 +14,6 @@ import br.com.caelum.vraptor.util.test.MockResult;
 import br.usp.ime.academicdevoir.dao.DisciplinaDao;
 import br.usp.ime.academicdevoir.dao.QuestaoDeCodigoDao;
 import br.usp.ime.academicdevoir.dao.TagDao;
-import br.usp.ime.academicdevoir.entidade.Disciplina;
 import br.usp.ime.academicdevoir.entidade.Professor;
 import br.usp.ime.academicdevoir.entidade.QuestaoDeCodigo;
 import br.usp.ime.academicdevoir.entidade.Tag;
@@ -34,14 +33,12 @@ public class QuestoesDeCodigoControllerTeste {
     private UsuarioSession usuarioSession;
     private TagDao tagDao;
     private DisciplinaDao disciplinaDao;
-    private Disciplina disciplina;
-
+    
     @Before
     public void SetUp() {       
         Professor professor = new Professor();
         professor.setPrivilegio(Privilegio.ADMINISTRADOR);
         
-        disciplina = new Disciplina();
         
         usuarioSession = new UsuarioSession();
         usuarioSession.setUsuario(professor);

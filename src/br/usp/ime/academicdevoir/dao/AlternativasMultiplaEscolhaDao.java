@@ -9,7 +9,7 @@ public class AlternativasMultiplaEscolhaDao {
 
 	private final Session session;
 	
-	public AlternativasMultiplaEscolhaDao(Session session){
+	public AlternativasMultiplaEscolhaDao(Session session) {
 		this.session = session;
 	}
 }

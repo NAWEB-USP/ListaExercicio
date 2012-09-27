@@ -116,7 +116,7 @@ public class ListasDeExerciciosControllerTeste {
 		prazoDeEntrega.add(prazoProvisorio.get(Calendar.MONTH) + 1);
 		prazoDeEntrega.add(prazoProvisorio.get(Calendar.YEAR));
 		prazoDeEntrega.add(prazoProvisorio.get(Calendar.HOUR_OF_DAY));
-
+		
 		questao = new QuestaoDeMultiplaEscolha();
 		questao.setId(0L);
 
@@ -162,7 +162,9 @@ public class ListasDeExerciciosControllerTeste {
 		propriedadesDaListaDeExercicios.setNome("Nome da lista");
 		tagsDaListas.add(tagsDaLista);
 		turmas.add(turma.getId());
-		listasDeExerciciosController.cadastra(propriedadesDaListaDeExercicios, turmas, tagsDaListas, new Date());
+		Date date = new Date();
+		date.setTime(prazoProvisorio.getTimeInMillis() + 1000);
+		listasDeExerciciosController.cadastra(propriedadesDaListaDeExercicios, turmas, tagsDaListas, date);
 
 		verify(validator).validate(propriedadesDaListaDeExercicios);
 		verify(validator).onErrorForwardTo(listasDeExerciciosController);
@@ -191,10 +193,7 @@ public class ListasDeExerciciosControllerTeste {
 		propriedadesDaListaDeExercicios.setNome("Teste");
 		propriedadesDaListaDeExercicios.setEnunciado("Lista que deve falhar");
 		propriedadesDaListaDeExercicios.setPeso(1);
-		
-
 		listasDeExerciciosController.cadastra(propriedadesDaListaDeExercicios, null, null, new Date());
-
 	}
 
 	@Test
@@ -230,10 +229,12 @@ public class ListasDeExerciciosControllerTeste {
 
 	@Test
 	public void testeAltera() {
-		prazoFuturo(prazoDeEntrega);
+		Date date = new Date();
+		date.setTime(prazoProvisorio.getTimeInMillis() + 1000);
+		
 		listasDeExerciciosController.altera(listaDeExercicios,
-				propriedadesDaListaDeExercicios, new Date());
-
+				propriedadesDaListaDeExercicios, date);
+		
 		verify(validator).validate(listaDeExercicios);
 		verify(validator).onErrorUsePageOf(ListasDeExerciciosController.class);
 		verify(dao).atualiza(listaDeExercicios);

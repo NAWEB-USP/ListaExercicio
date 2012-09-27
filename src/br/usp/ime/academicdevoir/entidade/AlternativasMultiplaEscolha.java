@@ -3,7 +3,6 @@ package br.usp.ime.academicdevoir.entidade;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 
 @Entity
@@ -19,10 +18,10 @@ public class AlternativasMultiplaEscolha {
 	private String alternativa;
 	private int peso;
 	
-	
 	public Long getId() {
 		return id;
 	}
+	
 	public void setId(Long id) {
 		this.id = id;
 	}
@@ -30,6 +29,7 @@ public class AlternativasMultiplaEscolha {
 	public String getAlternativa() {
 		return alternativa;
 	}
+	
 	public void setAlternativa(String alternativa) {
 		this.alternativa = alternativa;
 	}
@@ -37,6 +37,7 @@ public class AlternativasMultiplaEscolha {
 	public int getPeso() {
 		return peso;
 	}
+	
 	public void setPeso(int peso) {
 		this.peso = peso;
 	}
@@ -44,6 +45,7 @@ public class AlternativasMultiplaEscolha {
 	public QuestaoDeMultiplaEscolha getQuestao() {
 		return questao;
 	}
+	
 	public void setQuestao(QuestaoDeMultiplaEscolha questao) {
 		this.questao = questao;
 	}
@@ -52,6 +54,4 @@ public class AlternativasMultiplaEscolha {
 	public String toString() {
 		return this.alternativa;
 	}
-	
-
 }

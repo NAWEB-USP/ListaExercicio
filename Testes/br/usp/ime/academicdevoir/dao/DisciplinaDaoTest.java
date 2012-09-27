@@ -28,13 +28,13 @@ public class DisciplinaDaoTest {
 	private @Mock TurmaDao turmaDao;
 
 	@Before
-	public void iniciaMocks(){
+	public void iniciaMocks() {
 		MockitoAnnotations.initMocks(this);
 		when(session.beginTransaction()).thenReturn(transaction);
 	}
 	
 	@Test
-	public void salvaDisciplinaRetornaErroQuandoJahExisteUmaComOMesmoNome(){
+	public void salvaDisciplinaRetornaErroQuandoJahExisteUmaComOMesmoNome() {
 		when(disciplina.getNome()).thenReturn("Lab XP");
 		when(session.createCriteria(Disciplina.class)).thenReturn(criteria);
 		when(criteria.list()).thenReturn(Arrays.asList(disciplina));
@@ -42,7 +42,6 @@ public class DisciplinaDaoTest {
 		DisciplinaDao dao = new DisciplinaDao(session, turmaDao);
 		dao.salvaDisciplina(disciplina);
 		verify(session,never()).save(anyObject());
-		
 	}
 	
 }
