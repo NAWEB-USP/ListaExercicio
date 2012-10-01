@@ -43,6 +43,25 @@ public class UsuarioDao {
     	}
     }
     
+    public Usuario fazLoginCookie(Long id){
+    	System.out.println(id);
+    	
+    	try{
+
+    		Usuario usuario = (Usuario) session.createCriteria(Usuario.class)
+	                .add(Restrictions.eq("id", id))
+	                .uniqueResult();
+
+    		System.out.println(usuario + " aqui o usuario");
+    		
+	        return usuario;
+    	} catch(HibernateException ex){
+    		return null;
+    	} catch (Exception e) {
+    		throw new RuntimeException(e);
+    	}
+    }
+    
     public Usuario buscarPor(String email) {
     	try{
     		
