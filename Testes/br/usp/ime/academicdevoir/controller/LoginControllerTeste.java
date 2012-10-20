@@ -1,5 +1,7 @@
 package br.usp.ime.academicdevoir.controller;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.junit.Before;
@@ -33,8 +35,16 @@ public class LoginControllerTeste {
 	private PensamentoDao pensamentoDao;
 	
 	private UsuarioSession usuarioSession;
-	private HttpSession httpSession;
+	//private HttpSession httpSession;
 	
+	@Mock
+	private HttpSession session;
+	
+	@Mock
+	private HttpServletResponse response;
+	
+	@Mock
+	private HttpServletRequest request;
 	
 	@Before
 	public void setUp(){
@@ -42,8 +52,7 @@ public class LoginControllerTeste {
 		usuario = Given.novoUsuario();
 		usuarioSession = new UsuarioSession(); 
 		usuarioSession.setUsuario(usuario);
-
-		loginController = new LoginController(result, usuarioDao, pensamentoDao, usuarioSession, httpSession);
+		loginController = new LoginController(result, usuarioDao, pensamentoDao, usuarioSession, session, response, request);
 	}
 	
 	@Test

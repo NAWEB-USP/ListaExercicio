@@ -5,10 +5,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import org.hibernate.Session;
-import org.hibernate.SessionFactory;
-import org.hibernate.criterion.Restrictions;
-
 import br.com.caelum.vraptor.Get;
 import br.com.caelum.vraptor.Path;
 import br.com.caelum.vraptor.Post;
@@ -20,8 +16,6 @@ import br.usp.ime.academicdevoir.entidade.Usuario;
 import br.usp.ime.academicdevoir.infra.Privilegio;
 import br.usp.ime.academicdevoir.infra.Public;
 import br.usp.ime.academicdevoir.infra.UsuarioSession;
-import br.usp.ime.academicdevoir.sessao.CriadorDeSessao;
-import br.usp.ime.academicdevoir.sessao.CriadorDeSessionFactory;
 
 @Public
 @Resource
