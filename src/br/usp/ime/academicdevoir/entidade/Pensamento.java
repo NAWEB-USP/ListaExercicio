@@ -1,19 +1,23 @@
 package br.usp.ime.academicdevoir.entidade;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 
+
 @Entity
 public class Pensamento {
 
-	@Id @GeneratedValue
+	@Id 
+	@GeneratedValue
 	private Long id;
 	
+	@Column(length = 512)
 	private String quote;
 	
 	private String autor;
-
+	
 	public Long getId() {
 		return id;
 	}
@@ -37,5 +41,5 @@ public class Pensamento {
 	public void setAutor(String autor) {
 		this.autor = autor;
 	}
-
+	
 }

@@ -356,5 +356,6 @@ input.loginbuttom {
 div#pensamento {
 	margin-left: 150px;
 	margin-top: 25px;
+	width: 580px;
 	font-style: italic;
 }
