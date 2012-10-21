@@ -2,13 +2,12 @@ package br.usp.ime.academicdevoir.migracao;
 
 import javax.persistence.*;
 
-
 @Entity
 @Table(name = "Pensamentos")
 public class PensamentoOld {
 	@Id
 	@Column(name = "Cod")
-	private Integer id;
+	private Integer cod;
 	
 	@Column(name = "pensamento")
 	private String pensamento;
@@ -16,12 +15,12 @@ public class PensamentoOld {
 	@Column(name = "autor")
 	private String autor;
 
-	public Integer getId() {
-		return id;
+	public Integer getCod() {
+		return cod;
 	}
 
-	public void setId(Integer id) {
-		this.id = id;
+	public void setCod(Integer cod) {
+		this.cod = cod;
 	}
 
 	public String getPensamento() {

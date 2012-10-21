@@ -36,14 +36,14 @@ public class UsuarioDao {
     		System.out.println(usuario + " aqui o usuario");
     		
 	        return usuario;
-    	} catch(HibernateException ex){
+    	} catch(HibernateException ex) {
     		return null;
     	} catch (Exception e) {
     		throw new RuntimeException(e);
     	}
     }
     
-    public Usuario fazLoginCookie(Long id){
+    public Usuario fazLoginCookie(Long id) {
     	System.out.println(id);
     	
     	try{
@@ -55,7 +55,7 @@ public class UsuarioDao {
     		System.out.println(usuario + " aqui o usuario");
     		
 	        return usuario;
-    	} catch(HibernateException ex){
+    	} catch(HibernateException ex) {
     		return null;
     	} catch (Exception e) {
     		throw new RuntimeException(e);

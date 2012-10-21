@@ -12,5 +12,6 @@
 		<property name="show_sql">true</property>
 				
 		<mapping class="br.usp.ime.academicdevoir.migracao.PensamentoOld" />
+		<mapping class="br.usp.ime.academicdevoir.migracao.AlunoOld" />
 	</session-factory>
 </hibernate-configuration>

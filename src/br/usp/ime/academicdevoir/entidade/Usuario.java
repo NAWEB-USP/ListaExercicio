@@ -164,7 +164,7 @@ public class Usuario {
 	public Usuario hashPassword() {
 		this.senha = new Criptografia().geraMd5(senha); 
 	    return this;
-		}
+	}
 
 
 
