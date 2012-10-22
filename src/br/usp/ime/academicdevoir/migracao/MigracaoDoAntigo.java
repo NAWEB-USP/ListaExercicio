@@ -14,12 +14,16 @@ public class MigracaoDoAntigo {
 	
 	private static Session oldSession;
 	private static Session newSession;
+	
+	private static Professor professor;
 		
 	public static void main(String[] args) {
 		abreSessions();
-		//migraPensamentos();
-		//migraAlunos();
+		carregaProfessor();
+		migraPensamentos();
+		migraAlunos();
 		migraDisciplinas();
+		migraTurmas();
 		fechaSessions();
 	}
 	
@@ -31,6 +35,23 @@ public class MigracaoDoAntigo {
 	public static void fechaSessions() {
 		oldSession.close();
 		newSession.close();
+	}
+	
+	// Professor //////////////////////////////////////////
+	
+	public static void carregaProfessor() {
+		ProfessorDao dao = new ProfessorDao(newSession);
+		professor = dao.buscaPorLogin("professor");
+		if (professor == null) {
+			professor = new Professor();
+			professor.setNome("Professor");
+			professor.setLogin("professor");
+			professor.setSenha(new Criptografia().geraMd5("professor"));
+			professor.setLogin("professor");
+			professor.setEmail("professor@gmail.com");
+			professor.setPrivilegio(Privilegio.PROFESSOR);
+			dao.salvaProfessor(professor);
+		}
 	}
 	
 	// Pensamentos ///////////////////////////////////////
@@ -47,6 +68,7 @@ public class MigracaoDoAntigo {
 			if (tentaSalvarPensamento(pensamento))
 				cont++;
 		}
+		System.out.println("Pensamentos antigos = " + lista.size());
 		System.out.println("Pensamentos salvos = " + cont);
 	}
 	
@@ -90,6 +112,7 @@ public class MigracaoDoAntigo {
 			if (tentaSalvarAluno(aluno))
 				cont++;
 		}
+		System.out.println("Alunos antigos = " + lista.size());
 		System.out.println("Alunos salvos = " + cont);
 	}
 	
@@ -128,6 +151,7 @@ public class MigracaoDoAntigo {
 			if (tentaSalvarDisciplina(disciplina))
 				cont++;
 		}
+		System.out.println("Disciplinas antigas = " + lista.size());
 		System.out.println("Disciplinas salvas = " + cont);
 	}
 	
@@ -151,5 +175,47 @@ public class MigracaoDoAntigo {
 			return false;
 		}
 	}
-		
+	
+	// Turmas ///////////////////////////////////////
+	
+	public static void migraTurmas() {
+		List<TurmaOld> lista = listaTurmasOld();
+		int cont = 0;
+		for (TurmaOld old: lista) {
+			DisciplinaDao disciplinaDao = new DisciplinaDao(newSession, null);
+			Disciplina disciplina = disciplinaDao.buscaPorNome(old.getDisciplina().getNome());
+			String nome = old.getNome();
+			Turma turma = new Turma();
+			turma.setDisciplina(disciplina);
+			turma.setNome(nome);
+			turma.setProfessor(professor);
+			turma.setTemPrazo("nao");
+			if (tentaSalvarTurma(turma))
+				cont++;
+		}
+		System.out.println("Turmas antigas = " + lista.size());
+		System.out.println("Turmas salvas = " + cont);
+	}
+
+	private static List<TurmaOld> listaTurmasOld() {
+		Transaction transaction = oldSession.beginTransaction();
+		Criteria filtro = oldSession.createCriteria(TurmaOld.class);
+		List<TurmaOld> lista = filtro.list();
+		transaction.commit();
+		return lista;
+	}
+	
+	private static boolean tentaSalvarTurma(Turma turma) {
+		TurmaDao dao = new TurmaDao(newSession);
+		try {
+			dao.salvaTurma(turma);
+			return true;
+		} catch (Exception e) {
+			System.err.println("Erro ao salvar turma: " + e);
+			newSession.close();
+			newSession = HibernateUtil.getNewSessionFactory().openSession();
+			return false;
+		}
+	}
+	
 }

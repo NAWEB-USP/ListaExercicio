@@ -14,5 +14,6 @@
 		<mapping class="br.usp.ime.academicdevoir.migracao.PensamentoOld" />
 		<mapping class="br.usp.ime.academicdevoir.migracao.AlunoOld" />
 		<mapping class="br.usp.ime.academicdevoir.migracao.DisciplinaOld" />
+		<mapping class="br.usp.ime.academicdevoir.migracao.TurmaOld" />
 	</session-factory>
 </hibernate-configuration>
