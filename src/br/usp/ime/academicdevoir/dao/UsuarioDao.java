@@ -95,7 +95,9 @@ public class UsuarioDao {
 		}
 	}
 
-    
+	public Usuario carrega(Long id) {
+		return (Usuario) session.get(Usuario.class, id);
+	}
     
     
     

@@ -34,7 +34,7 @@ import="java.sql.*" errorPage="" %>
 			
 					</c:choose>	
 					<li><a href="/academic-devoir/sobre.jsp">Sobre</a></li>
-					<li class="current"><a href="blog.html">Reporte um Bug</a></li>
+					<li class="current"><a href="<c:url value='/report?id=${usuarioSession.usuario.id}'/>">Reporte um Erro</a></li>
 					</ul>
 				</div>
 			</div>
