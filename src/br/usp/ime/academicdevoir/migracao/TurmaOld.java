@@ -1,5 +1,7 @@
 package br.usp.ime.academicdevoir.migracao;
 
+import java.util.Collection;
+
 import javax.persistence.*;
 
 @Entity
@@ -19,6 +21,12 @@ public class TurmaOld {
 	@ManyToOne
 	@JoinColumn(name = "CodDisc")
 	private DisciplinaOld disciplina;
+
+	@ManyToMany
+	@JoinTable(name = "AlunoTurma", 
+		joinColumns = { @JoinColumn(name = "CodTurma") }, 
+		inverseJoinColumns = { @JoinColumn(name = "CodAluno") })
+	private Collection<AlunoOld> alunos;
 
 	public Integer getCod() {
 		return cod;
@@ -50,6 +58,14 @@ public class TurmaOld {
 
 	public void setDisciplina(DisciplinaOld disciplina) {
 		this.disciplina = disciplina;
+	}
+
+	public Collection<AlunoOld> getAlunos() {
+		return alunos;
+	}
+
+	public void setAlunos(Collection<AlunoOld> alunos) {
+		this.alunos = alunos;
 	}
 	
 }

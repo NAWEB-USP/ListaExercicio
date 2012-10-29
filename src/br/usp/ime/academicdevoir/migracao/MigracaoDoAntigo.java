@@ -1,5 +1,7 @@
 package br.usp.ime.academicdevoir.migracao;
 
+import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 
 import org.hibernate.*;
@@ -181,15 +183,23 @@ public class MigracaoDoAntigo {
 	public static void migraTurmas() {
 		List<TurmaOld> lista = listaTurmasOld();
 		int cont = 0;
-		for (TurmaOld old: lista) {
+		for (TurmaOld turmaOld: lista) {
 			DisciplinaDao disciplinaDao = new DisciplinaDao(newSession, null);
-			Disciplina disciplina = disciplinaDao.buscaPorNome(old.getDisciplina().getNome());
-			String nome = old.getNome();
+			Disciplina disciplina = disciplinaDao.buscaPorNome(turmaOld.getDisciplina().getNome());
+			String nome = turmaOld.getNome();
 			Turma turma = new Turma();
 			turma.setDisciplina(disciplina);
 			turma.setNome(nome);
 			turma.setProfessor(professor);
 			turma.setTemPrazo("nao");
+			Collection<Aluno> alunos = new ArrayList<Aluno>();
+			for (AlunoOld alunoOld: turmaOld.getAlunos()) {
+				UsuarioDao usuarioDao = new UsuarioDao(newSession);
+				Aluno aluno = (Aluno) usuarioDao.buscarPorLogin(alunoOld.getLogin());
+				if (aluno != null)
+					alunos.add(aluno);
+			}
+			turma.setAlunos(alunos);
 			if (tentaSalvarTurma(turma))
 				cont++;
 		}
