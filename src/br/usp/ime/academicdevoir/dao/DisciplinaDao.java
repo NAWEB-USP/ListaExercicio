@@ -21,6 +21,11 @@ public class DisciplinaDao {
 		this.session = session;
 		this.turmaDao = turmaDao;
 	}
+	
+	public Disciplina buscaPorNome(String nome) {
+	    return (Disciplina) session.createCriteria(Disciplina.class)
+                .add(Restrictions.eq("nome", nome)).uniqueResult();
+	}
 
 	/**
 	 * Cadastra a disciplina fornecida no banco de dados.

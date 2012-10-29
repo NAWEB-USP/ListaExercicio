@@ -99,6 +99,15 @@ public class UsuarioDao {
 		return (Usuario) session.get(Usuario.class, id);
 	}
     
-    
-    
+	public Usuario buscarPorLogin(String login) {
+    	try {
+    		Usuario usuario = (Usuario) session.createCriteria(Usuario.class)
+    				.add(Restrictions.eq("login", login))
+    				.uniqueResult();
+    		return usuario;
+    	} catch(HibernateException ex) {
+    		return null;
+    	}
+	}
+	
 }

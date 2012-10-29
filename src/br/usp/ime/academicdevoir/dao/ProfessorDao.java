@@ -28,6 +28,12 @@ public class ProfessorDao {
 	public ProfessorDao(Session session) {
 		this.session = session;
 	}
+	
+	public Professor buscaPorLogin(String login) {
+		return (Professor) session.createCriteria(Usuario.class)
+				.add(Restrictions.eq("login", login))
+				.uniqueResult();
+	}
 
 	/**
 	 * Cadastra o professor fornecido no banco de dados.
