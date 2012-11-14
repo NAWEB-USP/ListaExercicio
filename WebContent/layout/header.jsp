@@ -33,7 +33,7 @@ import="java.sql.*" errorPage="" %>
 						<c:otherwise><li><a href="<c:url value='/login'/>">Início</a></li></c:otherwise>	
 			
 					</c:choose>	
-					<li><a href="/academic-devoir/sobre.jsp">Sobre</a></li>
+					<li><a href="<c:url value='/sobre.jsp'/>">Sobre</a></li>
 					<li class="current"><a href="<c:url value='/report?id=${usuarioSession.usuario.id}'/>">Reporte um Erro</a></li>
 					</ul>
 				</div>
