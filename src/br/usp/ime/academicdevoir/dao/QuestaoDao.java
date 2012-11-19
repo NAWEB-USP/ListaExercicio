@@ -137,6 +137,10 @@ public class QuestaoDao {
 //				.list();
 	}
 	
-	
+	public void salva(Questao questao) {
+		Transaction tx = session.beginTransaction();
+		session.save(questao);
+		tx.commit();
+	}
 	
 }
