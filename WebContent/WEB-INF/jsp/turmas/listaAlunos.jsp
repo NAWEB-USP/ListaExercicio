@@ -35,7 +35,7 @@ import="java.sql.*" errorPage="" %>
 				<div class="welcome">Você acessou como ${usuarioSession.usuario.nome } (<a href="<c:url value='/logout'/>">Sair</a>)</div>
 				<h1>Lista de Alunos</h1>
     
-    <table border="0">
+    <table border="1px">
     <thead>
         <tr>
         <th>Nome</th>

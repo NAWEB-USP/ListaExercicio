@@ -24,7 +24,7 @@ import="java.sql.*" errorPage="" %>
 <%@ include file="/layout/header.jsp" %>
 <div id="content">
 	<div id="body">
-  	<table border="0">
+  	<table border=01">
     	<tr>
       		<td width="200" align="center">	
 				<%@ include file="/layout/menu.jsp" %>

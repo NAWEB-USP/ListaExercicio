@@ -37,7 +37,7 @@ import="java.sql.*" errorPage="" %>
 		<fieldset>
 			<p>
 				<label>Nome: </label><br/>
-				<input type="text" size="30" name="nova.nome"/>
+				<input type="text" size="100" name="nova.nome"/>
 			</p>
 			<p class="submit">
 				<input type="submit" value="Enviar"/>

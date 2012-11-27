@@ -84,10 +84,10 @@ $(function(){
 				
 							
 				<label for="nome">Nome:</label><br/>
-					<input id="nome" type="text" name="propriedades.nome" value="${propriedades.nome}"/>
+					<input id="nome" type="text" size="80" name="propriedades.nome" value="${propriedades.nome}"/>
 					<br/>
 				<label for="enunciado">Enunciado:</label><br/>
-					<input id="enunciado" type="text" name="propriedades.enunciado" />
+					<input id="enunciado" type="text" size="80" name="propriedades.enunciado" />
 					<br/>
 				<label for="visivel">Vis&iacute;vel:</label>
 					<input id="visivel" type="checkbox" name="propriedades.visivel" value="true" checked />

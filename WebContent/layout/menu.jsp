@@ -11,7 +11,7 @@ import="java.sql.*" errorPage="" %>
 <ul>
 <c:forEach items="${turmas}" var="t">
 		<c:if test="${t.status}">
-
+		
    			<li class='active '><a href='<c:url value="/turmas/home/${t.id}"/>'><span>${t.disciplina.nome} - ${t.nome}</span></a></li>
 
 		</c:if>
