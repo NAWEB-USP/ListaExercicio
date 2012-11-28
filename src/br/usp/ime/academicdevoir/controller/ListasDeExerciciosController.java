@@ -134,10 +134,12 @@ public class ListasDeExerciciosController {
 		}
 		listaDeExercicios.setTurmas(turmas);
 		List<TagsDaLista> tagsDaLista = Lists.newArrayList();
-		for (TagsDaLista tag : tags) {
-			if(tag.getTag() != null && tag.getTag().getId() != null){
-				tagsDaListaDao.salvar(tag);
-				tagsDaLista.add(tag);
+		if(tags != null){
+			for (TagsDaLista tag : tags) {
+				if(tag.getTag() != null && tag.getTag().getId() != null){
+					tagsDaListaDao.salvar(tag);
+					tagsDaLista.add(tag);
+				}
 			}
 		}
 		listaDeExercicios.setTags(tagsDaLista);
